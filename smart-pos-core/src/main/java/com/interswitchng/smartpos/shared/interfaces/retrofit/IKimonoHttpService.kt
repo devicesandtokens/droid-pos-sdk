@@ -12,39 +12,38 @@ internal interface IKimonoHttpService {
 
 
     @Headers("Content-Type: text/xml", "Accept: application/xml", "Accept-Charset: utf-8")
-    @POST(Constants.KIMONO_END_POINT)
-    fun callHome(@Body data: CallHomeRequest): Simple<ResponseBody>
+    @POST
+    fun callHome(@Url url: String, @Body data: CallHomeRequest): Simple<ResponseBody>
 
 
 
     @Headers("Content-Type: text/xml", "Accept: application/xml", "Accept-Charset: utf-8")
-    @POST(Constants.KIMONO_END_POINT)
-    fun completion(@Body data: RequestBody): Simple<ResponseBody>
+    @POST
+    fun completion(@Url url: String, @Body data: RequestBody): Simple<ResponseBody>
 
 
     @Headers("Content-Type: text/xml", "Accept: application/xml", "Accept-Charset: utf-8")
-    @POST(Constants.KIMONO_END_POINT)
-    fun reversePurchase(@Body reverseRequest: RequestBody): Simple<ResponseBody>
+    @POST
+    fun reversePurchase(@Url url: String, @Body reverseRequest: RequestBody): Simple<ResponseBody>
 //    fun reversePurchase(@Body reverseRequest: ReversalRequest): Simple<PurchaseResponse>
 
 
-
-    @POST(Constants.KIMONO_END_POINT)
-    fun reservation(@Body data: RequestBody): Simple<ResponseBody>
+    @POST
+    fun reservation(@Url url: String, @Body data: RequestBody): Simple<ResponseBody>
 //    fun reservation(@Body data: ReservationRequest): Simple<ReservationResponse>
 
 
 
     @Headers("Content-Type: text/xml", "Accept: application/xml", "Accept-Charset: utf-8")
-    @POST(Constants.KIMONO_END_POINT)
-    fun makePurchase(@Body purchaseRequest: RequestBody): Simple<ResponseBody>
+    @POST
+    fun makePurchase(@Url url: String, @Body purchaseRequest: RequestBody): Simple<ResponseBody>
 //    fun makePurchase(@Body purchaseRequest: PurchaseRequest): Simple<ResponseBody>
 
 
 
     @Headers("Content-Type: text/xml", "Accept: application/xml", "Accept-Charset: utf-8")
-    @POST(Constants.KIMONO_END_POINT)
-    fun refund(@Body refundRequest: RequestBody): Simple<ResponseBody>
+    @POST
+    fun refund(@Url url: String, @Body refundRequest: RequestBody): Simple<ResponseBody>
 
 
     @Headers("Content-Type: text/xml", "Accept: application/xml", "Accept-Charset: utf-8")

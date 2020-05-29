@@ -34,6 +34,9 @@ internal class KimonoHttpServiceImpl(private val context: Context,
                                      private val device: POSDevice,
 
                                      private val httpService: IKimonoHttpService) : IsoService{
+    val terminalInfo = TerminalInfo.get(store)
+    val kimonoServiceUrl = terminalInfo?.serverUrl ?: Constants.ISW_KIMONO_BASE_URL
+
 
 
 //
@@ -122,7 +125,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
         val request = CallHomeRequest.create(device.name, terminalInfo, uid)
 
 
-        val response = httpService.callHome(request).run()
+        val response = httpService.callHome(kimonoServiceUrl, request).run()
         val data = response.body()
         return true
     }
@@ -133,7 +136,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
         val body = RequestBody.create(MediaType.parse("text/xml"), requestBody)
 
         try {
-           val responseBody = httpService.makePurchase(body).run()
+            val responseBody = httpService.makePurchase(kimonoServiceUrl, body).run()
             var responseXml= responseBody.body()?.bytes()?.let { String(it) }
 
 
@@ -173,7 +176,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
         val body = RequestBody.create(MediaType.parse("text/xml"), requestBody)
 
         try {
-            val responseBody = httpService.makePurchase(body).run()
+            val responseBody = httpService.makePurchase(kimonoServiceUrl, body).run()
             var responseXml = responseBody.body()?.bytes()?.let { String(it) }
 
 
@@ -213,7 +216,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
         val body = RequestBody.create(MediaType.parse("text/xml"), requestBody)
 
         try {
-            val responseBody = httpService.makePurchase(body).run()
+            val responseBody = httpService.makePurchase(kimonoServiceUrl, body).run()
             var responseXml = responseBody.body()?.bytes()?.let { String(it) }
 
 
@@ -267,7 +270,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
         try {
 
 
-            val responseBody = httpService.refund(body).run()
+            val responseBody = httpService.refund(kimonoServiceUrl, body).run()
             var responseXml= responseBody.body()?.bytes()?.let { String(it) }
 
 
@@ -352,7 +355,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
 
 
         try {
-            val responseBody = httpService.makePurchase(body).run()
+            val responseBody = httpService.makePurchase(kimonoServiceUrl, body).run()
             var responseXml= responseBody.body()?.bytes()?.let { String(it) }
 
 
@@ -402,7 +405,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
             val body = RequestBody.create(MediaType.parse("text/xml"), requestBody)
 
 
-            val responseBody = httpService.completion(body).run()
+            val responseBody = httpService.completion(kimonoServiceUrl, body).run()
             var responseXml= responseBody.body()?.bytes()?.let { String(it) }
 
 
@@ -445,7 +448,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
             val body = RequestBody.create(MediaType.parse("text/xml"), requestBody)
 
 
-                val responseBody = httpService.reservation(body).run()
+            val responseBody = httpService.reservation(kimonoServiceUrl, body).run()
                 var responseXml= responseBody.body()?.bytes()?.let { String(it) }
 
 
@@ -491,7 +494,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
         val body = RequestBody.create(MediaType.parse("text/xml"), requestBody)
 
  try {
-            val responseBody = httpService.reversePurchase(body).run()
+     val responseBody = httpService.reversePurchase(kimonoServiceUrl, body).run()
             var responseXml= responseBody.body()?.bytes()?.let { String(it) }
 
 
