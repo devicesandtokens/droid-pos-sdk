@@ -28,7 +28,7 @@ data class TerminalInfo(
         val serverTimeoutInSec: Int,
         var isKimono: Boolean = false,
         val capabilities: String? = null,
-        var serverUrl: String = Constants.ISW_KIMONO_BASE_URL,
+        var serverUrl: String = Constants.ISW_KIMONO_URL,
         var serverIp: String = Constants.ISW_TERMINAL_IP,
         var serverPort: Int = BuildConfig.ISW_TERMINAL_PORT,
         val agentId: String,
