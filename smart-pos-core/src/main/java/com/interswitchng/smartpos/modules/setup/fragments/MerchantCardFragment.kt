@@ -10,6 +10,7 @@ import com.interswitchng.smartpos.modules.setup.SetupFragmentViewModel
 import com.interswitchng.smartpos.shared.activities.BaseFragment
 import com.interswitchng.smartpos.shared.interfaces.library.KeyValueStore
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.EmvMessage
+import com.interswitchng.smartpos.shared.utilities.SecurityUtils
 import com.interswitchng.smartpos.shared.utilities.toast
 import kotlinx.android.synthetic.main.isw_fragment_merchant_card_setup.*
 import kotlinx.android.synthetic.main.isw_layout_insert_supervisors_card.*
@@ -21,7 +22,7 @@ class MerchantCardFragment : BaseFragment(TAG) {
 
     private val cardViewModel by viewModel<CardViewModel>()
     private val setupViewModel by viewModel<SetupFragmentViewModel>()
-
+    private val deviceName = IswPos.getInstance().device.name
     private val store by inject<KeyValueStore>()
 
     override val layoutId: Int
@@ -37,6 +38,11 @@ class MerchantCardFragment : BaseFragment(TAG) {
         })
         cardViewModel.setupTransaction(0, terminalInfo)
 
+        if (deviceName == "TELPO") {
+            isw_enrollmentLabel.visibility = View.GONE
+            isw_imageview_insert_card.visibility = View.GONE
+        }
+
 
         // ensure device supports finger  print
         val supportsFingerPrint = IswPos.getInstance().device.hasFingerPrintReader
@@ -45,39 +51,69 @@ class MerchantCardFragment : BaseFragment(TAG) {
             isw_link_fingerprint.visibility = View.GONE
         } else {
             isw_link_fingerprint.setOnClickListener {
-                val cardPAN = cardViewModel.getCardPAN()!!
-                logger.logErr(cardPAN)
-                setupViewModel.saveMerchantPAN(cardPAN)
-                val direction = MerchantCardFragmentDirections.iswActionGotoFragmentPhoneNumber()
-                navigate(direction)
+                if (deviceName == "PAX") {
+                    val cardPAN = cardViewModel.getCardPAN()!!
+                    logger.logErr(cardPAN)
+                    setupViewModel.saveMerchantPAN(cardPAN)
+                    val direction = MerchantCardFragmentDirections.iswActionGotoFragmentPhoneNumber()
+                    navigate(direction)
+                } else {
+                    val direction = MerchantCardFragmentDirections.iswActionGotoFragmentPhoneNumber()
+                    navigate(direction)
+                }
             }
         }
 
         isw_skip_fingerprint.setOnClickListener {
-            val cardPAN = cardViewModel.getCardPAN()!!
-            setupViewModel.saveMerchantPAN(cardPAN)
-            store.saveBoolean("SETUP", true)
-            val direction = MerchantCardFragmentDirections.iswActionGotoFragmentSetupComplete()
-            navigate(direction)
+            if (deviceName == "PAX") {
+                val cardPAN = cardViewModel.getCardPAN()!!
+                setupViewModel.saveMerchantPAN(cardPAN)
+                store.saveBoolean("SETUP", true)
+                val direction = MerchantCardFragmentDirections.iswActionGotoFragmentSetupComplete()
+                navigate(direction)
+            } else {
+                store.saveBoolean("SETUP", true)
+                val direction = MerchantCardFragmentDirections.iswActionGotoFragmentSetupComplete()
+                navigate(direction)
+            }
         }
 
         isw_button_pin_proceed.setOnClickListener {
 
-            val enteredPin = isw_pin_edit_text.text.toString()
-            val cardPAN = cardViewModel.getCardPAN()!!
+            if (deviceName == "TELPO") {
+                val enteredPin = isw_pin_edit_text.text.toString()
+                val hashedPin = SecurityUtils.getHash(enteredPin)
 
-            if (enteredPin == "") {
-                context?.toast("Pin Field is empty. Please enter your pin")
+                if (enteredPin == "") {
+                    context?.toast("Pin Field is empty. Please enter your pin")
+                } else {
+                    setupViewModel.saveMerchantPIN(hashedPin)
+                    isw_imageview.visibility = View.INVISIBLE
+                    isw_insert_card_layout.visibility = View.GONE
+                    isw_card_detected_layout.visibility = View.GONE
+                    isw_enter_pin_layout.visibility = View.VISIBLE
+                    isw_card_pan.text = "Pin Set"
+                    isw_text_card_pan.visibility = View.GONE
+                }
             } else {
-                setupViewModel.saveMerchantPIN(enteredPin)
-                setupViewModel.saveMerchantPAN(cardPAN)
-                isw_imageview.visibility = View.INVISIBLE
-                isw_insert_card_layout.visibility = View.GONE
-                isw_card_detected_layout.visibility = View.GONE
-                isw_enter_pin_layout.visibility = View.VISIBLE
-                isw_card_pan.text = cardViewModel.getCardPAN()
-            }
+                val enteredPin = isw_pin_edit_text.text.toString()
+                val hashedPin = SecurityUtils.getHash(enteredPin)
+                val cardPAN = cardViewModel.getCardPAN()!!
 
+                if (enteredPin == "") {
+                    context?.toast("Pin Field is empty. Please enter your pin")
+                } else {
+                    setupViewModel.saveMerchantPIN(hashedPin)
+                    setupViewModel.saveMerchantPAN(cardPAN)
+                    isw_imageview.visibility = View.INVISIBLE
+                    isw_insert_card_layout.visibility = View.GONE
+                    isw_card_detected_layout.visibility = View.GONE
+                    isw_enter_pin_layout.visibility = View.VISIBLE
+                    isw_card_pan.text = cardViewModel.getCardPAN()
+
+                }
+
+            }
         }
 
     }

@@ -10,6 +10,7 @@ import com.interswitchng.smartpos.shared.activities.BaseBottomSheetDialog
 import com.interswitchng.smartpos.shared.interfaces.library.KeyValueStore
 import com.interswitchng.smartpos.shared.models.core.TerminalInfo
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.EmvMessage
+import com.interswitchng.smartpos.shared.utilities.SecurityUtils
 import com.interswitchng.smartpos.shared.utilities.SingleArgsClickListener
 import com.interswitchng.smartpos.shared.utilities.toast
 import kotlinx.android.synthetic.main.isw_layout_insert_supervisors_card.*
@@ -25,6 +26,7 @@ class MerchantCardDialog constructor(
     private val cardViewModel by viewModel<CardViewModel>()
     private val store by inject<KeyValueStore>()
     val terminalInfo by lazy { TerminalInfo.get(store)!! }
+    private val deviceName = IswPos.getInstance().device.name
 
     override val layoutId: Int
         get() = R.layout.isw_sheet_layout_admin_merchant_card
@@ -49,21 +51,43 @@ class MerchantCardDialog constructor(
         if (isAuthorization) {
             //isw_textview17.text = getString(R.string.isw_insert_supervisor_s_card)
         }
+        if (deviceName == "TELPO") {
+            isw_enrollmentLabel.visibility = View.GONE
+            isw_imageview_insert_card.visibility = View.GONE
+        }
 
         isw_button_pin_proceed.setOnClickListener {
             val savedPan = store.getString("M3RCHANT_PAN", "")
             val savedPin = store.getString("MERCHANT_PIN", "")
             val enteredPin = isw_pin_edit_text.text.toString()
+            val hashedPin = SecurityUtils.getHash(enteredPin)
 
-            if (enteredPin == "") {
-                context?.toast("Pin Field is empty. Please enter your pin")
-            } else if (savedPan == cardViewModel.getCardPAN() && savedPin == enteredPin) {
-                context?.toast("Pin OK")
-                clickListener.invoke(AUTHORIZED)
-                dismiss()
+
+            if (deviceName == "TELPO") {
+
+                when {
+                    enteredPin == "" -> context?.toast("Pin Field is empty. Please enter your pin")
+                    savedPin == hashedPin -> {
+                        context?.toast("Pin OK")
+                        clickListener.invoke(AUTHORIZED)
+                        dismiss()
+                    }
+                    else -> {
+                        clickListener.invoke(FAILED)
+                        dismiss()
+                    }
+                }
             } else {
-                clickListener.invoke(FAILED)
-                dismiss()
+                if (enteredPin == "") {
+                    context?.toast("Pin Field is empty. Please enter your pin")
+                } else if (savedPan == cardViewModel.getCardPAN() && savedPin == hashedPin) {
+                    context?.toast("Pin OK")
+                    clickListener.invoke(AUTHORIZED)
+                    dismiss()
+                } else {
+                    clickListener.invoke(FAILED)
+                    dismiss()
+                }
             }
         }
     }

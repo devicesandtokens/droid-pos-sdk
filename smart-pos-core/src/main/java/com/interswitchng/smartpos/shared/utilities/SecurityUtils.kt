@@ -156,4 +156,22 @@ object SecurityUtils {
 
         return generatedPassword
     }
+
+    fun getHash(passwordToHash: String, hashType: String = "SHA-256"): String {
+        try {
+            val digest = MessageDigest.getInstance(hashType)
+            digest.update(passwordToHash.toByteArray())
+            val messageDigest = digest.digest()
+
+            //create Hex String
+            val hexString = StringBuilder()
+            for (i in messageDigest.indices)
+                hexString.append(String.format("%02x", 0xFF and messageDigest[i].toInt()))
+
+            return hexString.toString()
+        } catch (e: NoSuchAlgorithmException) {
+            e.printStackTrace()
+        }
+        return ""
+    }
 }

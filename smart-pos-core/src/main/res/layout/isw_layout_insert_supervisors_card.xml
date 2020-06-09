@@ -18,7 +18,7 @@
         android:layout_marginRight="24dp"
         android:hint="@string/isw_sample_pin"
         android:inputType="numberPassword"
-        android:maxLength="6"
+        android:maxLength="4"
         android:textColor="@color/iswTextColorBlack"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/isw_button_pin_proceed"
@@ -49,14 +49,14 @@
         android:text="@string/isw_authenticate_supervisor_s_card"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/isw_imageview7"
+        app:layout_constraintBottom_toTopOf="@+id/isw_imageview_insert_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/isw_pin_edit_text"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <ImageView
-        android:id="@+id/isw_imageview7"
+        android:id="@+id/isw_imageview_insert_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"

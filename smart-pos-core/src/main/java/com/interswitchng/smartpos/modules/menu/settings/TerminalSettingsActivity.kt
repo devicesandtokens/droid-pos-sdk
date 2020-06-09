@@ -566,7 +566,8 @@ class TerminalSettingsActivity : MenuActivity() {
 
     private fun fetchSupervisorDetails() {
         val savedPan = store.getString("M3RCHANT_PAN", "")
-        if (savedPan == "") {
+        val savedPin = store.getString("MERCHANT_PIN", "")
+        if (savedPan == "" && savedPin == "") {
             supervisorStatusHeader.text = "Supervisor's card not set"
             btnChangePassword.text = "Enroll supervisor's card"
             supervisorCardIsEnrolled = false
