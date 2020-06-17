@@ -299,9 +299,9 @@ internal class TelpoEmvImplementation (
                 TERMINAL_CAPABILITIES = ICCData.TERMINAL_CAPABILITIES.getTlv() ?: "",
                 TRANSACTION_DATE = ICCData.TRANSACTION_DATE.getTlv() ?: "",
                 TRANSACTION_TYPE = ICCData.TRANSACTION_TYPE.getTlv() ?: "",
-                UNPREDICTABLE_NUMBER = ICCData.UNPREDICTABLE_NUMBER.getTlv() ?: ""
+                UNPREDICTABLE_NUMBER = ICCData.UNPREDICTABLE_NUMBER.getTlv() ?: "",
                 //,Segun check this
-//                DEDICATED_FILE_NAME = ICCData.DEDICATED_FILE_NAME.getTlv() ?: ""
+                DEDICATED_FILE_NAME = ICCData.DEDICATED_FILE_NAME.getTlv() ?: ""
 
         ).apply {
 

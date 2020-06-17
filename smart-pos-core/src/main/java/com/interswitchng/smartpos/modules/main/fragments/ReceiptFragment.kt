@@ -262,6 +262,10 @@ class ReceiptFragment : BaseFragment(TAG) {
         handlePrint()
     }
 
+    /* private fun resetPinBlockAndKsnData(){
+
+     }*/
+
     private fun displayButtons() {
         if (isFromActivityDetail) {
             when(type) {
