@@ -204,7 +204,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
             }
 
         } catch (e: Exception) {
-            logger.log(e.localizedMessage)
+            //logger.log(e.localizedMessage)
             e.printStackTrace()
             //  initiateReversal(request, request.stan) // TODO change stan to authId
             return TransactionResponse(IsoUtils.TIMEOUT_CODE, authCode = "", stan = "", scripts = "")
@@ -246,7 +246,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
             }
 
         } catch (e: Exception) {
-            logger.log(e.localizedMessage)
+            //logger.log(e.localizedMessage)
             e.printStackTrace()
             //  initiateReversal(request, request.stan) // TODO change stan to authId
             return TransactionResponse(IsoUtils.TIMEOUT_CODE, authCode = "", stan = "", scripts = "")
@@ -299,7 +299,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
 
 
         } catch (e: Exception) {
-            logger.log(e.localizedMessage)
+            //logger.log(e.localizedMessage)
             e.printStackTrace()
              initiateReversal(terminalInfo, transaction) // TODO change stan to authId
             return TransactionResponse(IsoUtils.TIMEOUT_CODE, authCode = authCode, stan = "", scripts = "")
@@ -383,7 +383,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
 
 
         } catch (e: Exception) {
-            logger.logErr(e.localizedMessage)
+            //logger.logErr(e.localizedMessage)
             e.printStackTrace()
             initiateReversal(terminalInfo, transaction)
             return TransactionResponse(IsoUtils.TIMEOUT_CODE, authCode = "", stan = "", scripts = "")
@@ -434,7 +434,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
 
 
         } catch (e: Exception) {
-            logger.log(e.localizedMessage)
+            //logger.log(e.localizedMessage)
             e.printStackTrace()
             return TransactionResponse(IsoUtils.TIMEOUT_CODE, authCode = "", stan = "", scripts = "")
         }
@@ -478,7 +478,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
 
 
         } catch (e: Exception) {
-            logger.log(e.localizedMessage)
+            //logger.log(e.localizedMessage)
             e.printStackTrace()
             return TransactionResponse(IsoUtils.TIMEOUT_CODE, authCode = "", stan = "", scripts = "")
         }
@@ -523,7 +523,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
 
 
         } catch (e: Exception) {
-            logger.logErr(e.localizedMessage)
+     //logger.logErr(e.localizedMessage)
             e.printStackTrace()
             return TransactionResponse(IsoUtils.TIMEOUT_CODE, authCode = "", stan = "", scripts = "")
         }

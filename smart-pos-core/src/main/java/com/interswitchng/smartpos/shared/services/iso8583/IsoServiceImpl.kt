@@ -393,7 +393,7 @@ internal class IsoServiceImpl(
                         month = month, time = time, rrn = retrievalNumber)
             }
         } catch (e: Exception) {
-            logger.log(e.localizedMessage)
+            //logger.log(e.localizedMessage)
             e.printStackTrace()
             return TransactionResponse(TIMEOUT_CODE, authCode = "", stan = "", scripts = "")
         }
@@ -691,7 +691,7 @@ internal class IsoServiceImpl(
             }
 
         } catch (e: Exception) {
-            logger.log(e.localizedMessage)
+            // logger.log(e.localizedMessage)
             e.printStackTrace()
             return TransactionResponse(TIMEOUT_CODE, authCode = "", stan = "", scripts = "")
         }
@@ -795,7 +795,7 @@ internal class IsoServiceImpl(
                 return@let TransactionResponse(responseCode = code, authCode = authCode, stan = stan, scripts = scripts, transmissionDateTime = transmissionDateTime, rrn = retrievalNumber)
             }
         } catch (e: Exception) {
-            logger.log(e.localizedMessage)
+            //logger.log(e.localizedMessage)
             e.printStackTrace()
             return TransactionResponse(TIMEOUT_CODE, authCode = "", stan = "", scripts = "", transmissionDateTime = transmissionDateTime)
         }
@@ -1024,7 +1024,7 @@ internal class IsoServiceImpl(
                 return@let TransactionResponse(responseCode = code, authCode = authCode, stan = stan, scripts = scripts, rrn = retrievalNumber)
             }
         } catch (e: Exception) {
-            logger.log(e.localizedMessage)
+            //logger.log(e.localizedMessage)
             e.printStackTrace()
             return TransactionResponse(TIMEOUT_CODE, authCode = "", stan = "", scripts = "")
         }
