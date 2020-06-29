@@ -343,12 +343,29 @@ internal class TelpoEmvImplementation (
         }
 
         override fun onInputPin(pinData: EmvPinData?): Int {
+
+            val isOnline = pinData?.type == EmvService.ONLIEN_ENCIPHER_PIN
+
+            val pan: String = getPan()!!.let {
+                if (terminalInfo.isKimono && isOnline) {
+                    // pan manipulation required for kimono
+                    var modifiedPan = "0".repeat(16)
+                    val startIndex = it.length - 13
+                    val endIndex = startIndex + 12
+                    val subPan = it.substring(startIndex, endIndex)
+
+                    modifiedPan = modifiedPan.replaceRange(4 until modifiedPan.length, subPan)
+                    modifiedPan += "0"
+                    return@let modifiedPan
+                } else return@let it
+            }
+
             runBlocking {
                 pinCallback.enterPin(
                     pinData?.type == EmvService.ONLIEN_ENCIPHER_PIN,
                     tries,
                     pinData?.RemainCount?.toInt() ?: 0,
-                        getPan() ?: "",
+                        pan,
                         pinData
                 )
             }

@@ -78,7 +78,7 @@ class TelpoEmvCardReaderImpl (private val context: Context) : EmvCardReader, Tel
                 MinPinLen= 4
                 IsShowCardNo = 0
                 Amount = "$amount"
-                CardNo = telpoEmvImplementation.cardPan
+                CardNo = panBlock
             }
 
             PinpadService.Open(context)
