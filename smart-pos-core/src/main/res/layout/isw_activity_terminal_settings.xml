@@ -123,7 +123,8 @@
                 android:layout_marginTop="@dimen/isw_content_margin"
                 android:layout_marginEnd="@dimen/isw_content_margin"
                 android:orientation="horizontal"
-                android:padding="2dp">
+                android:padding="2dp"
+                android:visibility="gone">
 
 
                 <TextView

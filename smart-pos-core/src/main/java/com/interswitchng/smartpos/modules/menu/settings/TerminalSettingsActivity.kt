@@ -52,18 +52,25 @@ class TerminalSettingsActivity : MenuActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.isw_activity_terminal_settings)
 
+        if (store.getBoolean("SETUP")) {
+            proceedToMainActivity()
+        }
+
         setSupportActionBar(toolbar)
         if (isFromSettings) {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.setDisplayShowHomeEnabled(true)
+            store.saveBoolean("SETUP", true)
         } else {
             if (TerminalInfo.get(store) != null) {
                 //That is when the enrollment should take place
 //                val intent = Intent(this, SetupActivity::class.java)
 //                startActivity(intent)
 //                finish()
+                store.saveBoolean("SETUP", true)
             } else {
                 //That is when the enrollment should take place
+                store.saveBoolean("SETUP", false)
             }
 
 
@@ -113,6 +120,12 @@ class TerminalSettingsActivity : MenuActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+
+    private fun proceedToMainActivity() {
+        IswPos.showMainActivity()
+        finish()
     }
 
     private fun setupButtons() {
@@ -282,7 +295,11 @@ class TerminalSettingsActivity : MenuActivity() {
 
         btnChangePassword.setOnClickListener {
             if (supervisorCardIsEnrolled) {
-                authorizeAndPerformAction { fetchSupervisorDetails() }
+                authorizeAndPerformAction {
+                    val intent = Intent(this, SetupActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
             } else {
                 val intent = Intent(this, SetupActivity::class.java)
                 startActivity(intent)
@@ -487,6 +504,7 @@ class TerminalSettingsActivity : MenuActivity() {
             // toast based on status
             if (isNew) toast("Config saved successfully!")
             else toast("Config has not changed!")
+            store.saveBoolean("SETUP", true)
         } else {
             setTerminalInfoError(terminalInfo.error)
             toast("Error: Invalid configuration loaded into terminal")
