@@ -265,6 +265,10 @@ class EmvCardReaderImpl(context: Context) : EmvCardReader, PinCallback, IPed.IPe
     private fun getOfflinePin() {
         // make system sleep so that PED screen will show up
         SystemClock.sleep(300)
+
+        //clear pinBlock and ksnData for offline pin
+        StoreData.ksnData = null
+        StoreData.pinBlock = null
     }
 
 

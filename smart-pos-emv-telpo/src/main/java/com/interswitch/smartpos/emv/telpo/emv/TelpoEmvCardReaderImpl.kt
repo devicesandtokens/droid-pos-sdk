@@ -93,6 +93,9 @@ class TelpoEmvCardReaderImpl (private val context: Context) : EmvCardReader, Tel
                 }
                 else -> EmvService.EMV_FALSE
             }
+            //clear pinBlock and ksnData for offline pin
+            StoreData.pinBlock = null
+            StoreData.ksnData = null
         } else {
 
             if (isKimono) {
