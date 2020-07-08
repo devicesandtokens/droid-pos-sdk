@@ -64,18 +64,11 @@ class CardTransactionsFragment : BaseFragment(TAG) {
 
     private val cancelDialog by lazy {
         DialogUtils.getAlertDialog(context!!)
-            .setMessage("Would you like to change payment method, or try again?")
+                .setMessage("Remove card")
             .setCancelable(false)
-            .setNegativeButton(R.string.isw_title_cancel) { dialog, _ ->
+                .setPositiveButton(R.string.isw_title_cancel) { dialog, _ ->
                 dialog.dismiss()
-            }
-            .setPositiveButton(R.string.isw_action_change) { dialog, _ ->
-                dialog.dismiss()
-                showPaymentOptions()
-            }
-            .setNeutralButton(R.string.isw_title_try_again) { dialog, _ ->
-                dialog.dismiss()
-                resetTransaction()
+                    goBackToPreviousFragment()
             }.create()
     }
 
@@ -235,12 +228,16 @@ class CardTransactionsFragment : BaseFragment(TAG) {
                 dialog.dismiss()
 
                 cardType = message.cardType
+                CompletionData.cardType = message.cardType
 
                 //Show Card detected view
                 showCardDetectedView()
             }
 
-            is EmvMessage.CardDetails -> cardType = message.cardType
+            is EmvMessage.CardDetails -> {
+                cardType = message.cardType
+                CompletionData.cardType = message.cardType
+            }
 
             // when card gets removed
             is EmvMessage.CardRemoved -> {
@@ -438,6 +435,10 @@ class CardTransactionsFragment : BaseFragment(TAG) {
         fragmentManager?.beginTransaction()?.detach(this)?.attach(this)?.commit()
     }
 
+    private fun goBackToPreviousFragment() {
+        fragmentManager?.popBackStack()
+    }
+
     private fun showLoader(title: String = "Processing", message: String) {
         dialog.setTitle(title)
         dialog.setMessage(message)
@@ -452,6 +453,7 @@ class CardTransactionsFragment : BaseFragment(TAG) {
         companion object {
             var dateTime: String? = null
             var stan: String? = null
+            var cardType = CardType.None
         }
     }
 }
