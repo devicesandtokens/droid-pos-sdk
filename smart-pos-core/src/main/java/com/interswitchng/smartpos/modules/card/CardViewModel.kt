@@ -111,76 +111,6 @@ internal class CardViewModel(private val posDevice: POSDevice, private val isoSe
         }
     }
 
-    /* fun startTransaction(context: Context, paymentInfo: PaymentInfo, accountType: AccountType, terminalInfo: TerminalInfo) {
-         uiScope.launch {
-             //  start card transaction in IO thread
-             // paymentInfo.amount=paymentInfo.amount*100;
-             val result = withContext(ioScope) { emv.startTransaction() }
-
-             when (result) {
-                 EmvResult.ONLINE_REQUIRED -> {
-                     // set message as transaction processing
-                     _emvMessage.value = EmvMessage.ProcessingTransaction
-                     // trigger online transaction process in IO thread
-                     val response = withContext(ioScope) { processOnline(paymentInfo, accountType, terminalInfo) }
-                     // publish transaction response
-                     _transactionResponse.value = response
-                 }
-
-                 EmvResult.CANCELLED -> {
-                     // transaction has already been cancelled
-                     context.toast("Transaction was cancelled")
-                 }
-                 else -> {
-                     context.toast("Error processing card transaction")
-
-                     // show cancelled transaction if its not
-                     // already triggered by card removal
-                     if (!cardRemoved) {
-                         // trigger transaction cancel
-                         val reason = "Unable to process card transaction"
-                         _emvMessage.value = EmvMessage.TransactionCancelled(-1, reason)
-                     }
-                 }
-             }
-         }
-     }
-
-     fun startTransaction(context: Context, paymentInfo: PaymentInfo, accountType: AccountType, terminalInfo: TerminalInfo, billPaymentModel: BillPaymentModel) {
-         uiScope.launch {
-             //  start card transaction in IO thread
-             // paymentInfo.amount=paymentInfo.amount*100;
-             val result = withContext(ioScope) { emv.startTransaction() }
-
-             when (result) {
-                 EmvResult.ONLINE_REQUIRED -> {
-                     // set message as transaction processing
-                     _emvMessage.value = EmvMessage.ProcessingTransaction
-                     // trigger online transaction process in IO thread
-                     val response = withContext(ioScope) { processOnlineBP(paymentInfo, accountType, terminalInfo, billPaymentModel) }
-                     // publish transaction response
-                     _transactionResponse.value = response
-                 }
-
-                 EmvResult.CANCELLED -> {
-                     // transaction has already been cancelled
-                     context.toast("Transaction was cancelled")
-                 }
-                 else -> {
-                     context.toast("Error processing card transaction")
-
-                     // show cancelled transaction if its not
-                     // already triggered by card removal
-                     if (!cardRemoved) {
-                         // trigger transaction cancel
-                         val reason = "Unable to process card transaction"
-                         _emvMessage.value = EmvMessage.TransactionCancelled(-1, reason)
-                     }
-                 }
-             }
-         }
-     }
- */
 
 
     fun processOnline(
@@ -293,46 +223,6 @@ internal class CardViewModel(private val posDevice: POSDevice, private val isoSe
         }
     }
 
-    /*fun processOnlineBP(paymentInfo: PaymentInfo, accountType: AccountType, terminalInfo: TerminalInfo, billPaymentModel: BillPaymentModel): Optional<Pair<TransactionResponse, EmvData>> {
-
-        // get emv data captured by card
-        val emvData = emv.getTransactionInfo()
-
-
-        // return response based on data
-        if (emvData != null) {
-            // create transaction info and issue online purchase request
-            val txnInfo = TransactionInfo.fromEmv(emvData, paymentInfo, PurchaseType.Card, accountType)
-            val response = initiateTransactionBillPayment(transactionType, terminalInfo, txnInfo, billPaymentModel)
-
-
-            when (response) {
-                null -> {
-                    _onlineResult.postValue(OnlineProcessResult.NO_RESPONSE)
-                    return None
-                }
-                else -> {
-                    // complete transaction by applying scripts
-                    // only when responseCode is 'OK'
-                    if (response.responseCode == IsoUtils.OK) {
-                        // get result code of applying server response
-                        val completionResult = emv.completeTransaction(response)
-
-                        // react to result code
-                        when (completionResult) {
-                            EmvResult.OFFLINE_APPROVED -> _onlineResult.postValue(OnlineProcessResult.ONLINE_APPROVED)
-                            else -> _onlineResult.postValue(OnlineProcessResult.ONLINE_DENIED)
-                        }
-                    }
-
-                    return Some(Pair(response, emvData))
-                }
-            }
-        } else {
-            _onlineResult.postValue(OnlineProcessResult.NO_EMV)
-            return None
-        }
-    }*/
 
     fun processOnlineCNP(
             paymentModel: PaymentModel,
