@@ -54,7 +54,7 @@
                     android:layout_weight="1"
                     android:padding="5dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_verve_safe_token"
+                    android:src="@drawable/isw_ic_verve_safe_token"
                     />
 
                 <ImageView
@@ -62,7 +62,7 @@
                     android:layout_weight="1"
                     android:padding="8dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_master_card"
+                    android:src="@drawable/isw_ic_master_card"
                     />
 
                 <ImageView
@@ -70,21 +70,21 @@
                     android:layout_weight="1"
                     android:padding="5dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_master_card_secure_code"
+                    android:src="@drawable/isw_ic_master_card_secure_code"
                     />
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:padding="5dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_verified_by_visa"
+                    android:src="@drawable/isw_ic_verified_by_visa"
                     />
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:padding="5dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_visa_card"
+                    android:src="@drawable/isw_ic_visa_card"
                     />
 
 

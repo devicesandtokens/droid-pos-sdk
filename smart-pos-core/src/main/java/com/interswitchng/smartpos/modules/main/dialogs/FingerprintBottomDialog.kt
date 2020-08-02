@@ -52,7 +52,7 @@ class FingerprintBottomDialog constructor(
                     text = resources.getString(R.string.isw_fingerprint_recognised)
                     setTextColor(ContextCompat.getColor(sheetContext, R.color.iswTextColorSuccessDark))
                 }
-                isw_admin_fingerprint.setImageResource(R.drawable.ic_fingerprint_detected)
+                isw_admin_fingerprint.setImageResource(R.drawable.isw_ic_fingerprint_detected)
             }
             is Fingerprint.Failed -> {
                 sheetContext.toast(result.message)

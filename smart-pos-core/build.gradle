@@ -74,6 +74,12 @@ android {
         }
     }
 
+
+    lintOptions {
+        abortOnError false
+    }
+
+
     resourcePrefix 'isw_'
 
 }

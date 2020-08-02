@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        app:srcCompat="@drawable/ic_fingerprint_not_detected" />
+        app:srcCompat="@drawable/isw_ic_fingerprint_not_detected" />
 
     <TextView
         android:id="@+id/isw_textview18"

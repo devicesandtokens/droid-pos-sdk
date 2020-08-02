@@ -66,7 +66,7 @@
         app:fabCustomSize="40dp"
         app:rippleColor="@android:color/darker_gray"
         style="@style/Widget.MaterialComponents.FloatingActionButton"
-        app:srcCompat="@drawable/ic_add"
+        app:srcCompat="@drawable/isw_ic_add"
         app:tint="#8097B1"
         android:id="@+id/add_new_finger"
         app:layout_constraintBottom_toTopOf="@+id/isw_guideline"

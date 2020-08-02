@@ -30,9 +30,9 @@
                     android:textColor="@color/iswTextColorBlack"/>
 
             <ImageView
-                    app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp"
                     android:layout_width="25dp"
-                    android:layout_height="25dp"/>
+                app:srcCompat="@drawable/isw_ic_keyboard_arrow_right_black_24dp"
+                android:layout_height="25dp"/>
 
         </LinearLayout>
 

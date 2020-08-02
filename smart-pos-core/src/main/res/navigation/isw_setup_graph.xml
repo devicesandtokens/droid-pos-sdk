@@ -26,18 +26,18 @@
         <action
             android:id="@+id/isw_action_goto_fragment_phone_number"
             app:destination="@id/fragment_phone_number"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:enterAnim="@anim/isw_slide_in_right"
+            app:exitAnim="@anim/isw_slide_out_left"
+            app:popEnterAnim="@anim/isw_slide_in_left"
+            app:popExitAnim="@anim/isw_slide_out_right" />
 
         <action
             android:id="@+id/isw_action_goto_fragment_setup_complete"
             app:destination="@id/fragment_setup_complete"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:enterAnim="@anim/isw_slide_in_right"
+            app:exitAnim="@anim/isw_slide_out_left"
+            app:popEnterAnim="@anim/isw_slide_in_left"
+            app:popExitAnim="@anim/isw_slide_out_right" />
 
     </fragment>
 
@@ -48,10 +48,10 @@
         <action
             android:id="@+id/isw_action_goto_fragment_setup_complete"
             app:destination="@id/fragment_setup_complete"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:enterAnim="@anim/isw_slide_in_right"
+            app:exitAnim="@anim/isw_slide_out_left"
+            app:popEnterAnim="@anim/isw_slide_in_left"
+            app:popExitAnim="@anim/isw_slide_out_right" />
 
     </fragment>
 
