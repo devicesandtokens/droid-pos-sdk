@@ -5,9 +5,8 @@ import android.util.Log;
 import com.telpo.emv.EmvApp;
 import com.telpo.emv.EmvCAPK;
 import com.telpo.emv.EmvService;
-import com.telpo.emv.util.StringUtil;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Created by Administrator on 2017/4/5 0005.
@@ -1948,6 +1947,96 @@ public class DefaultAPPCAPK {
         }
 
 
+        /*----------------------------------------------------------------------- division line-----------------------------------------------------------------------------------------*/
+
+        EmvCAPK verve_05 = new EmvCAPK();
+        verve_05.RID =  new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x03,(byte)0x71};
+        verve_05.KeyID = (byte)0x05;
+        verve_05.HashInd = (byte)0x01;
+        verve_05.ArithInd = (byte)0x01;
+        verve_05.Modul = StringUtil.hexStringToByte("B036A8CAE0593A480976BFE84F8A67759E52B3D9F4A68CCC37FE720E594E5694CD1AE20E1B120D7A18FA5C70E044D3B12E932C9BBD9FDEA4BE11071EF8CA3AF48FF2B5DDB307FC752C5C73F5F274D4238A92B4FCE66FC93DA18E6C1CC1AA3CFAFCB071B67DAACE96D9314DB494982F5C967F698A05E1A8A69DA931B8E566270F04EAB575F5967104118E4F12ABFF9DEC92379CD955A10675282FE1B60CAD13F9BB80C272A40B6A344EA699FB9EFA6867");
+        verve_05.Exponent = new byte[]{0x03};
+        verve_05.ExpDate = new byte[]{0x24,0x12,0x31};
+        verve_05.CheckSum = StringUtil.hexStringToByte("676822D335AB0D2C3848418CB546DF7B6A6C32C0");
+
+        result =  EmvService.Emv_AddCapk(verve_05);
+        Log("Add CAPK capk_D1:" + result + " ID:" + verve_05.KeyID);
+        if(result == EmvService.EMV_TRUE){
+//            capkdb = new CAPKDB();
+//            DataExchange.CAPKtoDB(capk_D1,capkdb);
+//            capkdb.bEnable = true;
+//            capkdb.CAPKID = capkID++;
+//            dbResult = capkdbDao.create(capkdb);
+            Log("Create capk_D1 database:" + dbResult);
+        }
+
+        EmvCAPK verve_04 = new EmvCAPK();
+        verve_04.RID =  new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x03,(byte)0x71};
+        verve_04.KeyID = (byte)0x04;
+        verve_04.HashInd = (byte)0x01;
+        verve_04.ArithInd = (byte)0x01;
+        verve_04.Modul = StringUtil.hexStringToByte("D13CD5E1B921E4E0F0D40E2DE14CCE73E3A34ED2DCFA826531D8195641091E37C8474D19B686E8243F089A69F7B18D2D34CB4824F228F7750F96D1EFBDFF881F259A8C04DE64915A3A3D7CB846135F4083C93CDE755BC808886F600542DFF085558D5EA7F45CB15EC835064AA856D602A0A44CD021F54CF8EC0CC680B54B3665ABE74A7C43D02897FF84BB4CB98BC91D");
+        verve_04.Exponent = new byte[]{0x03};
+        verve_04.ExpDate = new byte[]{0x17,0x12,0x31};
+        verve_04.CheckSum = StringUtil.hexStringToByte("8B36A3E3D814CE6C6EBEAAF27674BB7BC67275B1");
+
+        result =  EmvService.Emv_AddCapk(verve_04);
+        Log("Add CAPK capk_D1:" + result + " ID:" + verve_04.KeyID);
+        if(result == EmvService.EMV_TRUE){
+//            capkdb = new CAPKDB();
+//            DataExchange.CAPKtoDB(capk_D1,capkdb);
+//            capkdb.bEnable = true;
+//            capkdb.CAPKID = capkID++;
+//            dbResult = capkdbDao.create(capkdb);
+            Log("Create capk_D1 database:" + dbResult);
+        }
+
+        EmvCAPK verve_03 = new EmvCAPK();
+        verve_03.RID =  new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x03,(byte)0x71};
+        verve_03.KeyID = (byte)0x03;
+        verve_03.HashInd = (byte)0x01;
+        verve_03.ArithInd = (byte)0x01;
+        verve_03.Modul = StringUtil.hexStringToByte("d06238b856cf2c8890a7f668ca17c19247498d193a7c11e7105dedeee6a873e8189e50493e9b17547c42ea4fa88bbef30bb6bc2409246ccc95f36622a7f4d92d46444f20b1b24bf63c5b28395d8ef18c23205c2119dfe5fba2fbfc311b2fe8a6a75b35a7dab72d421792a500cdfd8133b8a97d84a49c0bd22d52d06ea5e0ef3e471d47d8370c37aa48b564689d0035d9");
+        verve_03.Exponent = new byte[]{0x03};
+        verve_03.ExpDate = new byte[]{0x17,0x12,0x31};
+        verve_03.CheckSum = StringUtil.hexStringToByte("319F3C608B67F1118C729B0E1516EAB07CB290C8");
+
+        result =  EmvService.Emv_AddCapk(verve_03);
+        Log("Add CAPK capk_D1:" + result + " ID:" + verve_03.KeyID);
+        if(result == EmvService.EMV_TRUE){
+//            capkdb = new CAPKDB();
+//            DataExchange.CAPKtoDB(capk_D1,capkdb);
+//            capkdb.bEnable = true;
+//            capkdb.CAPKID = capkID++;
+//            dbResult = capkdbDao.create(capkdb);
+            Log("Create capk_D1 database:" + dbResult);
+        }
+
+        EmvCAPK verve_06 = new EmvCAPK();
+        verve_06.RID =  new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x03,(byte)0x71};
+        verve_06.KeyID = (byte)0x06;
+        verve_06.HashInd = (byte)0x01;
+        verve_06.ArithInd = (byte)0x01;
+        verve_06.Modul = StringUtil.hexStringToByte("D2DA0134B4DFC93A75EE8960C99896D50A91527B87BA7B16CDB77E5B6FDB750EB70B54026CADDA1D562C77A2C6DA541E94BC415D43E68489B16980F2E887C09E4CF90E2E639B179277BBA0E982CCD1F80521D1457209125B3ABCD309E1B92B5AEDA2EB1CBF933BEAD9CE7365E52B7D17FCB405AA28E5DE6AA3F08E764F745E70859ABCBA41E570A6E4367B3D6FECE723B73ABF3EB53DCDE3816E8A813460447021509D0DFDF2EEEE74CC35485FB55C26836EB3BF9C7DEBEE6C0B77B7BE059233801CF76B321FCA25FB1E63117AE1865E23161EC39D7B1FB84256C2BE72BF8EC771548DB9F00BEF77C509FADA15E2B53FF950D383F96211D3");
+        verve_06.Exponent = new byte[]{0x03};
+        verve_06.ExpDate = new byte[]{0x28,0x12,0x28};
+        verve_06.CheckSum = StringUtil.hexStringToByte("F5BAB84ECE5F8BD45511E5CA861B80C7E6C51F55");
+
+        result =  EmvService.Emv_AddCapk(verve_06);
+        Log("Add CAPK capk_D1:" + result + " ID:" + verve_06.KeyID);
+        if(result == EmvService.EMV_TRUE){
+//            capkdb = new CAPKDB();
+//            DataExchange.CAPKtoDB(capk_D1,capkdb);
+//            capkdb.bEnable = true;
+//            capkdb.CAPKID = capkID++;
+//            dbResult = capkdbDao.create(capkdb);
+            Log("Create capk_D1 database:" + dbResult);
+        }
+
+
+
+
+
     }
 
     public static void Add_All_CAPK(){
@@ -2521,17 +2610,15 @@ public class DefaultAPPCAPK {
             Log("creat APP_aiji2 database2 :" + dbResult);
         }*/
 
+
+
         /*----------------------------------------------------------------------- division line-----------------------------------------------------------------------------------------*/
 
 
         EmvApp APP_Visa = new EmvApp();
         name = "Visa";
-        try {
-            APP_Visa.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        APP_Visa.AID = new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x03,(byte)0x10,(byte)0x10};
+        APP_Visa.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_Visa.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x10, (byte) 0x10};
         APP_Visa.SelFlag = (byte)0x00;
         APP_Visa.Priority = (byte)0x00;
         APP_Visa.TargetPer = (byte)20;
@@ -2568,18 +2655,57 @@ public class DefaultAPPCAPK {
             Log("creat APP_Visa database :" + dbResult);
         }
 
+        /*----------------------------------------------------------------------- division line-----------------------------------------------------------------------------------------*/
+
+
+        EmvApp APP_Verve = new EmvApp();
+        name = "Verve";
+        APP_Verve.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_Verve.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x71, (byte) 0x00, (byte) 0x01}; //A0000003710001
+        APP_Verve.SelFlag = (byte)0x00;
+        APP_Verve.Priority = (byte)0x00;
+        APP_Verve.TargetPer = (byte)20;
+        APP_Verve.MaxTargetPer = (byte)50;
+        APP_Verve.FloorLimitCheck = (byte)1;
+        APP_Verve.RandTransSel = (byte)1;
+        APP_Verve.VelocityCheck = (byte)1;
+        APP_Verve.FloorLimit = new byte[]{(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x01,(byte)0x50,(byte)0x00};//9F1B:FloorLimit
+        APP_Verve.Threshold = new byte[]{(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x01,(byte)0x00};
+        APP_Verve.TACDenial = new byte[]{(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x00};
+        APP_Verve.TACOnline = new byte[]{(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x00};
+        APP_Verve.TACDefault = new byte[]{(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x00};
+        APP_Verve.AcquierId = new byte[]{(byte)0x01,(byte)0x23,(byte)0x45,(byte)0x67,(byte)0x89,(byte)0x10};
+        APP_Verve.DDOL = new byte[]{(byte)0x03,(byte)0x9F,(byte)0x37,(byte)0x04};
+        APP_Verve.TDOL = new byte[]{(byte)0x03,(byte)0x9F,(byte)0x02,(byte)0x06};
+        APP_Verve.Version = new byte[]{(byte)0x00,(byte)0x96};
+
+        result = EmvService.Emv_AddApp(APP_Verve);
+        Log("ADD APP_Verve:" + result);
+        if(result == EmvService.EMV_TRUE){
+//            aiddb = new AIDDB();
+//            DataExchange.AIDtoDB(APP_Visa,aiddb);
+//            aiddb.bEnable = true;
+//            aiddb.bTDOL = true;
+//            aiddb.MerchantCategoryCode = "1234";
+//            aiddb.MerchantID = "303030303030303030303030303030";//这是Hex值
+//            aiddb.MerchantName = "53484F502031";//(SHOP 1)      //这是Hex值
+//            aiddb.TerminalID = "46726F6E74313233";              //这是Hex值
+//            aiddb.TransCurrCode = "0840";                       //这是Hex值
+//            aiddb.TransCurrExponent = "02";                     //这是Hex值
+//            aiddb.TransReferCurrCode = "0840";                  //这是Hex值
+//            aiddb.TransReferCurrExponent = "02";                //这是Hex值
+//            dbResult = aiddbDao.create(aiddb);
+            Log("creat APP_Visa database :" + dbResult);
+        }
+
  /*----------------------------------------------------------------------- division line-----------------------------------------------------------------------------------------*/
 
         //progressContext = "Adding APP_Non_EMV";
         //sendMsgInner(HANDLE_UPDATE_PROCESSING);
         EmvApp APP_Non_EMV = new EmvApp();
         name = "Non_EMV";
-        try {
-            APP_Non_EMV.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        APP_Non_EMV.AID = new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x99,(byte)0x90,(byte)0x90};
+        APP_Non_EMV.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_Non_EMV.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x99, (byte) 0x90, (byte) 0x90};
         APP_Non_EMV.SelFlag = (byte)0x00;
         APP_Non_EMV.Priority = (byte)0x00;
         APP_Non_EMV.TargetPer = (byte)0;
@@ -2622,12 +2748,8 @@ public class DefaultAPPCAPK {
         //sendMsgInner(HANDLE_UPDATE_PROCESSING);
         EmvApp APP_Test = new EmvApp();
         name = "Test";
-        try {
-            APP_Test.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        APP_Test.AID = new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x99,(byte)0x99,(byte)0x01};
+        APP_Test.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_Test.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x99, (byte) 0x99, (byte) 0x01};
         APP_Test.SelFlag = (byte)0x00;
         APP_Test.Priority = (byte)0x00;
         APP_Test.TargetPer = (byte)0;
@@ -2670,12 +2792,8 @@ public class DefaultAPPCAPK {
         //sendMsgInner(HANDLE_UPDATE_PROCESSING);
         EmvApp APP_ANO3 = new EmvApp();
         name = "ANO3";
-        try {
-            APP_ANO3.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        APP_ANO3.AID = new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x03,(byte)0x10,(byte)0x10,(byte)0x03};
+        APP_ANO3.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_ANO3.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x10, (byte) 0x10, (byte) 0x03};
         APP_ANO3.SelFlag = (byte)0x00;
         APP_ANO3.Priority = (byte)0x00;
         APP_ANO3.TargetPer = (byte)0;
@@ -2719,12 +2837,8 @@ public class DefaultAPPCAPK {
         //sendMsgInner(HANDLE_UPDATE_PROCESSING);
         EmvApp APP_ANO4 = new EmvApp();
         name = "ANO4";
-        try {
-            APP_ANO4.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        APP_ANO4.AID = new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x03,(byte)0x10,(byte)0x10,(byte)0x04};
+        APP_ANO4.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_ANO4.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x10, (byte) 0x10, (byte) 0x04};
         APP_ANO4.SelFlag = (byte)0x00;
         APP_ANO4.Priority = (byte)0x00;
         APP_ANO4.TargetPer = (byte)0;
@@ -2767,12 +2881,8 @@ public class DefaultAPPCAPK {
         //sendMsgInner(HANDLE_UPDATE_PROCESSING);
         EmvApp APP_ANO5 = new EmvApp();
         name = "ANO5";
-        try {
-            APP_ANO5.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        APP_ANO5.AID = new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x03,(byte)0x10,(byte)0x10,(byte)0x05};
+        APP_ANO5.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_ANO5.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x10, (byte) 0x10, (byte) 0x05};
         APP_ANO5.SelFlag = (byte)0x00;
         APP_ANO5.Priority = (byte)0x00;
         APP_ANO5.TargetPer = (byte)0;
@@ -2815,12 +2925,8 @@ public class DefaultAPPCAPK {
         //sendMsgInner(HANDLE_UPDATE_PROCESSING);
         EmvApp APP_ANO6 = new EmvApp();
         name = "ANO6";
-        try {
-            APP_ANO6.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        APP_ANO6.AID = new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x03,(byte)0x10,(byte)0x10,(byte)0x06};
+        APP_ANO6.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_ANO6.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x10, (byte) 0x10, (byte) 0x06};
         APP_ANO6.SelFlag = (byte)0x00;
         APP_ANO6.Priority = (byte)0x00;
         APP_ANO6.TargetPer = (byte)0;
@@ -2863,12 +2969,8 @@ public class DefaultAPPCAPK {
         //sendMsgInner(HANDLE_UPDATE_PROCESSING);
         EmvApp APP_ANO7 = new EmvApp();
         name = "ANO7";
-        try {
-            APP_ANO7.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        APP_ANO7.AID = new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x03,(byte)0x10,(byte)0x10,(byte)0x07};
+        APP_ANO7.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_ANO7.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x10, (byte) 0x10, (byte) 0x07};
         APP_ANO7.SelFlag = (byte)0x01;
         APP_ANO7.Priority = (byte)0x00;
         APP_ANO7.TargetPer = (byte)0;
@@ -2911,12 +3013,8 @@ public class DefaultAPPCAPK {
         //sendMsgInner(HANDLE_UPDATE_PROCESSING);
         EmvApp APP_MasterCard = new EmvApp();
         name = "Master Card";
-        try {
-            APP_MasterCard.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        APP_MasterCard.AID = new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x04,(byte)0x10,(byte)0x10};
+        APP_MasterCard.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_MasterCard.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x04, (byte) 0x10, (byte) 0x10};
         APP_MasterCard.SelFlag = (byte)0x00;
         APP_MasterCard.Priority = (byte)0x00;
         APP_MasterCard.TargetPer = (byte)0;
@@ -2959,12 +3057,8 @@ public class DefaultAPPCAPK {
         //sendMsgInner(HANDLE_UPDATE_PROCESSING);
         EmvApp APP_JCB = new EmvApp();
         name = "JCB";
-        try {
-            APP_JCB.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        APP_JCB.AID = new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x65,(byte)0x10,(byte)0x10};
+        APP_JCB.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_JCB.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x65, (byte) 0x10, (byte) 0x10};
         APP_JCB.SelFlag = (byte)0x00;
         APP_JCB.Priority = (byte)0x00;
         APP_JCB.TargetPer = (byte)0;
@@ -3007,12 +3101,8 @@ public class DefaultAPPCAPK {
         //sendMsgInner(HANDLE_UPDATE_PROCESSING);
         EmvApp APP_AMEX = new EmvApp();
         name = "AMEX";
-        try {
-            APP_AMEX.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        APP_AMEX.AID = new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x25,(byte)0x01,(byte)0x05,(byte)0x01};
+        APP_AMEX.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_AMEX.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x25, (byte) 0x01, (byte) 0x05, (byte) 0x01};
         APP_AMEX.SelFlag = (byte)0x00;
         APP_AMEX.Priority = (byte)0x00;
         APP_AMEX.TargetPer = (byte)0;
@@ -3055,12 +3145,8 @@ public class DefaultAPPCAPK {
         //sendMsgInner(HANDLE_UPDATE_PROCESSING);
         EmvApp APP_Discover = new EmvApp();
         name = "Discover";
-        try {
-            APP_Discover.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        APP_Discover.AID = new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x01,(byte)0x52,(byte)0x30,(byte)0x10};
+        APP_Discover.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_Discover.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x01, (byte) 0x52, (byte) 0x30, (byte) 0x10};
         APP_Discover.SelFlag = (byte)0x00;
         APP_Discover.Priority = (byte)0x00;
         APP_Discover.TargetPer = (byte)0;
@@ -3103,12 +3189,8 @@ public class DefaultAPPCAPK {
         //sendMsgInner(HANDLE_UPDATE_PROCESSING);
         EmvApp APP_CUP_01 = new EmvApp();
         name = "China Union Pay";
-        try {
-            APP_CUP_01.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        APP_CUP_01.AID = new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x03,(byte)0x33,(byte)0x01,(byte)0x01,(byte)0x01};
+        APP_CUP_01.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_CUP_01.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x33, (byte) 0x01, (byte) 0x01, (byte) 0x01};
         APP_CUP_01.SelFlag = (byte)0x00;
         APP_CUP_01.Priority = (byte)0x00;
         APP_CUP_01.TargetPer = (byte)0;
@@ -3152,12 +3234,8 @@ public class DefaultAPPCAPK {
         //sendMsgInner(HANDLE_UPDATE_PROCESSING);
         EmvApp APP_CUP_02 = new EmvApp();
         name = "China Union Pay";
-        try {
-            APP_CUP_02.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        APP_CUP_02.AID = new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x03,(byte)0x33,(byte)0x01,(byte)0x01,(byte)0x02};
+        APP_CUP_02.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_CUP_02.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x33, (byte) 0x01, (byte) 0x01, (byte) 0x02};
         APP_CUP_02.SelFlag = (byte)0x00;
         APP_CUP_02.Priority = (byte)0x00;
         APP_CUP_02.TargetPer = (byte)0;
@@ -3200,12 +3278,8 @@ public class DefaultAPPCAPK {
 //        sendMsgInner(HANDLE_UPDATE_PROCESSING);
         EmvApp APP_CUP_03 = new EmvApp();
         name = "China Union Pay";
-        try {
-            APP_CUP_03.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        APP_CUP_03.AID = new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x03,(byte)0x33,(byte)0x01,(byte)0x01,(byte)0x03};
+        APP_CUP_03.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_CUP_03.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x33, (byte) 0x01, (byte) 0x01, (byte) 0x03};
         APP_CUP_03.SelFlag = (byte)0x00;
         APP_CUP_03.Priority = (byte)0x00;
         APP_CUP_03.TargetPer = (byte)0;
@@ -3248,12 +3322,8 @@ public class DefaultAPPCAPK {
 //        sendMsgInner(HANDLE_UPDATE_PROCESSING);
         EmvApp APP_ANOD = new EmvApp();
         name = "ANOD";
-        try {
-            APP_ANOD.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        APP_ANOD.AID = new byte[]{(byte)0xA1,(byte)0x22,(byte)0x33,(byte)0x44,(byte)0x55};
+        APP_ANOD.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_ANOD.AID = new byte[]{(byte) 0xA1, (byte) 0x22, (byte) 0x33, (byte) 0x44, (byte) 0x55};
         APP_ANOD.SelFlag = (byte)0x00;
         APP_ANOD.Priority = (byte)0x00;
         APP_ANOD.TargetPer = (byte)0;
@@ -3296,12 +3366,8 @@ public class DefaultAPPCAPK {
 //        sendMsgInner(HANDLE_UPDATE_PROCESSING);
         EmvApp APP_ANOE = new EmvApp();
         name = "ANOE";
-        try {
-            APP_ANOE.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        APP_ANOE.AID = new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x03,(byte)0x10,(byte)0x10,(byte)0x01,(byte)0x02,(byte)0x03,(byte)0x04,(byte)0x05,(byte)0x06,(byte)0x07,(byte)0x08,(byte)0x09};
+        APP_ANOE.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_ANOE.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x10, (byte) 0x10, (byte) 0x01, (byte) 0x02, (byte) 0x03, (byte) 0x04, (byte) 0x05, (byte) 0x06, (byte) 0x07, (byte) 0x08, (byte) 0x09};
         APP_ANOE.SelFlag = (byte)0x00;
         APP_ANOE.Priority = (byte)0x00;
         APP_ANOE.TargetPer = (byte)0;
@@ -3387,12 +3453,8 @@ public class DefaultAPPCAPK {
 
         EmvApp APP_Visa1 = new EmvApp();
         name = "Visa1";
-        try {
-            APP_Visa.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        APP_Visa1.AID = new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x03,(byte)0x10,(byte)0x10};
+        APP_Visa.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_Visa1.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x10, (byte) 0x10};
         APP_Visa1.SelFlag = (byte)0x00;
         APP_Visa1.Priority = (byte)0x00;
         APP_Visa1.TargetPer = (byte)20;
@@ -3431,12 +3493,8 @@ public class DefaultAPPCAPK {
 
         EmvApp APP_Visa2 = new EmvApp();
         name = "Visa2";
-        try {
-            APP_Visa.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        APP_Visa2.AID = new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x03,(byte)0x20,(byte)0x10};
+        APP_Visa.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_Visa2.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x20, (byte) 0x10};
         APP_Visa2.SelFlag = (byte)0x00;
         APP_Visa2.Priority = (byte)0x00;
         APP_Visa2.TargetPer = (byte)20;
@@ -3475,12 +3533,8 @@ public class DefaultAPPCAPK {
 
         EmvApp APP_Visa3 = new EmvApp();
         name = "Visa3";
-        try {
-            APP_Visa.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        APP_Visa3.AID = new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x03,(byte)0x20,(byte)0x20};
+        APP_Visa.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_Visa3.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x20, (byte) 0x20};
         APP_Visa3.SelFlag = (byte)0x00;
         APP_Visa3.Priority = (byte)0x00;
         APP_Visa3.TargetPer = (byte)20;
@@ -3519,12 +3573,8 @@ public class DefaultAPPCAPK {
 
         EmvApp APP_Visa4 = new EmvApp();
         name = "Visa4";
-        try {
-            APP_Visa.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        APP_Visa4.AID = new byte[]{(byte)0xA0,(byte)0x00,(byte)0x00,(byte)0x00,(byte)0x03,(byte)0x80,(byte)0x10};
+        APP_Visa.AppName = name.getBytes(StandardCharsets.US_ASCII);
+        APP_Visa4.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x80, (byte) 0x10};
         APP_Visa4.SelFlag = (byte)0x00;
         APP_Visa4.Priority = (byte)0x00;
         APP_Visa4.TargetPer = (byte)20;
@@ -3612,11 +3662,7 @@ public class DefaultAPPCAPK {
         String name;
         EmvApp APP_1 = new EmvApp();
         name = "Mastercard";
-        try {
-            APP_1.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        APP_1.AppName = name.getBytes(StandardCharsets.US_ASCII);
         APP_1.AID = new byte[]{(byte) 0xA0, 0x00, 0x00, 0x00, 0x04, 0x10, 0x10};
         APP_1.SelFlag = (byte) 0x00;
         APP_1.Priority = (byte) 0x00;
@@ -3640,11 +3686,7 @@ public class DefaultAPPCAPK {
 
         APP_1 = new EmvApp();
         name = "Maestro";
-        try {
-            APP_1.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        APP_1.AppName = name.getBytes(StandardCharsets.US_ASCII);
         APP_1.AID = new byte[]{(byte) 0xA0, 0x00, 0x00, 0x00, 0x04, 0x30, 0x60};
         APP_1.SelFlag = (byte) 0x00;
         APP_1.Priority = (byte) 0x00;
@@ -3667,11 +3709,7 @@ public class DefaultAPPCAPK {
 
         APP_1 = new EmvApp();
         name = "Test1";
-        try {
-            APP_1.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        APP_1.AppName = name.getBytes(StandardCharsets.US_ASCII);
         APP_1.AID = new byte[]{(byte) 0xB0, 0x12, 0x34, 0x56, 0x78};
         APP_1.SelFlag = (byte) 0x00;
         APP_1.Priority = (byte) 0x00;
@@ -3702,11 +3740,7 @@ public class DefaultAPPCAPK {
 
         EmvApp APP_CUP_01 = new EmvApp();
         name = "China Union Pay";
-        try {
-            APP_CUP_01.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        APP_CUP_01.AppName = name.getBytes(StandardCharsets.US_ASCII);
         APP_CUP_01.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x33, (byte) 0x01, (byte) 0x01, (byte) 0x01};
         APP_CUP_01.SelFlag = (byte) 0x00;
         APP_CUP_01.Priority = (byte) 0x00;
@@ -3732,11 +3766,7 @@ public class DefaultAPPCAPK {
 
         EmvApp APP_CUP_02 = new EmvApp();
         name = "China Union Pay";
-        try {
-            APP_CUP_02.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        APP_CUP_02.AppName = name.getBytes(StandardCharsets.US_ASCII);
         APP_CUP_02.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x33, (byte) 0x01, (byte) 0x01, (byte) 0x02};
         APP_CUP_02.SelFlag = (byte) 0x00;
         APP_CUP_02.Priority = (byte) 0x00;
@@ -3761,11 +3791,7 @@ public class DefaultAPPCAPK {
 
         EmvApp APP_CUP_03 = new EmvApp();
         name = "China Union Pay";
-        try {
-            APP_CUP_03.AppName = name.getBytes("ascii");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        APP_CUP_03.AppName = name.getBytes(StandardCharsets.US_ASCII);
         APP_CUP_03.AID = new byte[]{(byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x33, (byte) 0x01, (byte) 0x01, (byte) 0x03};
         APP_CUP_03.SelFlag = (byte) 0x00;
         APP_CUP_03.Priority = (byte) 0x00;

@@ -4,6 +4,7 @@ import android.content.Context
 import com.interswitch.smartpos.emv.telpo.TelpoPinCallback
 import com.interswitch.smartpos.emv.telpo.models.getAllCapks
 import com.interswitch.smartpos.emv.telpo.utils.DefaultAPPCAPK
+import com.interswitch.smartpos.emv.telpo.utils.StringUtil
 import com.interswitch.smartpos.emv.telpo.utils.TelpoEmvUtils
 import com.interswitchng.smartpos.shared.models.core.TerminalInfo
 import com.interswitchng.smartpos.shared.models.posconfig.EmvAIDs
@@ -14,7 +15,6 @@ import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response
 import com.interswitchng.smartpos.shared.services.iso8583.utils.FileUtils
 import com.interswitchng.smartpos.shared.utilities.Logger
 import com.telpo.emv.*
-import com.telpo.emv.util.StringUtil
 import kotlinx.coroutines.runBlocking
 import java.io.UnsupportedEncodingException
 import java.nio.charset.Charset
@@ -299,9 +299,9 @@ internal class TelpoEmvImplementation (
                 TERMINAL_CAPABILITIES = ICCData.TERMINAL_CAPABILITIES.getTlv() ?: "",
                 TRANSACTION_DATE = ICCData.TRANSACTION_DATE.getTlv() ?: "",
                 TRANSACTION_TYPE = ICCData.TRANSACTION_TYPE.getTlv() ?: "",
-                UNPREDICTABLE_NUMBER = ICCData.UNPREDICTABLE_NUMBER.getTlv() ?: "",
+                UNPREDICTABLE_NUMBER = ICCData.UNPREDICTABLE_NUMBER.getTlv() ?: ""
                 //,Segun check this
-                DEDICATED_FILE_NAME = ICCData.DEDICATED_FILE_NAME.getTlv() ?: ""
+//                DEDICATED_FILE_NAME = ICCData.DEDICATED_FILE_NAME.getTlv() ?: ""
 
         ).apply {
 
@@ -343,29 +343,12 @@ internal class TelpoEmvImplementation (
         }
 
         override fun onInputPin(pinData: EmvPinData?): Int {
-
-            val isOnline = pinData?.type == EmvService.ONLIEN_ENCIPHER_PIN
-
-            val pan: String = getPan()!!.let {
-                if (terminalInfo.isKimono && isOnline) {
-                    // pan manipulation required for kimono
-                    var modifiedPan = "0".repeat(16)
-                    val startIndex = it.length - 13
-                    val endIndex = startIndex + 12
-                    val subPan = it.substring(startIndex, endIndex)
-
-                    modifiedPan = modifiedPan.replaceRange(4 until modifiedPan.length, subPan)
-                    modifiedPan += "0"
-                    return@let modifiedPan
-                } else return@let it
-            }
-
             runBlocking {
                 pinCallback.enterPin(
                     pinData?.type == EmvService.ONLIEN_ENCIPHER_PIN,
                     tries,
                     pinData?.RemainCount?.toInt() ?: 0,
-                        pan,
+                        getPan() ?: "",
                         pinData
                 )
             }
