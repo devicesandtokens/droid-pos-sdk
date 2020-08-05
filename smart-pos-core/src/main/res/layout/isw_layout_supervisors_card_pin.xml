@@ -52,7 +52,7 @@
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/isw_text_card_pan"
+        app:layout_constraintBottom_toTopOf="@+id/isw_textview24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,12 +60,12 @@
         tools:text="9876567" />
 
     <TextView
-        android:id="@+id/isw_text_card_pan"
+        android:id="@+id/isw_textview24"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="@string/isw_card_pan"
+        android:text="@string/isw_pin_set"
         android:textColor="#1AC10B"
         app:layout_constraintBottom_toTopOf="@+id/isw_skip_fingerprint"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,7 +87,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/isw_text_card_pan" />
+        app:layout_constraintTop_toBottomOf="@+id/isw_textview24" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/isw_link_fingerprint"

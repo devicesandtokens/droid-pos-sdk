@@ -176,7 +176,7 @@ class ProcessingRequestFragment : BaseFragment(TAG) {
                         TransactionInfo.fromEmv(emvData, paymentModel, PurchaseType.Card, accountType)
                 var responseMsg: String
                 responseMsg = if (transactionType == TransactionType.CashOut) {
-                    response.responseDescription ?: "UnknownError"
+                    response.responseDescription ?: IsoUtils.getIsoResultMsg(response.responseCode) ?: "UnknownError"
                 } else {
                     IsoUtils.getIsoResultMsg(response.responseCode) ?: "Unknown Error"
                 }

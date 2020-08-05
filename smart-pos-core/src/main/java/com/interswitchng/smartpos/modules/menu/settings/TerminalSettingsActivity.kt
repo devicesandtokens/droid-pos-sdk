@@ -303,6 +303,7 @@ class TerminalSettingsActivity : MenuActivity() {
 
 
         btnChangePassword.setOnClickListener {
+            saveConfig()
             if (supervisorCardIsEnrolled) {
                 authorizeAndPerformAction {
                     val intent = Intent(this, SetupActivity::class.java)
@@ -592,15 +593,14 @@ class TerminalSettingsActivity : MenuActivity() {
 
 
     private fun fetchSupervisorDetails() {
-        val savedPan = store.getString("M3RCHANT_PAN", "")
         val savedPin = store.getString("MERCHANT_PIN", "")
-        if (savedPan == "" && savedPin == "") {
-            supervisorStatusHeader.text = "Supervisor's card not set"
-            btnChangePassword.text = "Enroll supervisor's card"
+        if (savedPin == "") {
+            supervisorStatusHeader.text = "Merchant's Pin not set"
+            btnChangePassword.text = "Enter merchant's pin"
             supervisorCardIsEnrolled = false
         } else {
             supervisorStatusHeader.text = ""
-            btnChangePassword.text = "Change supervisor's card"
+            btnChangePassword.text = "Change Merchant's Pin"
             supervisorCardIsEnrolled = true
         }
     }

@@ -267,6 +267,7 @@
     <string name="isw_authenticate_supervisor_s_card">Authenticate Supervisor\'s Card</string>
     <string name="isw_enter_merchant_s_pin">Enter Merchant\'s Pin</string>
     <string name="isw_sample_pin">123456</string>
+    <string name="isw_pin_set">Pin Set</string>
 
     <string-array name="isw_transaction_types">
         <item>Purchase</item>

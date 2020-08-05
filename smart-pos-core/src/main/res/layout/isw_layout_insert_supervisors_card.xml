@@ -18,7 +18,7 @@
         android:layout_marginRight="24dp"
         android:hint="@string/isw_sample_pin"
         android:inputType="numberPassword"
-        android:maxLength="4"
+        android:maxLength="6"
         android:textColor="@color/iswTextColorBlack"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/isw_button_pin_proceed"
