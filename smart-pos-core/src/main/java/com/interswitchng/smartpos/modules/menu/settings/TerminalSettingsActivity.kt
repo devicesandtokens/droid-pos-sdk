@@ -303,7 +303,7 @@ class TerminalSettingsActivity : MenuActivity() {
 
 
         btnChangePassword.setOnClickListener {
-            saveConfig()
+            //saveConfig()
             if (supervisorCardIsEnrolled) {
                 authorizeAndPerformAction {
                     val intent = Intent(this, SetupActivity::class.java)
