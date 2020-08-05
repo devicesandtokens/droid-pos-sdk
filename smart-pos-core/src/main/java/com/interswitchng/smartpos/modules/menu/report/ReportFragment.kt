@@ -78,6 +78,11 @@ class ReportFragment : BaseFragment(TAG), DatePickerDialog.OnDateSetListener, Ad
             dialog.show()
         }
 
+        isw_btn_clear_eod.setOnClickListener{
+            reportViewModel.clearEod(selectedDate)
+            toast("Data Cleared")
+        }
+
         // select today's reports
         showReportFor(selectedDate, transactionType)
 

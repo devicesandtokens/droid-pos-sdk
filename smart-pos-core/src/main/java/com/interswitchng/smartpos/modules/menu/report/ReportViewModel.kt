@@ -52,6 +52,10 @@ internal class ReportViewModel(
         return transactionLogService.getTransactionFor(day, config)
     }
 
+    fun clearEod(day: Date){
+        return transactionLogService.clearEndOFDay(day)
+    }
+
     fun getReport(day: Date, transactionType: TransactionType): LiveData<PagedList<TransactionLog>> {
         return transactionLogService.getTransactionFor(day, transactionType, config)
     }
@@ -203,6 +207,7 @@ internal class ReportViewModel(
 
         var transactionApproved = 0
         var transactionApprovedAmount = 0.0
+        var transactionFailedAmount = 0.0
 
         // add each item into the end of day list
         this.forEach {
@@ -212,7 +217,9 @@ internal class ReportViewModel(
             //add successful transactions
             if (it.responseCode == IsoUtils.OK) {
                 transactionApproved += 1
-                transactionApprovedAmount += DisplayUtils.getAmountString(it.amount.toInt()).toDouble()
+                transactionApprovedAmount += DisplayUtils.getAmountString(it.amount)
+            } else {
+                transactionFailedAmount += DisplayUtils.getAmountString(it.amount)
             }
         }
         // add line
@@ -233,6 +240,7 @@ internal class ReportViewModel(
         list.add(PrintObject.Data("Total Passed Transaction: $transactionApproved\n", PrintStringConfiguration(isBold = true)))
         list.add(PrintObject.Data("Total Failed Transaction: $transactionFailed\n", PrintStringConfiguration(isBold = true)))
         list.add(PrintObject.Data("Total Approved Amount: $transactionApprovedAmount\n", PrintStringConfiguration(isBold = true)))
+        list.add(PrintObject.Data("Total Failed Amount: $transactionFailedAmount\n", PrintStringConfiguration(isBold = true)))
         list.add(PrintObject.Line)
 
         return list
