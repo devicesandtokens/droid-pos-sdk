@@ -121,7 +121,7 @@ class TelpoDevicePrinterImpl constructor(context: Context) : DevicePrinter {
             val canvas = Canvas(outputBitmap)
             // draw logo in output bitmap
             canvas.drawColor(Color.WHITE)
-            canvas.drawBitmap(smallScale, paddingLeft.toFloat(), 0f, null)
+            canvas.drawBitmap(smallScale, paddingLeft.toFloat() - 50.toFloat(), 0f, null)
 
             // print bitmap
             printer.printLogo(outputBitmap, false)
