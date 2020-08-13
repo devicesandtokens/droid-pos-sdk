@@ -1,6 +1,7 @@
 package com.interswitchng.smartpos.shared.services.iso8583
 
 import android.content.Context
+import android.widget.Toast
 import com.interswitchng.smartpos.IswPos.Companion.getNextStan
 import com.interswitchng.smartpos.modules.main.fragments.CardTransactionsFragment
 import com.interswitchng.smartpos.shared.Constants
@@ -13,6 +14,7 @@ import com.interswitchng.smartpos.shared.interfaces.library.IsoSocket
 import com.interswitchng.smartpos.shared.interfaces.library.KeyValueStore
 import com.interswitchng.smartpos.shared.models.core.TerminalInfo
 import com.interswitchng.smartpos.shared.models.transaction.PaymentInfo
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.OriginalTransactionInfoData
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.TransactionInfo
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.TransactionResponse
 import com.interswitchng.smartpos.shared.services.iso8583.utils.*
@@ -297,16 +299,17 @@ internal class IsoServiceImpl(
     }
 
     override fun initiateCardPurchase(terminalInfo: TerminalInfo, transaction: TransactionInfo): TransactionResponse? {
+        val now = Date()
+        val stan = transaction.stan
+        val timeDateNow = timeAndDateFormatter.format(now)
+        val month = monthFormatter.format(now)
+        val time = timeFormatter.format(now)
         try {
-            val now = Date()
-            val month = monthFormatter.format(now)
-            val time = timeFormatter.format(now)
             val message = NibssIsoMessage(messageFactory.newMessage(0x200))
             val processCode = "00" + transaction.accountType.value + "00"
             val hasPin = transaction.cardPIN.isNotEmpty()
-            val stan = transaction.stan
             val randomReference = "000000$stan"
-            val timeDateNow = timeAndDateFormatter.format(now)
+
 
             message
                     .setValue(2, transaction.cardPAN)
@@ -395,7 +398,7 @@ internal class IsoServiceImpl(
         } catch (e: Exception) {
             //logger.log(e.localizedMessage)
             e.printStackTrace()
-            return TransactionResponse(TIMEOUT_CODE, authCode = "", stan = "", scripts = "")
+            return TransactionResponse(TIMEOUT_CODE, authCode = "", stan = stan, transmissionDateTime = timeDateNow,month = month,time = time, scripts = "")
         }
     }
 
@@ -496,7 +499,7 @@ internal class IsoServiceImpl(
         try {
             val now = Date()
             val originalTransactionInfoData = transaction.originalTransactionInfoData
-            val txnDate = originalTransactionInfoData?.month
+            val txnDate = originalTransactionInfoData?.originalTransmissionDateAndTime
             val month = monthFormatter.format(now)
             val time = txnDate?.takeLast(6)
             val amount = String.format(Locale.getDefault(), "%012d", transaction.amount)

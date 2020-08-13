@@ -68,7 +68,7 @@ internal data class TransactionInfo(
                 amount = txnResult.amount.toInt(),
                 stan = txnResult.stan,
                 purchaseType = PurchaseType.Card,
-                accountType = AccountType.Default,
+                accountType = txnResult.accountType,
                 iccData = IccData(),
                 pinKsn = "",
 

@@ -11,6 +11,7 @@ import com.interswitchng.smartpos.shared.models.printer.slips.CardSlip
 import com.interswitchng.smartpos.shared.models.printer.slips.TransactionSlip
 import com.interswitchng.smartpos.shared.models.printer.slips.UssdQrSlip
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.CardType
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.AccountType
 
 
 /**
@@ -24,6 +25,7 @@ data class TransactionResult(
         val dateTime: String,
         val amount: String,
         val type: TransactionType,
+        val accountType: AccountType,
         val cardPan: String,
         val cardType: CardType,
         val cardExpiry: String,
@@ -53,6 +55,7 @@ data class TransactionResult(
             parcel.readString()!!,
             parcel.readString()!!,
             getTransactionType(parcel.readInt()),
+            getAccountType(parcel.readInt()),
             parcel.readString()!!,
             getCardType(parcel.readInt()),
             parcel.readString()!!,
@@ -121,6 +124,7 @@ data class TransactionResult(
         parcel.writeString(dateTime)
         parcel.writeString(amount)
         parcel.writeInt(type.ordinal)
+        parcel.writeInt(accountType.ordinal)
         parcel.writeString(cardPan)
         parcel.writeInt(cardType.ordinal)
         parcel.writeString(cardExpiry)
@@ -168,6 +172,10 @@ data class TransactionResult(
 
         private fun getTransactionType(ordinal: Int): TransactionType {
             return TransactionType.Purchase
+        }
+
+        private fun getAccountType(ordinal: Int): AccountType {
+            return AccountType.Default
         }
 
         private fun getCardType(ordinal: Int) = when (ordinal) {

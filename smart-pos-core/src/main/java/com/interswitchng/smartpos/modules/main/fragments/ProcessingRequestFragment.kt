@@ -191,6 +191,7 @@ class ProcessingRequestFragment : BaseFragment(TAG) {
                         dateTime = DisplayUtils.getIsoString(now),
                         amount = paymentModel.amount.toString(),
                         type = transactionType,
+                        accountType = accountType,
                         authorizationCode = response.authCode,
                         responseMessage = responseMsg,
                         responseCode = response.responseCode,

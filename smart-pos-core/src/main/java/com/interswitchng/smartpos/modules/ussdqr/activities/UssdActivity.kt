@@ -21,6 +21,7 @@ import com.interswitchng.smartpos.shared.models.transaction.PaymentInfo
 import com.interswitchng.smartpos.shared.models.transaction.PaymentType
 import com.interswitchng.smartpos.shared.models.transaction.TransactionResult
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.CardType
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.AccountType
 import com.interswitchng.smartpos.shared.models.transaction.ussdqr.request.CodeRequest
 import com.interswitchng.smartpos.shared.models.transaction.ussdqr.request.CodeRequest.Companion.TRANSACTION_USSD
 import com.interswitchng.smartpos.shared.models.transaction.ussdqr.request.TransactionStatus
@@ -295,6 +296,7 @@ class UssdActivity : BaseActivity() {
                 dateTime = DisplayUtils.getIsoString(now),
                 amount = DisplayUtils.getAmountString(paymentInfo),
                 type = TransactionType.Purchase,
+                accountType = AccountType.Default,
                 authorizationCode = transaction.responseCode,
                 responseMessage = responseMsg,
                 responseCode = transaction.responseCode,

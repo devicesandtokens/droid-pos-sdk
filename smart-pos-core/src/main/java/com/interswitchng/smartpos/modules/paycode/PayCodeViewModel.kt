@@ -13,6 +13,7 @@ import com.interswitchng.smartpos.shared.models.transaction.PaymentInfo
 import com.interswitchng.smartpos.shared.models.transaction.PaymentType
 import com.interswitchng.smartpos.shared.models.transaction.TransactionResult
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.CardType
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.AccountType
 import com.interswitchng.smartpos.shared.services.iso8583.utils.IsoUtils
 import com.interswitchng.smartpos.shared.utilities.DisplayUtils
 import com.interswitchng.smartpos.shared.viewmodel.RootViewModel
@@ -47,6 +48,7 @@ internal class PayCodeViewModel(private val isoService: IsoService, private val 
                                 dateTime = DisplayUtils.getIsoString(now),
                                 amount = DisplayUtils.getAmountString(paymentInfo),
                                 type = TransactionType.Purchase,
+                                accountType = AccountType.Default,
                                 authorizationCode = response.authCode,
                                 responseMessage = responseMsg,
                                 responseCode = response.responseCode,

@@ -3,6 +3,7 @@ package com.interswitchng.smartpos.shared.models.transaction
 import android.os.Parcelable
 import com.interswitchng.smartpos.shared.models.printer.info.TransactionType
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.CardType
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.AccountType
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import kotlinx.android.parcel.Parcelize
@@ -20,6 +21,7 @@ open class TransactionLog(
         var dateTime: String = "",
         var amount: String = "",
         var transactionType: Int = TransactionType.Purchase.ordinal,
+        var accountType: Int = AccountType.Default.ordinal,
         var cardPan: String = "",
         var cardTrack2: String = "",
         var cardType: Int = CardType.None.ordinal,
@@ -36,6 +38,7 @@ open class TransactionLog(
         var src: String = "",
         var cardPin: String = "",
         var time: Long = Date().time,
+        var month: String = "",
         var originalTransmissionDate: String = "",
         var name: String = "",
         var ref: String = "",
@@ -68,6 +71,7 @@ open class TransactionLog(
         }
 
         val type = TransactionType.values().first { it.ordinal == this.transactionType }
+        val accountType = AccountType.values().first { it.ordinal == this.accountType }
 
         return TransactionResult(
                 paymentType,
@@ -75,6 +79,7 @@ open class TransactionLog(
                 dateTime,
                 amount,
                 type,
+                accountType,
                 cardPan,
                 cardType,
                 cardExpiry,
@@ -91,6 +96,7 @@ open class TransactionLog(
                 cardPin,
                 cardTrack2,
                 time,
+                month,
                 originalTransmissionDate,
                 name,
                 ref,
@@ -114,6 +120,7 @@ open class TransactionLog(
                 dateTime = result.dateTime,
                 amount = result.amount,
                 transactionType = result.type.ordinal,
+                accountType = result.accountType.ordinal,
                 cardPan = result.cardPan,
                 cardType = result.cardType.ordinal,
                 cardExpiry = result.cardExpiry,

@@ -60,6 +60,11 @@ class ReceiptFragment : BaseFragment(TAG) {
         Logger.with("Reciept Fragment").logErr(result?.responseCode.toString())
         when (result?.responseCode) {
             IsoUtils.TIMEOUT_CODE -> {
+                if(result?.type == TransactionType.Purchase){
+                     if(!isFromActivityDetail){
+                        initiateReversal()
+                     }
+                }
                 transactionResponseIcon.setImageResource(R.drawable.isw_failure)
                 isw_receipt_text.text = "Failed!"
                 isw_transaction_msg.text = "Your transaction was unsuccessful"
@@ -156,39 +161,7 @@ class ReceiptFragment : BaseFragment(TAG) {
             authorizeAndPerformAction {
 
                 if (hasClickedReversal.not()) {
-                    val now = Date()
-                    val txnInfo = TransactionInfo.fromTxnResult(result!!)
-                    resultViewModel.initiateReversal(terminalInfo, txnInfo)
-                    resultViewModel.transactionResponse.observe(viewLifecycleOwner, Observer<TransactionResponse> {
-                        reversalResult = TransactionResult(
-                                paymentType = PaymentType.Card,
-                                dateTime = DisplayUtils.getIsoString(now),
-                                amount = result!!.amount,
-                                type = TransactionType.Reversal,
-                                authorizationCode = it.authCode,
-                                responseMessage = IsoUtils.getIsoResultMsg(it.responseCode)!!,
-                                responseCode = it.responseCode,
-                                cardPan = txnInfo.cardPAN,
-                                cardExpiry = txnInfo.cardExpiry,
-                                cardType = result!!.cardType,
-                                stan = it.stan,
-                                pinStatus = result!!.pinStatus,
-                                AID = result!!.AID,
-                                code = "",
-                                telephone = iswPos.config.merchantTelephone,
-                                icc = txnInfo.iccString,
-                                src = txnInfo.src,
-                                csn = txnInfo.csn,
-                                cardPin = txnInfo.cardPIN,
-                                cardTrack2 = txnInfo.cardTrack2,
-                                month = it.month,
-                                time = now.time,
-                                originalTransmissionDateTime = it.transmissionDateTime
-                        )
-                        resultViewModel.logTransaction(reversalResult)
-                        Toast.makeText(context, reversalResult.responseMessage, Toast.LENGTH_SHORT).show()
-                    })
-
+                    initiateReversal()
                     hasClickedReversal = true
                     view.isClickable = false
 
@@ -209,9 +182,45 @@ class ReceiptFragment : BaseFragment(TAG) {
         }
     }
 
-
-
-
+    private fun initiateReversal() {
+        val now = Date()
+        val txnInfo = TransactionInfo.fromTxnResult(result!!)
+        resultViewModel.initiateReversal(terminalInfo, txnInfo)
+        resultViewModel.transactionResponse.observe(viewLifecycleOwner, Observer<TransactionResponse> {
+            if(it.responseCode == IsoUtils.OK){
+                //if reversal is successful hide button
+                isw_reversal.visibility = View.GONE
+            }
+            reversalResult = TransactionResult(
+                    paymentType = PaymentType.Card,
+                    dateTime = DisplayUtils.getIsoString(now),
+                    amount = result!!.amount,
+                    type = TransactionType.Reversal,
+                    accountType = txnInfo.accountType,
+                    authorizationCode = it.authCode,
+                    responseMessage = IsoUtils.getIsoResultMsg(it.responseCode)!!,
+                    responseCode = it.responseCode,
+                    cardPan = txnInfo.cardPAN,
+                    cardExpiry = txnInfo.cardExpiry,
+                    cardType = result!!.cardType,
+                    stan = it.stan,
+                    pinStatus = result!!.pinStatus,
+                    AID = result!!.AID,
+                    code = "",
+                    telephone = iswPos.config.merchantTelephone,
+                    icc = txnInfo.iccString,
+                    src = txnInfo.src,
+                    csn = txnInfo.csn,
+                    cardPin = txnInfo.cardPIN,
+                    cardTrack2 = txnInfo.cardTrack2,
+                    month = it.month,
+                    time = now.time,
+                    originalTransmissionDateTime = it.transmissionDateTime
+            )
+            resultViewModel.logTransaction(reversalResult)
+            Toast.makeText(context, reversalResult.responseMessage, Toast.LENGTH_SHORT).show()
+        })
+    }
 
 
     private lateinit var dialog: MerchantCardDialog
@@ -270,8 +279,14 @@ class ReceiptFragment : BaseFragment(TAG) {
         if (isFromActivityDetail) {
             when(type) {
                 PaymentModel.TransactionType.CARD_PURCHASE -> {
-                    isw_reversal.visibility = View.VISIBLE
+                    //if transaction type is purchase and it is also successful
+                    if(result?.responseCode == IsoUtils.OK || result?.responseCode == IsoUtils.TIMEOUT_CODE){
+                    isw_reversal.visibility = View.GONE
                     isw_refund.visibility = View.GONE
+                    } else {
+                        isw_reversal.visibility = View.VISIBLE
+                        isw_refund.visibility = View.GONE
+                    }
                 }
                 else -> {}
             }

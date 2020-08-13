@@ -13,6 +13,7 @@ import com.interswitchng.smartpos.shared.models.printer.info.TransactionType
 import com.interswitchng.smartpos.shared.models.transaction.PaymentType
 import com.interswitchng.smartpos.shared.models.transaction.TransactionResult
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.CardType
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.AccountType
 import com.interswitchng.smartpos.shared.models.transaction.ussdqr.request.CodeRequest
 import com.interswitchng.smartpos.shared.models.transaction.ussdqr.request.CodeRequest.Companion.QR_FORMAT_RAW
 import com.interswitchng.smartpos.shared.models.transaction.ussdqr.request.CodeRequest.Companion.TRANSACTION_QR
@@ -210,6 +211,7 @@ class QrCodeActivity : BaseActivity() {
                 dateTime = DisplayUtils.getIsoString(now),
                 amount = DisplayUtils.getAmountString(paymentInfo),
                 type = TransactionType.Purchase,
+                accountType = AccountType.Default,
                 authorizationCode = transaction.responseCode,
                 responseMessage = responseMsg,
                 responseCode = transaction.responseCode,
