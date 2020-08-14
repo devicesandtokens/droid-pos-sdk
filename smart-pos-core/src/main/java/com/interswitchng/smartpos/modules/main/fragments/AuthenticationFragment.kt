@@ -10,6 +10,7 @@ import com.interswitchng.smartpos.shared.activities.BaseFragment
 import com.interswitchng.smartpos.shared.interfaces.library.KeyValueStore
 import com.interswitchng.smartpos.shared.models.core.TerminalInfo
 import kotlinx.android.synthetic.main.isw_fragment_authentication.*
+import org.koin.android.ext.android.inject
 
 /**
  * A simple [Fragment] subclass.
@@ -19,11 +20,23 @@ class AuthenticationFragment : BaseFragment(TAG) {
     private val authenticationFragmentArgs by navArgs<AuthenticationFragmentArgs>()
     private val payment by lazy { authenticationFragmentArgs.PaymentModel }
 
+
     override val layoutId: Int
         get() = R.layout.isw_fragment_authentication
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        hideViews()
         handleClick()
+    }
+
+    private fun hideViews() {
+        if (terminalInfo.isKimono) {
+            isw_authorization_id_label.visibility = View.GONE
+            isw_original_date_time.visibility = View.GONE
+        } else{
+            isw_auth_id_label.visibility = View.GONE
+            isw_auth_id_value.visibility = View.GONE
+        }
     }
 
     private fun handleClick() {

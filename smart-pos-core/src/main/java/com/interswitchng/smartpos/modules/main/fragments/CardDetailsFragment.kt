@@ -72,10 +72,10 @@ class CardDetailsFragment : BaseFragment(TAG) {
             }
 
             runWithInternet {
-                /*val direction = CardDetailsFragmentDirections.iswActionIswFragmentCardDetailsToIswProcessingTransaction(
+                val direction = CardDetailsFragmentDirections.iswActionIswFragmentCardDetailsToIswProcessingTransaction(
                         paymentModel, transactionType, CardType.None, accountType, paymentInfo
                 )
-                navigate(direction)*/
+                navigate(direction)
                /* Logger.with("CNP").log("cnp processing")
                 cardViewModel.processOnlineCNP(
                     paymentModel,
