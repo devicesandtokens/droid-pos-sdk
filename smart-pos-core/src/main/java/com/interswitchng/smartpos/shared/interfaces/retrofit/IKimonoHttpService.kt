@@ -16,7 +16,6 @@ internal interface IKimonoHttpService {
     fun callHome(@Url url: String, @Body data: CallHomeRequest): Simple<ResponseBody>
 
 
-
     @Headers("Content-Type: text/xml", "Accept: application/xml", "Accept-Charset: utf-8")
     @POST
     fun completion(@Url url: String, @Body data: RequestBody): Simple<ResponseBody>
@@ -33,12 +32,10 @@ internal interface IKimonoHttpService {
 //    fun reservation(@Body data: ReservationRequest): Simple<ReservationResponse>
 
 
-
     @Headers("Content-Type: text/xml", "Accept: application/xml", "Accept-Charset: utf-8")
     @POST
     fun makePurchase(@Url url: String, @Body purchaseRequest: RequestBody): Simple<ResponseBody>
 //    fun makePurchase(@Body purchaseRequest: PurchaseRequest): Simple<ResponseBody>
-
 
 
     @Headers("Content-Type: text/xml", "Accept: application/xml", "Accept-Charset: utf-8")
@@ -49,12 +46,13 @@ internal interface IKimonoHttpService {
     @Headers("Content-Type: text/xml", "Accept: application/xml", "Accept-Charset: utf-8")
     @POST("")
     fun getPinKey(@Url endpoint: String,
-            @Body request: KimonoKeyRequest): Simple<ResponseBody>
+                  @Body request: KimonoKeyRequest): Simple<ResponseBody>
 
 
     @Headers("Content-Type: application/xml")
     @GET(Constants.KIMONO_KEY_END_POINT)
-    fun getKimonoKey(@Query("cmd") cmd: String,
+    fun getKimonoKey(@Url url: String,
+                     @Query("cmd") cmd: String,
                      @Query("terminal_id") terminalId: String,
                      @Query("pkmod") pkmod: String,
                      @Query("pkex") pkex: String,

@@ -190,6 +190,8 @@ class ReceiptFragment : BaseFragment(TAG) {
             if(it.responseCode == IsoUtils.OK){
                 //if reversal is successful hide button
                 isw_reversal.visibility = View.GONE
+                result?.reversed = 1
+                resultViewModel.updateTransaction(result!!)
             }
             reversalResult = TransactionResult(
                     paymentType = PaymentType.Card,
@@ -280,7 +282,7 @@ class ReceiptFragment : BaseFragment(TAG) {
             when(type) {
                 PaymentModel.TransactionType.CARD_PURCHASE -> {
                     //if transaction type is purchase and it is also successful
-                    if(result?.responseCode == IsoUtils.OK || result?.responseCode == IsoUtils.TIMEOUT_CODE){
+                    if(result?.responseCode == IsoUtils.OK || result?.responseCode == IsoUtils.TIMEOUT_CODE || result?.reversed == 1){
                     isw_reversal.visibility = View.GONE
                     isw_refund.visibility = View.GONE
                     } else {

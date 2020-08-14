@@ -72,17 +72,18 @@ class CardDetailsFragment : BaseFragment(TAG) {
             }
 
             runWithInternet {
-                val direction = CardDetailsFragmentDirections.iswActionIswFragmentCardDetailsToIswProcessingTransaction(
+                /*val direction = CardDetailsFragmentDirections.iswActionIswFragmentCardDetailsToIswProcessingTransaction(
                         paymentModel, transactionType, CardType.None, accountType, paymentInfo
                 )
-                navigate(direction)
-//                cardViewModel.processOnlineCNP(
-//                    paymentModel,
-//                    accountType,
-//                    terminalInfo,
-//                    cardModel.expiryDate!!,
-//                    cardModel.cardPan!!
-//                )
+                navigate(direction)*/
+               /* Logger.with("CNP").log("cnp processing")
+                cardViewModel.processOnlineCNP(
+                    paymentModel,
+                    accountType,
+                    terminalInfo,
+                    cardModel.expiryDate!!,
+                    cardModel.cardPan!!
+                )*/
             }
         }
     }
@@ -93,63 +94,64 @@ class CardDetailsFragment : BaseFragment(TAG) {
     }
 
 
-//    private fun processResponse(transactionResponse: Optional<Pair<TransactionResponse, EmvData>>) {
-//        when (transactionResponse) {
-//            is None -> logger.log("Unable to complete transaction")
-//            is Some -> {
-//                // extract info
-//                val response = transactionResponse.value.first
-//                val emvData = transactionResponse.value.second
-//                val txnInfo =
-//                    TransactionInfo.fromEmv(emvData, paymentModel, PurchaseType.Card, accountType)
-//                val responseMsg = IsoUtils.getIsoResultMsg(response.responseCode) ?: "Unknown Error"
-//                Logger.with("transactionrESponseModel").logErr(responseMsg)
-//
-//                val pinStatus = when {
-//                    pinOk || response.responseCode == IsoUtils.OK -> "PIN Verified"
-//                    else -> "PIN Unverified"
-//                }
-//                val now = Date()
-//                transactionResult = TransactionResult(
-//                    paymentType = PaymentType.Card,
-//                    dateTime = DisplayUtils.getIsoString(now),
-//                    amount = paymentModel.amount.toString(),
-//                    type = transactionType,
-//                    authorizationCode = response.authCode,
-//                    responseMessage = responseMsg,
-//                    responseCode = response.responseCode,
-//                    cardPan = txnInfo.cardPAN,
-//                    cardExpiry = txnInfo.cardExpiry,
-//                    cardType = cardType,
-//                    stan = response.stan,
-//                    pinStatus = pinStatus,
-//                    AID = emvData.AID,
-//                    code = "",
-//                    telephone = iswPos.config.merchantTelephone,
-//                    icc = txnInfo.iccString,
-//                    src = txnInfo.src,
-//                    csn = txnInfo.csn,
-//                    cardPin = txnInfo.cardPIN,
-//                    cardTrack2 = txnInfo.cardTrack2,
-//                    month = response.month,
-//                    time = response.time,
-//                    originalTransmissionDateTime = response.transmissionDateTime
-//                )
-//                transactionResponseModel = TransactionResponseModel(
-//                    transactionResult = transactionResult,
-//                    transactionType = PaymentModel.TransactionType.CARD_PURCHASE
-//                )
-//                Logger.with("transactionrESponseModel").logErr(transactionResponseModel.toString())
-//
-//                val direction = CardDetailsFragmentDirections.iswActionGotoFragmentReceipt(
-//                    PaymentModel = paymentModel,
-//                    TransactionResponseModel = transactionResponseModel,
-//                    IsFromActivityDetail = false
-//                )
-//                navigate(direction)
-//            }
-//        }
-//    }
+/*    private fun processResponse(transactionResponse: Optional<Pair<TransactionResponse, EmvData>>) {
+        when (transactionResponse) {
+            is None -> logger.log("Unable to complete transaction")
+            is Some -> {
+                // extract info
+                val response = transactionResponse.value.first
+                val emvData = transactionResponse.value.second
+                val txnInfo =
+                    TransactionInfo.fromEmv(emvData, paymentModel, PurchaseType.Card, accountType)
+                val responseMsg = IsoUtils.getIsoResultMsg(response.responseCode) ?: "Unknown Error"
+                Logger.with("transactionrESponseModel").logErr(responseMsg)
+
+                val pinStatus = when {
+                    pinOk || response.responseCode == IsoUtils.OK -> "PIN Verified"
+                    else -> "PIN Unverified"
+                }
+                val now = Date()
+                transactionResult = TransactionResult(
+                    paymentType = PaymentType.Card,
+                    dateTime = DisplayUtils.getIsoString(now),
+                    amount = paymentModel.amount.toString(),
+                    type = transactionType,
+                        accountType = AccountType.Default,
+                    authorizationCode = response.authCode,
+                    responseMessage = responseMsg,
+                    responseCode = response.responseCode,
+                    cardPan = txnInfo.cardPAN,
+                    cardExpiry = txnInfo.cardExpiry,
+                    cardType = cardType,
+                    stan = response.stan,
+                    pinStatus = pinStatus,
+                    AID = emvData.AID,
+                    code = "",
+                    telephone = iswPos.config.merchantTelephone,
+                    icc = txnInfo.iccString,
+                    src = txnInfo.src,
+                    csn = txnInfo.csn,
+                    cardPin = txnInfo.cardPIN,
+                    cardTrack2 = txnInfo.cardTrack2,
+                    month = response.month,
+                    time = now.time,
+                    originalTransmissionDateTime = response.transmissionDateTime
+                )
+                transactionResponseModel = TransactionResponseModel(
+                    transactionResult = transactionResult,
+                    transactionType = PaymentModel.TransactionType.CARD_PURCHASE
+                )
+                Logger.with("transactionrESponseModel").logErr(transactionResponseModel.toString())
+
+                val direction = CardDetailsFragmentDirections.iswActionGotoFragmentReceipt(
+                    PaymentModel = paymentModel,
+                    TransactionResponseModel = transactionResponseModel,
+                    IsFromActivityDetail = false
+                )
+                navigate(direction)
+            }
+        }
+    }*/
 
     companion object {
         const val TAG = "Card Details Fragment"

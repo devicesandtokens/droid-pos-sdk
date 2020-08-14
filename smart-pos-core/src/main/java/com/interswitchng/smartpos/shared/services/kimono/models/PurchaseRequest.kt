@@ -2,6 +2,7 @@ package com.interswitchng.smartpos.shared.services.kimono.models
 
 //import com.interswitchng.smartpos.shared.services.DateUtils
 import com.interswitchng.smartpos.IswPos
+import com.interswitchng.smartpos.modules.main.fragments.CardTransactionsFragment
 import com.interswitchng.smartpos.shared.Constants
 import com.interswitchng.smartpos.shared.interfaces.device.POSDevice
 import com.interswitchng.smartpos.shared.models.core.Environment
@@ -164,7 +165,8 @@ internal class PurchaseRequest
         {
             val hasPin = transaction.cardPIN.isNotEmpty()
             var pinData=""
-            if(hasPin) pinData= """<pinData><ksnd>605</ksnd><pinBlock></pinBlock><pinType>Dukpt</pinType> </pinData>"""
+            if(hasPin)   pinData= """<pinData><ksnd>605</ksnd><pinType>Dukpt</pinType><ksn>${transaction.pinKsn}</ksn><pinBlock>${transaction.cardPIN}</pinBlock></pinData>"""
+
             var dedicatedFileTag=""
             var transactionAmount = transaction.amount
 
@@ -270,7 +272,8 @@ fun toReservation(device:POSDevice,terminalInfo: TerminalInfo, transaction: Tran
 
             val hasPin = transaction.cardPIN.isNotEmpty()
             var pinData=""
-            if(hasPin) pinData= """<pinData><ksnd>605</ksnd><pinBlock></pinBlock><pinType>Dukpt</pinType></pinData>"""
+            if(hasPin)   pinData= """<pinData><ksnd>605</ksnd><pinType>Dukpt</pinType><ksn>${transaction.pinKsn}</ksn><pinBlock>${transaction.cardPIN}</pinBlock></pinData>"""
+
             var transactionAmount = transaction.amount
 
             val amount = String.format(Locale.getDefault(), "%012d", transactionAmount)
@@ -278,8 +281,8 @@ fun toReservation(device:POSDevice,terminalInfo: TerminalInfo, transaction: Tran
             val date = DateUtils.dateFormatter.format(now)
             var icc= getIcc(terminalInfo,amount,date,transaction)
 
-            var originalStan=transaction.originalTransactionInfoData?.originalStan
-            var originalAuthId=transaction.originalTransactionInfoData?.originalAuthorizationId
+            var originalStan= CardTransactionsFragment.CompletionData.stan
+            var originalAuthId= CardTransactionsFragment.CompletionData.authId
             var settlementCurrencyCode=icc.TRANSACTION_CURRENCY_CODE
             val iswConfig = IswPos.getInstance().config
             var keyLabel=if (iswConfig.environment == Environment.Test) "000006" else "000002"
@@ -312,7 +315,8 @@ fun toReservation(device:POSDevice,terminalInfo: TerminalInfo, transaction: Tran
 
             val hasPin = transaction.cardPIN.isNotEmpty()
             var pinData=""
-            if(hasPin) pinData= """<pinData><ksnd>605</ksnd><pinBlock></pinBlock><pinType>Dukpt</pinType></pinData>"""
+            if(hasPin)   pinData= """<pinData><ksnd>605</ksnd><pinType>Dukpt</pinType><ksn>${transaction.pinKsn}</ksn><pinBlock>${transaction.cardPIN}</pinBlock></pinData>"""
+
             var transactionAmount = transaction.amount
 
             val amount = String.format(Locale.getDefault(), "%012d", transactionAmount)

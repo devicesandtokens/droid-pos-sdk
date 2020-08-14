@@ -44,7 +44,7 @@
             android:id="@+id/isw_authorization_id_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Original Transmission Date and Time"
+            android:text="Date Time from Pre-Auth Receipt(NIBBS Only)"
             android:textColor="@android:color/black"
             android:textSize="12sp"
             android:textStyle="bold"
@@ -56,7 +56,7 @@
             android:id ="@+id/isw_original_date_time"
             android:inputType="number"
             android:maxLines="1"
-            android:hint="Enter original date and time"
+            android:hint="Enter date time from receipt"
             android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@id/isw_authorization_id_label"
             app:layout_constraintStart_toStartOf="@id/isw_guideline2"
@@ -65,10 +65,10 @@
 
         <TextView
             android:layout_marginTop="20dp"
-            android:id="@+id/isw_stan_label"
+            android:id="@+id/isw_auth_id_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Original Stan"
+            android:text="Auth code from Pre-Auth Receipt(Kimono Only)"
             android:textColor="@android:color/black"
             android:textSize="12sp"
             android:textStyle="bold"
@@ -77,13 +77,38 @@
             app:layout_constraintTop_toBottomOf="@id/isw_original_date_time"/>
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id ="@+id/isw_auth_id_value"
+            android:inputType="number"
+            android:maxLines="1"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/isw_auth_id_label"
+            app:layout_constraintStart_toStartOf="@id/isw_guideline2"
+            android:hint="Enter auth code from receipt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:id="@+id/isw_stan_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Stan from Pre-Auth Receipt(Kimono/NIBBS)"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/isw_guideline3"
+            app:layout_constraintStart_toStartOf="@+id/isw_guideline2"
+            app:layout_constraintTop_toBottomOf="@id/isw_auth_id_value"/>
+
+
+        <com.google.android.material.textfield.TextInputEditText
             android:id ="@+id/isw_stan_value"
             android:inputType="number"
             android:maxLines="1"
             android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@id/isw_stan_label"
             app:layout_constraintStart_toStartOf="@id/isw_guideline2"
-            android:hint="Enter original stan"
+            android:hint="Enter stan from receipt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

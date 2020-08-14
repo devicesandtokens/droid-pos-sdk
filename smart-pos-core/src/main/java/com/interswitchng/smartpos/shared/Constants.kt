@@ -7,6 +7,7 @@ import com.interswitchng.smartpos.shared.utilities.KeysUtils
 object Constants {
 
     internal const val PAYMENT_CODE = "04358001"
+
     // URL END POINTS
     internal const val CODE_END_POINT = "till.json"
     internal const val TRANSACTION_STATUS_QR = "transactions/qr"
@@ -16,8 +17,9 @@ object Constants {
     internal const val KIMONO_KEY_END_POINT = "/kmw/keydownloadservice"
 
 
-//    internal const val KIMONO_END_POINT = "kmw/v2/kimonoservice"
-internal const val KIMONO_END_POINT = "kmw/kimonoservice"
+    //    internal const val KIMONO_END_POINT = "kmw/v2/kimonoservice"
+    internal const val KIMONO_END_POINT = "kmw/kimonoservice"
+
     // EMAIL
     internal const val EMAIL_END_POINT = "mail/send"
     internal const val EMAIL_TEMPLATE_ID = "d-c33c9a651cea40dd9b0ee4615593dcb4"
@@ -35,9 +37,8 @@ internal const val KIMONO_END_POINT = "kmw/kimonoservice"
     // UTIL CONSTANTS
 
 
-
     const val EMPTY_STRING = ""
-    const val PKMOD = "qAujj7YjqEihDiSMbEeGyqnib5YTi3SCyB57l8gV5nPjHd6kVvLImVZbmqjyixGPuIK4l5IASfhQ50VwRpKQ9x7VWD7DIOvu1%2bpdDDnbuzyFfVEINT/RpYBxYh6MooEUl/WvTh2Ym2snJ1GtfXLtQpeT3HnB60kbLjdLfs0k2%2bE%3d&pkex=AAEAAQ%3d%3d"
+    const val PKMOD = "qAujj7YjqEihDiSMbEeGyqnib5YTi3SCyB57l8gV5nPjHd6kVvLImVZbmqjyixGPuIK4l5IASfhQ50VwRpKQ9x7VWD7DIOvu1%2bpdDDnbuzyFfVEINT/RpYBxYh6MooEUl/WvTh2Ym2snJ1GtfXLtQpeT3HnB60kbLjdLfs0k2%2bE%3d"
     const val PKEX = "AAEAAQ%3d%3d"
 //
 //
@@ -47,51 +48,57 @@ internal const val KIMONO_END_POINT = "kmw/kimonoservice"
 //
 
 
+    val ISW_USSD_QR_BASE_URL: String
+        get() {
+            val iswPos = IswPos.getInstance()
+            return if (iswPos.config.environment == Environment.Test) Constants.Test.ISW_USSD_QR_BASE_URL
+            else Constants.Production.ISW_USSD_QR_BASE_URL
+        }
 
-    val ISW_USSD_QR_BASE_URL: String get() {
-        val iswPos = IswPos.getInstance()
-        return if (iswPos.config.environment == Environment.Test) Constants.Test.ISW_USSD_QR_BASE_URL
-        else Constants.Production.ISW_USSD_QR_BASE_URL
-    }
+    val ISW_TOKEN_BASE_URL: String
+        get() {
+            val iswPos = IswPos.getInstance()
+            return if (iswPos.config.environment == Environment.Test) Constants.Test.ISW_TOKEN_BASE_URL
+            else Constants.Production.ISW_TOKEN_BASE_URL
+        }
 
-    val ISW_TOKEN_BASE_URL: String get() {
-        val iswPos = IswPos.getInstance()
-        return if (iswPos.config.environment == Environment.Test) Constants.Test.ISW_TOKEN_BASE_URL
-        else Constants.Production.ISW_TOKEN_BASE_URL
-    }
+    val ISW_IMAGE_BASE_URL: String
+        get() {
+            val iswPos = IswPos.getInstance()
+            return if (iswPos.config.environment == Environment.Test) Constants.Test.ISW_IMAGE_BASE_URL
+            else Constants.Production.ISW_IMAGE_BASE_URL
+        }
 
-    val ISW_IMAGE_BASE_URL: String get() {
-        val iswPos = IswPos.getInstance()
-        return if (iswPos.config.environment == Environment.Test) Constants.Test.ISW_IMAGE_BASE_URL
-        else Constants.Production.ISW_IMAGE_BASE_URL
-    }
+    val ISW_TERMINAL_IP: String
+        get() {
+            val iswPos = IswPos.getInstance()
+            return if (iswPos.config.environment == Environment.Test) Constants.Test.ISW_TERMINAL_IP
+            else Constants.Production.ISW_TERMINAL_IP
+        }
 
-    val ISW_TERMINAL_IP: String get() {
-        val iswPos = IswPos.getInstance()
-        return if (iswPos.config.environment == Environment.Test) Constants.Test.ISW_TERMINAL_IP
-        else Constants.Production.ISW_TERMINAL_IP
-    }
-
-    val ISW_DUKPT_IPEK: String get() {
-        val iswPos = IswPos.getInstance()
-        return if(iswPos.config.environment == Environment.Test) KeysUtils.testIPEK()
-        else KeysUtils.productionIPEK()
-    }
+    val ISW_DUKPT_IPEK: String
+        get() {
+            val iswPos = IswPos.getInstance()
+            return if (iswPos.config.environment == Environment.Test) KeysUtils.testIPEK()
+            else KeysUtils.productionIPEK()
+        }
 
 
-    val ISW_DUKPT_KSN: String get() {
-        val iswPos = IswPos.getInstance()
-        return if(iswPos.config.environment == Environment.Test) KeysUtils.testKSN()
-        else KeysUtils.productionKSN()
-    }
+    val ISW_DUKPT_KSN: String
+        get() {
+            val iswPos = IswPos.getInstance()
+            return if (iswPos.config.environment == Environment.Test) KeysUtils.testKSN()
+            else KeysUtils.productionKSN()
+        }
 
-    val ISW_CMS: String get() {
-        val iswPos = IswPos.getInstance()
-        //return KeysUtils.testCMS()
-        return if(iswPos.config.environment == Environment.Test) KeysUtils.testCMS()
-        else KeysUtils.productionCMS()
+    val ISW_CMS: String
+        get() {
+            val iswPos = IswPos.getInstance()
+            //return KeysUtils.testCMS()
+            return if (iswPos.config.environment == Environment.Test) KeysUtils.testCMS()
+            else KeysUtils.productionCMS()
 
-    }
+        }
 
     val ISW_CMS_TEST: String
         get() {
@@ -99,17 +106,19 @@ internal const val KIMONO_END_POINT = "kmw/kimonoservice"
         }
 
 
-    val ISW_KIMONO_BASE_URL: String get() {
-        val iswPos = IswPos.getInstance()
-        return if(iswPos.config.environment == Environment.Test) Test.ISW_KIMONO_BASE_URL
-        else Production.ISW_KIMONO_BASE_URL
-    }
+    val ISW_KIMONO_BASE_URL: String
+        get() {
+            val iswPos = IswPos.getInstance()
+            return if (iswPos.config.environment == Environment.Test) Test.ISW_KIMONO_BASE_URL
+            else Production.ISW_KIMONO_BASE_URL
+        }
 
-    val ISW_KIMONO_URL: String get() {
-        val iswPos = IswPos.getInstance()
-        return if(iswPos.config.environment == Environment.Test) Test.ISW_KIMONO_URL
-        else Production.ISW_KIMONO_URL
-    }
+    val ISW_KIMONO_URL: String
+        get() {
+            val iswPos = IswPos.getInstance()
+            return if (iswPos.config.environment == Environment.Test) Test.ISW_KIMONO_URL
+            else Production.ISW_KIMONO_URL
+        }
 
     val ISW_KIMONO_KEY_URL: String
         get() {

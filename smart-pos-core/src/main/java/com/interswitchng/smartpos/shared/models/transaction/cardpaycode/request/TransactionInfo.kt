@@ -74,7 +74,7 @@ internal data class TransactionInfo(
 
                 originalTransactionInfoData = OriginalTransactionInfoData(
                         originalTransmissionDateAndTime = txnResult.originalTransmissionDateTime,
-                        month = txnResult.month, time = txnResult.time
+                        month = txnResult.month, time = txnResult.time, originalAuthorizationId = txnResult.authorizationCode
                 )
 
         )

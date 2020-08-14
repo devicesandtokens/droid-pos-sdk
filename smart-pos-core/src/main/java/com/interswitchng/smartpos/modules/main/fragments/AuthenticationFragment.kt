@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.interswitchng.smartpos.R
 import com.interswitchng.smartpos.shared.activities.BaseFragment
+import com.interswitchng.smartpos.shared.interfaces.library.KeyValueStore
+import com.interswitchng.smartpos.shared.models.core.TerminalInfo
 import kotlinx.android.synthetic.main.isw_fragment_authentication.*
 
 /**
@@ -28,13 +30,15 @@ class AuthenticationFragment : BaseFragment(TAG) {
         isw_proceed.setOnClickListener {
             val originalDateTime = isw_original_date_time.text.toString()
             val stan = isw_stan_value.text.toString()
+            val authId = isw_auth_id_value.text.toString()
 
-            if (originalDateTime.isEmpty() || stan.isEmpty()) {
+            if (originalDateTime.isEmpty() || stan.isEmpty() || authId.isEmpty()) {
                 Toast.makeText(context, "Fields cannot be empty", Toast.LENGTH_LONG).show()
             } else {
                 payment.newPayment {
                     this.originalDateAndTime = originalDateTime
                     this.originalStan = stan
+                    this.authorizationId = authId
                 }
 
                 Toast.makeText(context, payment.type.toString(), Toast.LENGTH_LONG ).show()

@@ -36,7 +36,7 @@ class XmlPullParserHandler {
                     XmlPullParser.END_TAG -> if (contains(tagname)) {
                         // add employee object to list
                        return  purchaseResponse
-                    } else if (tagname.equals("authCode", ignoreCase = true)) {
+                    } else if (tagname.equals("authId", ignoreCase = true)) {
                         purchaseResponse.authCode = text.toString()
                     } else if (tagname.equals("referenceNumber", ignoreCase = true)) {
                         purchaseResponse.referenceNumber = text.toString()

@@ -42,7 +42,8 @@ open class TransactionLog(
         var originalTransmissionDate: String = "",
         var name: String = "",
         var ref: String = "",
-        var rrn: String = "") : RealmObject(), Parcelable {
+        var rrn: String = "",
+        var reversed: Int = 0) : RealmObject(), Parcelable {
 
 
 
@@ -100,8 +101,8 @@ open class TransactionLog(
                 originalTransmissionDate,
                 name,
                 ref,
-                rrn
-
+                rrn,
+                reversed
         )
     }
 
@@ -139,7 +140,8 @@ open class TransactionLog(
                 originalTransmissionDate = result.originalTransmissionDateTime,
                 name = result.name,
                 ref = result.ref,
-                rrn = result.rrn
+                rrn = result.rrn,
+                reversed = result.reversed
         )
 
 

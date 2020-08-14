@@ -854,10 +854,10 @@ internal class IsoServiceImpl(
                 //if (pinKey.isEmpty()) return null
 
                 //val pinData = TripleDES.harden(pinKey, transaction.cardPIN).take(16)
-                message.setValue(52, transaction.cardPIN)
-                logger.log("transaction pin ${transaction.cardPIN}")
+               /* message.setValue(52, transaction.cardPIN)
+                logger.log("transaction pin ${transaction.cardPIN}")*/
                 // remove unset fields
-                message.message.removeFields(9, 29, 30, 31, 32, 33, 50, 53, 54, 56, 58, 59, 60, 62, 64, 67, 98, 100, 102, 103, 124)
+                message.message.removeFields(9, 29, 30, 31, 32, 33, 50, 52, 53, 54, 56, 58, 59, 60, 62, 64, 67, 98, 100, 102, 103, 124)
             } else {
                 // remove unset fields
                 message.message.removeFields(9, 29, 30, 31, 32, 33, 50, 52, 53, 54, 56, 58, 59, 60, 62, 64, 67, 98, 100, 102, 103, 124)

@@ -54,10 +54,11 @@ class CardTransactionsFragment : BaseFragment(TAG) {
 
     private val originalTxnData by lazy {
         paymentModel.originalDateAndTime?.let { timeDate ->
-            paymentModel.originalStan?.let {
-                stan ->
+            paymentModel.originalStan?.let { stan ->
+                paymentModel.authorizationId?.let { authId ->
                 OriginalTransactionInfoData(originalStan = stan,
-                        originalTransmissionDateAndTime = timeDate, time = -1L)
+                        originalTransmissionDateAndTime = timeDate, time = -1L, originalAuthorizationId = authId)
+            }
             }
         }
     }
@@ -109,6 +110,7 @@ class CardTransactionsFragment : BaseFragment(TAG) {
                 cardViewModel.setOriginalTxnInfo(originalTxnData!!)
                 CompletionData.dateTime = originalTxnData!!.originalTransmissionDateAndTime
                 CompletionData.stan = originalTxnData!!.originalStan
+                CompletionData.authId = originalTxnData!!.originalAuthorizationId
                 transactionType = TransactionType.Completion
             }
 
@@ -452,6 +454,7 @@ class CardTransactionsFragment : BaseFragment(TAG) {
         companion object {
             var dateTime: String? = null
             var stan: String? = null
+            var authId: String? = null
         }
     }
 }
