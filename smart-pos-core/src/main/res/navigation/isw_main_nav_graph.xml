@@ -176,6 +176,14 @@
             app:popEnterAnim="@anim/isw_slide_in_left"
             app:popExitAnim="@anim/isw_slide_out_right" />
 
+        <action
+            android:id="@+id/isw_action_isw_action_goto_isw_transaction"
+            app:destination="@id/isw_transaction"
+            app:enterAnim="@anim/isw_slide_in_left"
+            app:exitAnim="@anim/isw_slide_in_right"
+            app:popUpTo="@+id/isw_transaction"
+            app:popUpToInclusive="false" />
+
         <argument
             android:name="PaymentModel"
             app:argType="com.interswitchng.smartpos.modules.main.models.PaymentModel" />

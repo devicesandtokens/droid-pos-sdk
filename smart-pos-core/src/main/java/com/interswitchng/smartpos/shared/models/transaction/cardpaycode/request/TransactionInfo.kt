@@ -73,6 +73,7 @@ internal data class TransactionInfo(
                 pinKsn = "",
 
                 originalTransactionInfoData = OriginalTransactionInfoData(
+                        originalStan = txnResult.stan.padStart(6,'0'),
                         originalTransmissionDateAndTime = txnResult.originalTransmissionDateTime,
                         month = txnResult.month, time = txnResult.time, originalAuthorizationId = txnResult.authorizationCode
                 )

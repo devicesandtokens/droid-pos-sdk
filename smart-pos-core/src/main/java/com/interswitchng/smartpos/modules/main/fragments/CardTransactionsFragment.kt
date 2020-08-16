@@ -3,6 +3,7 @@ package com.interswitchng.smartpos.modules.main.fragments
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.interswitchng.smartpos.IswPos
 import com.interswitchng.smartpos.R
@@ -11,6 +12,7 @@ import com.interswitchng.smartpos.modules.main.dialogs.AccountTypeDialog
 import com.interswitchng.smartpos.modules.main.dialogs.PaymentTypeDialog
 import com.interswitchng.smartpos.modules.main.models.PaymentModel
 import com.interswitchng.smartpos.shared.activities.BaseFragment
+import com.interswitchng.smartpos.shared.models.posconfig.PosType
 import com.interswitchng.smartpos.shared.models.printer.info.TransactionType
 import com.interswitchng.smartpos.shared.models.transaction.PaymentInfo
 import com.interswitchng.smartpos.shared.models.transaction.TransactionResult
@@ -36,6 +38,7 @@ class CardTransactionsFragment : BaseFragment(TAG) {
     private var pinOk = false
     private var isCancelled = false
     private lateinit var transactionType: TransactionType
+    private val deviceName = IswPos.getInstance().device.name
 
     private lateinit var accountTypeDialog: AccountTypeDialog
     private lateinit var paymentTypeDialog: PaymentTypeDialog
@@ -65,19 +68,19 @@ class CardTransactionsFragment : BaseFragment(TAG) {
 
     private val cancelDialog by lazy {
         DialogUtils.getAlertDialog(context!!)
-            .setMessage("Would you like to change payment method, or try again?")
+            .setMessage("Cancel and Try Again")
             .setCancelable(false)
-            .setNegativeButton(R.string.isw_title_cancel) { dialog, _ ->
+            /*.setNegativeButton(R.string.isw_title_cancel) { dialog, _ ->
                 dialog.dismiss()
+            }*/
+            .setPositiveButton(R.string.isw_action_cancel) { dialog, _ ->
+                dialog.dismiss()
+                //showPaymentOptions()
             }
-            .setPositiveButton(R.string.isw_action_change) { dialog, _ ->
+            /*.setNeutralButton(R.string.isw_title_try_again) { dialog, _ ->
                 dialog.dismiss()
-                showPaymentOptions()
-            }
-            .setNeutralButton(R.string.isw_title_try_again) { dialog, _ ->
-                dialog.dismiss()
-                resetTransaction()
-            }.create()
+                //resetTransaction()
+            }*/.create()
     }
 
     override val layoutId: Int
@@ -92,6 +95,12 @@ class CardTransactionsFragment : BaseFragment(TAG) {
             context?.toast("POS is not configured")
         }
     }
+
+   /* override fun onResume() {
+        super.onResume()
+        cardViewModel.setupTransaction(paymentInfo.amount, terminalInfo)
+    }*/
+
 
     private fun setTransactionType() {
         when (paymentModel.type) {
@@ -223,7 +232,12 @@ class CardTransactionsFragment : BaseFragment(TAG) {
 
             // when card is detected
             is EmvMessage.CardDetected -> {
-                showLoader("Reading Card", "Loading...")
+                logger.log("me: CardDetected")
+                if(deviceName == PosType.PAX.name) {
+                    showLoader("Reading Card", "Loading...")
+                } else {
+
+                }
             }
 
             // when card should be inserted
@@ -247,7 +261,10 @@ class CardTransactionsFragment : BaseFragment(TAG) {
             // when card gets removed
             is EmvMessage.CardRemoved -> {
                 showInsertCardView()
-                cancelTransaction("Transaction Cancelled: Card was removed")
+                if(deviceName == PosType.PAX.name) {
+                    cancelTransaction("Transaction Cancelled: Card was removed")
+                }
+                context?.toast("Transaction Cancelled: Card was removed")
             }
 
             // when user should enter pin
@@ -434,6 +451,8 @@ class CardTransactionsFragment : BaseFragment(TAG) {
         // set reason and show cancel dialog
         cancelDialog.setTitle(reason)
         if (!cancelDialog.isShowing) cancelDialog.show()
+        cardViewModel.cancelTransaction()
+        //cardViewModel.emvMessage.removeObservers(viewLifecycleOwner)
     }
 
     private fun resetTransaction() {

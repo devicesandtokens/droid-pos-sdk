@@ -360,8 +360,8 @@ internal class TelpoEmvImplementation (
                 } else return@let it
             }
 
-            runBlocking {
-                pinCallback.enterPin(
+            val pinResult: Int = runBlocking {
+                 pinCallback.enterPin(
                     pinData?.type == EmvService.ONLIEN_ENCIPHER_PIN,
                     tries,
                     pinData?.RemainCount?.toInt() ?: 0,
@@ -371,7 +371,14 @@ internal class TelpoEmvImplementation (
             }
             tries++
 
-            return pinCallback.pinResult
+            return pinResult
+            /*if(pinCallback.pinResult != EmvService.EMV_TRUE){
+                logger.log("me: cardPinResultOnInputPin -----> ${pinCallback.pinResult}")
+                return pinCallback.pinResult
+            }
+
+            logger.log("me: cardPinResultOnInputPin -----> ${pinCallback.pinResult}")
+            return pinCallback.pinResult*/
         }
 
         override fun onOnlineProcess(p0: EmvOnlineData?): Int = runBlocking {

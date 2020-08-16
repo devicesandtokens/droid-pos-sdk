@@ -18,6 +18,7 @@ import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response
 import com.interswitchng.smartpos.shared.services.iso8583.utils.IsoUtils
 import com.interswitchng.smartpos.shared.utilities.toast
 import com.interswitchng.smartpos.shared.viewmodel.RootViewModel
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -94,6 +95,7 @@ internal class CardViewModel(private val posDevice: POSDevice, private val isoSe
 
                 EmvResult.CANCELLED -> {
                     // transaction has already been cancelled
+                    //cancelTransaction()
                     context.toast("Transaction was cancelled")
                 }
                 else -> {
@@ -347,8 +349,13 @@ internal class CardViewModel(private val posDevice: POSDevice, private val isoSe
         super.onCleared()
 
         // cancel any ongoing transaction
+        cancelTransaction()
+    }
+
+    fun cancelTransaction() {
         emv.cancelTransaction()
     }
+
 
     enum class OnlineProcessResult {
         NO_EMV,

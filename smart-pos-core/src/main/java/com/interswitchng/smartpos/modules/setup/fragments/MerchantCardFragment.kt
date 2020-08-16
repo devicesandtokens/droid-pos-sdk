@@ -9,6 +9,7 @@ import com.interswitchng.smartpos.modules.card.CardViewModel
 import com.interswitchng.smartpos.modules.setup.SetupFragmentViewModel
 import com.interswitchng.smartpos.shared.activities.BaseFragment
 import com.interswitchng.smartpos.shared.interfaces.library.KeyValueStore
+import com.interswitchng.smartpos.shared.models.posconfig.PosType
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.EmvMessage
 import com.interswitchng.smartpos.shared.utilities.SecurityUtils
 import com.interswitchng.smartpos.shared.utilities.toast
@@ -38,7 +39,7 @@ class MerchantCardFragment : BaseFragment(TAG) {
         })
         cardViewModel.setupTransaction(0, terminalInfo)
 
-        if (deviceName == "TELPO") {
+        if (deviceName == PosType.TELPO.name) {
             isw_enrollmentLabel.visibility = View.GONE
             isw_imageview_insert_card.visibility = View.GONE
         }
@@ -51,7 +52,7 @@ class MerchantCardFragment : BaseFragment(TAG) {
             isw_link_fingerprint.visibility = View.GONE
         } else {
             isw_link_fingerprint.setOnClickListener {
-                if (deviceName == "PAX") {
+                if (deviceName == PosType.PAX.name) {
                     val cardPAN = cardViewModel.getCardPAN()!!
                     logger.logErr(cardPAN)
                     setupViewModel.saveMerchantPAN(cardPAN)
@@ -65,7 +66,7 @@ class MerchantCardFragment : BaseFragment(TAG) {
         }
 
         isw_skip_fingerprint.setOnClickListener {
-            if (deviceName == "PAX") {
+            if (deviceName == PosType.PAX.name) {
                 val cardPAN = cardViewModel.getCardPAN()!!
                 setupViewModel.saveMerchantPAN(cardPAN)
                 store.saveBoolean("SETUP", true)
@@ -80,7 +81,7 @@ class MerchantCardFragment : BaseFragment(TAG) {
 
         isw_button_pin_proceed.setOnClickListener {
 
-            if (deviceName == "TELPO") {
+            if (deviceName == PosType.TELPO.name) {
                 val enteredPin = isw_pin_edit_text.text.toString()
                 val hashedPin = SecurityUtils.getHash(enteredPin)
 

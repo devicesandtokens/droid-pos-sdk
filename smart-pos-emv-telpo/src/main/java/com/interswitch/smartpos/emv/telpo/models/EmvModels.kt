@@ -1,5 +1,6 @@
 package com.interswitch.smartpos.emv.telpo.models
 
+import android.util.Log
 import com.interswitchng.smartpos.shared.models.posconfig.EmvAIDs
 import com.interswitchng.smartpos.shared.models.posconfig.EmvCapk
 import com.interswitchng.smartpos.shared.models.posconfig.EmvCard
@@ -7,10 +8,12 @@ import com.interswitchng.smartpos.shared.models.posconfig.TerminalConfig
 import com.telpo.emv.EmvApp
 import com.telpo.emv.EmvCAPK
 import com.telpo.tps550.api.util.StringUtil
+import java.util.logging.Logger
 
 fun EmvAIDs.getAllCapks(): List<EmvCAPK> {
     return cards.flatMap { card ->
         // use aid to get rid for keys
+        Log.d("me:","addAllCapks")
         val rid = card.aid.substring(0..9)
         return@flatMap card.keys.map { it.toEmvCAPK(rid) }
     }

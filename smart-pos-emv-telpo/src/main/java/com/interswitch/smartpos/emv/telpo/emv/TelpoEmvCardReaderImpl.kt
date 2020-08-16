@@ -1,6 +1,7 @@
 package com.interswitch.smartpos.emv.telpo.emv
 
 import android.content.Context
+import android.os.SystemClock
 import com.interswitch.smartpos.emv.telpo.TelpoPOSDeviceImpl.Companion.INDEX_TPK
 import com.interswitch.smartpos.emv.telpo.TelpoPinCallback
 import com.interswitchng.smartpos.shared.interfaces.device.EmvCardReader
@@ -17,7 +18,9 @@ import com.telpo.pinpad.PinpadService
 import com.telpo.tps550.api.util.StringUtil
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.sendBlocking
 import kotlin.coroutines.coroutineContext
+import kotlin.properties.Delegates
 
 class TelpoEmvCardReaderImpl (private val context: Context) : EmvCardReader, TelpoPinCallback {
 
@@ -66,7 +69,7 @@ class TelpoEmvCardReaderImpl (private val context: Context) : EmvCardReader, Tel
             offlineTriesLeft: Int,
             panBlock: String,
             pinData: EmvPinData?
-    ) {
+    ): Int {
         channel.send(EmvMessage.EnterPin)
 
             val pinParameter = PinParam(context)
@@ -75,75 +78,73 @@ class TelpoEmvCardReaderImpl (private val context: Context) : EmvCardReader, Tel
                 KeyIndex = INDEX_TPK
                 WaitSec = 100
                 MaxPinLen = 6
-                MinPinLen= 4
+                MinPinLen = 4
                 IsShowCardNo = 0
-                Amount = "$amount"
+                Amount = (amount / 100.0).toString()
                 CardNo = panBlock
             }
 
             PinpadService.Open(context)
 
-        if (!isOnline) {
-            cardPinResult = when (PinpadService.TP_PinpadGetPlainPin(pinParameter, 0, 0, 0)) {
-                PinpadService.PIN_ERROR_CANCEL -> EmvService.ERR_USERCANCEL
-                PinpadService.PIN_ERROR_TIMEOUT -> EmvService.ERR_TIMEOUT
-                PinpadService.PIN_OK -> {
-                    pinData?.Pin = pinParameter.Pin_Block
-                    EmvService.EMV_TRUE
-                }
-                else -> EmvService.EMV_FALSE
-            }
-            //clear pinBlock and ksnData for offline pin
-            StoreData.pinBlock = null
-            StoreData.ksnData = null
-        } else {
-
-            if (isKimono) {
-
-                PinpadService.TP_PinpadDukptSessionStart(0)
-
-                cardPinResult = when (PinpadService.TP_PinpadDukptGetPin(pinParameter)) {
+            if (!isOnline) {
+                cardPinResult = when (PinpadService.TP_PinpadGetPlainPin(pinParameter, 0, 0, 0)) {
                     PinpadService.PIN_ERROR_CANCEL -> EmvService.ERR_USERCANCEL
                     PinpadService.PIN_ERROR_TIMEOUT -> EmvService.ERR_TIMEOUT
+                    PinpadService.PIN_ERROR_PINLEN -> EmvService.ERR_NOPIN
                     PinpadService.PIN_OK -> {
-                        StoreData.pinBlock = StringUtil.toHexString(pinParameter.Pin_Block)
-                        StoreData.ksnData = StringUtil.toHexString(pinParameter.Curr_KSN)
-                        if (StoreData.pinBlock!!.contains("00000000")) {
+                        /*val pinString = StringUtil.toHexString(pinParameter.Pin_Block)
+                        if(pinString!!.contains("00000000")){
+                            channel.send(EmvMessage.EmptyPin)
                             EmvService.ERR_NOPIN
-                        } else EmvService.EMV_TRUE
+                        }*/
+                        pinData?.Pin = pinParameter.Pin_Block
+                        EmvService.EMV_TRUE
                     }
                     else -> EmvService.EMV_FALSE
                 }
-
-                PinpadService.TP_PinpadDukptSessionEnd()
-
+                //clear pinBlock and ksnData for offline pin
+                StoreData.pinBlock = null
+                StoreData.ksnData = null
             } else {
-                cardPinResult = when (PinpadService.TP_PinpadGetPin(pinParameter)) {
-                    PinpadService.PIN_ERROR_CANCEL -> EmvService.ERR_USERCANCEL
-                    PinpadService.PIN_ERROR_TIMEOUT -> EmvService.ERR_TIMEOUT
-                    PinpadService.PIN_OK -> {
-                        StoreData.pinBlock = StringUtil.toHexString(pinParameter.Pin_Block)
-                        if (StoreData.pinBlock!!.contains("00000000")) {
-                            EmvService.ERR_NOPIN
-                        } else EmvService.EMV_TRUE
+
+                if (isKimono) {
+
+                    PinpadService.TP_PinpadDukptSessionStart(0)
+
+                    cardPinResult = when (PinpadService.TP_PinpadDukptGetPin(pinParameter)) {
+                        PinpadService.PIN_ERROR_CANCEL -> EmvService.ERR_USERCANCEL
+                        PinpadService.PIN_ERROR_TIMEOUT -> EmvService.ERR_TIMEOUT
+                        PinpadService.PIN_OK -> {
+                            StoreData.pinBlock = StringUtil.toHexString(pinParameter.Pin_Block)
+                            StoreData.ksnData = StringUtil.toHexString(pinParameter.Curr_KSN)
+                            if (StoreData.pinBlock!!.contains("00000000")) {
+                                EmvService.ERR_NOPIN
+                            } else EmvService.EMV_TRUE
+                        }
+                        else -> EmvService.EMV_FALSE
                     }
-                    else -> EmvService.EMV_FALSE
+
+                    PinpadService.TP_PinpadDukptSessionEnd()
+
+                } else {
+                    cardPinResult = when (PinpadService.TP_PinpadGetPin(pinParameter)) {
+                        PinpadService.PIN_ERROR_CANCEL -> EmvService.ERR_USERCANCEL
+                        PinpadService.PIN_ERROR_TIMEOUT -> EmvService.ERR_TIMEOUT
+                        PinpadService.PIN_OK -> {
+                            StoreData.pinBlock = StringUtil.toHexString(pinParameter.Pin_Block)
+                            if (StoreData.pinBlock!!.contains("00000000")) {
+                                EmvService.ERR_NOPIN
+                            } else EmvService.EMV_TRUE
+                        }
+                        else -> EmvService.EMV_FALSE
+                    }
                 }
             }
-        }
-    }
 
-    private fun pinBlockEncryption(panString: String, pinString: String): String {
-        val panString = "0000" + panString.substring(0, panString.count() - 1).substring(panString.count() - 13)
-        val pinString = "0" + pinString.count() + pinString + "FFFFFFFFFF"
-        val pinBlock = StringBuilder()
-        for (i in 0 until panString.count()) {
-            val nPin: Int = if (pinString.get(i) == 'F') 15 else pinString.get(i).toString().toInt()
-            val nPan: Int = panString.get(i).toString().toInt()
-            val xorResult: Int = (nPin xor nPan)
-            pinBlock.append(xorResult.toString(16))
+        if(cardPinResult != EmvService.EMV_TRUE){
+            return cardPinResult
         }
-        return pinBlock.toString().toUpperCase()
+        return cardPinResult
     }
 
     override suspend fun showPinOk() = channel.send(EmvMessage.PinOk)
@@ -206,10 +207,16 @@ class TelpoEmvCardReaderImpl (private val context: Context) : EmvCardReader, Tel
                     channel.send(EmvMessage.CardDetails(telpoEmvImplementation.getCardType()))
                     delay(1000)
                 }
-                logger.log("Offline approved").let { EmvResult.ONLINE_REQUIRED }
+                logger.log("me: Offline approved").let { EmvResult.ONLINE_REQUIRED }
             }
-            else -> logger.log("Offline declined").let { EmvResult.OFFLINE_DENIED }
-        } else logger.log("Transaction was cancelled").let { EmvResult.CANCELLED }
+            else -> logger.log("me: Offline declined").let { EmvResult.OFFLINE_DENIED }
+        } else {
+            runBlocking {
+                callTransactionCancelled(EmvService.ERR_USERCANCEL, "User cancelled PIN input")
+            }
+
+            logger.log("me: Transaction was cancelled").let { EmvResult.CANCELLED }
+        }
     }
 
     override fun completeTransaction(response: TransactionResponse): EmvResult {

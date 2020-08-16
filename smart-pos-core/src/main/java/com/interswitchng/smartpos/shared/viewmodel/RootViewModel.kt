@@ -15,6 +15,8 @@ abstract class RootViewModel (tag: String = ""): ViewModel() {
     protected val logger = Logger.with(tag)
 
     override fun onCleared() {
+        logger.log("me: ViewModel Cleared")
+        logger.log("me: job cancelled")
         super.onCleared()
         job.cancel()
     }
