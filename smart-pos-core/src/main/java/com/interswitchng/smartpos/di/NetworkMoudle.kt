@@ -7,6 +7,7 @@ import com.interswitchng.smartpos.IswPos
 import com.interswitchng.smartpos.R
 import com.interswitchng.smartpos.shared.Constants
 import com.interswitchng.smartpos.shared.interfaces.library.UserStore
+import com.interswitchng.smartpos.shared.interfaces.retrofit.*
 import com.interswitchng.smartpos.shared.interfaces.retrofit.IAuthService
 import com.interswitchng.smartpos.shared.interfaces.retrofit.IEmailService
 import com.interswitchng.smartpos.shared.interfaces.retrofit.IHttpService
@@ -20,12 +21,15 @@ import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.SimpleXmlConverterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
 const val AUTH_INTERCEPTOR = "auth_interceptor"
 const val RETROFIT_EMAIL = "email_retrofit"
 const val RETROFIT_PAYMENT = "payment_retrofit"
 const val RETROFIT_KIMONO = "kimono_retrofit"
+const val KIMONO_KEY_DOWNLOAD = "kimono_key_download"
+
 
 internal val networkModule = module {
 
@@ -147,6 +151,39 @@ internal val networkModule = module {
         return@single builder.build()
     }
 
+    // retrofit email
+    single(KIMONO_KEY_DOWNLOAD) {
+
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        val kimonoServiceUrl = "https://kimono.interswitchng.com/"
+        val builder = Retrofit.Builder()
+                .baseUrl(kimonoServiceUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(ScalarsConverterFactory.create())
+
+
+        // okhttp client for retrofit
+        val clientBuilder: OkHttpClient.Builder = get()
+        //  add auth interceptor for sendGrid
+        clientBuilder.addInterceptor(interceptor)
+                .addInterceptor { chain ->
+                    val request = chain.request().newBuilder()
+                            .addHeader("Content-type", "application/json")
+                            .build()
+
+                    chain.proceed(request)
+                }
+
+        // build and add client to retrofit
+        val client = clientBuilder.build()
+        builder.client(client)
+
+        return@single builder.build()
+    }
+
+
     // create Email service with retrofit
     single {
         val retrofit: Retrofit = get(RETROFIT_EMAIL)
@@ -165,6 +202,11 @@ internal val networkModule = module {
     single {
         val retrofit: Retrofit = get(RETROFIT_KIMONO)
         return@single retrofit.create(IKimonoHttpService::class.java)
+    }
+
+    single {
+        val retrofit: Retrofit = get(KIMONO_KEY_DOWNLOAD)
+        return@single retrofit.create(IKeyService::class.java)
     }
 
 

@@ -7,6 +7,7 @@ import com.interswitchng.smartpos.shared.Constants
 import com.interswitchng.smartpos.shared.interfaces.device.POSDevice
 import com.interswitchng.smartpos.shared.interfaces.library.IsoService
 import com.interswitchng.smartpos.shared.interfaces.library.KeyValueStore
+import com.interswitchng.smartpos.shared.interfaces.retrofit.IKeyService
 import com.interswitchng.smartpos.shared.interfaces.retrofit.IKimonoHttpService
 import com.interswitchng.smartpos.shared.models.core.TerminalInfo
 import com.interswitchng.smartpos.shared.models.transaction.PaymentInfo
@@ -32,7 +33,7 @@ import kotlin.coroutines.suspendCoroutine
 internal class KimonoHttpServiceImpl(private val context: Context,
                                      private val store: KeyValueStore,
                                      private val device: POSDevice,
-
+                                     private val keyService: IKeyService,
                                      private val httpService: IKimonoHttpService) : IsoService{
     val terminalInfo = TerminalInfo.get(store)
     private val kimonoServiceUrl = terminalInfo?.serverUrl ?: Constants.ISW_KIMONO_BASE_URL
@@ -81,35 +82,33 @@ internal class KimonoHttpServiceImpl(private val context: Context,
 
     override fun downloadKey(terminalId: String, ip: String, port: Int, isNibbsTest: Boolean): Boolean {
 
-        // load test keys
-        val tik = Constants.ISW_DUKPT_IPEK
-        val ksn = Constants.ISW_DUKPT_KSN
 
-        // load keys
-        device.loadInitialKey(tik, ksn)
-        return true
+        try {
+            val responseBody = keyService.getKimonoKey(url = Constants.ISW_KIMONO_KEY_URL, cmd = "key", terminalId = terminalId, pkmod = Constants.PKMOD, pkex = Constants.PKEX, pkv = "1", keyset_id = "000002", der_en = "1").execute()
 
 
-//        try {
-//            val responseBody = httpService.getKimonoKey(cmd = "key", terminalId = terminalId, pkmod = Constants.PKMOD, pkex = Constants.PKEX, pkv = "1", keyset_id = "000002", der_en = "1").run()
-//            var responseXml = responseBody.body()?.bytes()?.let { String(it) }
-//
-//            val inputStream = ByteArrayInputStream(responseXml?.toByteArray(Charsets.UTF_8))
-//            var keyResponse = XmlPullParserHandler().parse(inputStream)
-//
-//            if (!responseBody.isSuccessful || keyResponse == null) {
-//                Logger.with("KeyResponseCode").log(responseBody.errorBody().toString())
-//                return false
-//            } else {
-//                //store.saveString(Constants.KIMONO_KEY, responseBody.body().toString())
-//                Logger.with("KeyResponseMessage").log(responseBody.body().toString())
-//                return true
-//            }
-//        } catch (e: Exception) {
-//            logger.log(e.localizedMessage)
-//            e.printStackTrace()
-//        }
-//        return false
+            return if (!responseBody.isSuccessful) {
+                Logger.with("KeyResponseCode").log(responseBody.errorBody().toString())
+                false
+            } else {
+                //store.saveString(Constants.KIMONO_KEY, responseBody.body().toString())
+
+                // load test keys
+                val tik = Constants.ISW_DUKPT_IPEK
+                val ksn = Constants.ISW_DUKPT_KSN
+
+                // load keys
+                device.loadInitialKey(tik, ksn)
+
+                Logger.with("KeyResponseMessage").log(responseBody.body()?.string()
+                        ?: "no response")
+                true
+            }
+        } catch (e: Exception) {
+            logger.log(e.localizedMessage)
+            e.printStackTrace()
+        }
+        return false
 
 
     }
