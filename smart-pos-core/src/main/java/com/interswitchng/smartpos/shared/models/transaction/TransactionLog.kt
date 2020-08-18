@@ -4,6 +4,7 @@ import android.os.Parcelable
 import com.interswitchng.smartpos.shared.models.printer.info.TransactionType
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.CardType
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.AccountType
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.IccData
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import kotlinx.android.parcel.Parcelize
@@ -35,6 +36,8 @@ open class TransactionLog(
         var telephone: String = "",
         var csn: String = "",
         var icc: String = "",
+        var iccData: IccData? = null ,
+        var pinKsn: String = "",
         var src: String = "",
         var cardPin: String = "",
         var time: Long = Date().time,
@@ -92,6 +95,8 @@ open class TransactionLog(
                 code,
                 telephone,
                 icc,
+                iccData ?: IccData(),
+                pinKsn,
                 src,
                 csn,
                 cardPin,
@@ -134,6 +139,8 @@ open class TransactionLog(
                 telephone = result.telephone,
                 csn = result.csn,
                 icc = result.icc,
+                iccData = result.iccData,
+                pinKsn = result.pinKsn,
                 src = result.src,
                 cardPin = result.cardPin,
                 cardTrack2 = result.cardTrack2,

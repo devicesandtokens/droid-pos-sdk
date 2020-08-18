@@ -184,6 +184,10 @@ class ProcessingRequestFragment : BaseFragment(TAG) {
                     response.responseCode == IsoUtils.OK -> "PIN Verified"
                     else -> "PIN Unverified"
                 }
+                val pinksn = when(transactionType){
+                    TransactionType.Purchase -> emvData.pinKsn
+                    else -> ""
+                }
 
                 val now = Date()
                 transactionResult = TransactionResult(
@@ -204,6 +208,8 @@ class ProcessingRequestFragment : BaseFragment(TAG) {
                         code = "",
                         telephone = iswPos.config.merchantTelephone,
                         icc = txnInfo.iccString,
+                        iccData = emvData.icc,
+                        pinKsn = pinksn,
                         src = txnInfo.src,
                         csn = txnInfo.csn,
                         cardPin = txnInfo.cardPIN,

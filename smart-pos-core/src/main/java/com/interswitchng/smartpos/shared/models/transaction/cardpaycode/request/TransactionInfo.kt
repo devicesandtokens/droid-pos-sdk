@@ -69,8 +69,8 @@ internal data class TransactionInfo(
                 stan = txnResult.stan,
                 purchaseType = PurchaseType.Card,
                 accountType = txnResult.accountType,
-                iccData = IccData(),
-                pinKsn = "",
+                iccData = txnResult.iccData,
+                pinKsn = txnResult.pinKsn,
 
                 originalTransactionInfoData = OriginalTransactionInfoData(
                         originalStan = txnResult.stan.padStart(6,'0'),

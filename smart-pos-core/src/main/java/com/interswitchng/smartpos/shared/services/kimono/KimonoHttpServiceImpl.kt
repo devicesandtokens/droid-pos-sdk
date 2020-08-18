@@ -17,6 +17,7 @@ import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.TransactionInfo
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.TransactionResponse
 import com.interswitchng.smartpos.shared.services.iso8583.utils.DateUtils
+import com.interswitchng.smartpos.shared.services.iso8583.utils.DateUtils.universalDateFormat
 import com.interswitchng.smartpos.shared.services.iso8583.utils.IsoUtils
 import com.interswitchng.smartpos.shared.services.iso8583.utils.XmlPullParserHandler
 import com.interswitchng.smartpos.shared.services.iso8583.utils.XmlPullParserHandlerBP
@@ -131,6 +132,8 @@ internal class KimonoHttpServiceImpl(private val context: Context,
 
 
     override  fun initiateCardPurchase(terminalInfo: TerminalInfo, transaction: TransactionInfo): TransactionResponse? {
+        val now = Date()
+        val transmissionDate = universalDateFormat.format(now)
       val requestBody: String = PurchaseRequest.toCardPurchaseString(device,terminalInfo,transaction)
         val body = RequestBody.create(MediaType.parse("text/xml"), requestBody)
 
@@ -157,6 +160,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
                         authCode =  purchaseResponse.authCode,// data.authCode,
                         scripts =  purchaseResponse.stan,
                         responseDescription = purchaseResponse.description,//data.description
+                        transmissionDateTime = transmissionDate,
                         rrn = purchaseResponse.referenceNumber
                 )
             }

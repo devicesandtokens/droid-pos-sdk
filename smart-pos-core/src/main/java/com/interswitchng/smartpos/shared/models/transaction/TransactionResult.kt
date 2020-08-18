@@ -12,6 +12,7 @@ import com.interswitchng.smartpos.shared.models.printer.slips.TransactionSlip
 import com.interswitchng.smartpos.shared.models.printer.slips.UssdQrSlip
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.CardType
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.AccountType
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.IccData
 
 
 /**
@@ -37,6 +38,8 @@ data class TransactionResult(
         val code: String,
         val telephone: String,
         val icc: String,
+        val iccData: IccData = IccData(),
+        val pinKsn: String = EMPTY_STRING,
         val src: String,
         val csn: String,
         val cardPin: String,
@@ -67,6 +70,8 @@ data class TransactionResult(
             parcel.readString()!!,
             parcel.readString()!!,
             parcel.readString()!!,
+            parcel.readString()!!,
+            parcel.readParcelable(IccData().javaClass.classLoader)!!,
             parcel.readString()!!,
             parcel.readString()!!,
             parcel.readString()!!,
@@ -138,6 +143,8 @@ data class TransactionResult(
         parcel.writeString(code)
         parcel.writeString(telephone)
         parcel.writeString(icc)
+        parcel.writeParcelable(iccData,flags)
+        parcel.writeString(pinKsn)
         parcel.writeString(src)
         parcel.writeString(csn)
         parcel.writeString(cardPin)
