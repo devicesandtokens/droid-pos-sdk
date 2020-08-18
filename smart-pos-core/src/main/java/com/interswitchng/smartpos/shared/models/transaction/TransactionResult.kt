@@ -50,7 +50,10 @@ data class TransactionResult(
         var name: String = EMPTY_STRING,
         var ref: String = EMPTY_STRING,
         var rrn: String = EMPTY_STRING,
-        var reversed: Int = 0) : Parcelable {
+        var reversed: Int = 0,
+        var hasPrintedCustomerCopy: Int = 0,
+        var hasPrintedMerchantCopy: Int = 0
+) : Parcelable {
 
 
     constructor(parcel: Parcel) : this(
@@ -83,7 +86,10 @@ data class TransactionResult(
             parcel.readString()!!,
             parcel.readString()!!,
             parcel.readString()!!,
-            parcel.readInt())
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt()
+    )
 
 
     fun getSlip(terminal: TerminalInfo): TransactionSlip {
@@ -156,6 +162,8 @@ data class TransactionResult(
         parcel.writeString(ref)
         parcel.writeString(rrn)
         parcel.writeInt(reversed)
+        parcel.writeInt(hasPrintedCustomerCopy)
+        parcel.writeInt(hasPrintedMerchantCopy)
     }
 
     override fun describeContents(): Int {

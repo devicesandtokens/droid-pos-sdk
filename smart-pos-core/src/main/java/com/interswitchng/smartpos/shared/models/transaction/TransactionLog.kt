@@ -46,7 +46,10 @@ open class TransactionLog(
         var name: String = "",
         var ref: String = "",
         var rrn: String = "",
-        var reversed: Int = 0) : RealmObject(), Parcelable {
+        var reversed: Int = 0,
+        var hasPrintedCustomerCopy: Int = 0,
+        var hasPrintedMerchantCopy: Int = 0
+) : RealmObject(), Parcelable {
 
 
 
@@ -107,7 +110,9 @@ open class TransactionLog(
                 name,
                 ref,
                 rrn,
-                reversed
+                reversed,
+                hasPrintedCustomerCopy,
+                hasPrintedMerchantCopy
         )
     }
 
@@ -148,7 +153,9 @@ open class TransactionLog(
                 name = result.name,
                 ref = result.ref,
                 rrn = result.rrn,
-                reversed = result.reversed
+                reversed = result.reversed,
+                hasPrintedCustomerCopy = result.hasPrintedCustomerCopy,
+                hasPrintedMerchantCopy = result.hasPrintedMerchantCopy
         )
 
 
