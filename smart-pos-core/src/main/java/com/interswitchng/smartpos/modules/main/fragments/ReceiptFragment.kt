@@ -21,9 +21,9 @@ import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.CardType
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.TransactionInfo
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.TransactionResponse
 import com.interswitchng.smartpos.shared.services.iso8583.utils.IsoUtils
+import com.interswitchng.smartpos.shared.utilities.*
 import com.interswitchng.smartpos.shared.utilities.DialogUtils
 import com.interswitchng.smartpos.shared.utilities.DisplayUtils
-import com.interswitchng.smartpos.shared.utilities.Logger
 import com.interswitchng.smartpos.shared.viewmodel.TransactionResultViewModel
 import kotlinx.android.synthetic.main.isw_fragment_receipt.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -150,7 +150,7 @@ class ReceiptFragment : BaseFragment(TAG) {
         isw_share_receipt.setOnClickListener {
             val shareIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_STREAM, "")
+                putExtra(Intent.EXTRA_STREAM, getImageUri(requireContext(), getBitmapFromView(isw_receipt_layout)!!))
                 type = "image/*"
             }
             startActivity(Intent.createChooser(shareIntent, "Select Application"))
