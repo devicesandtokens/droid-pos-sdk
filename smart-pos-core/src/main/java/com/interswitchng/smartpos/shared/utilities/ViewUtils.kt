@@ -50,7 +50,7 @@ fun View.isNotVisible(): Boolean = this.visibility != View.VISIBLE
 
 fun getBitmapFromView(view: View): Bitmap? {
     //Define a bitmap with the same size as the view
-    val returnedBitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+    val returnedBitmap = Bitmap.createBitmap(view.width, (view.height / 2 ) + 50, Bitmap.Config.ARGB_8888)
     //Bind a canvas to it
     val canvas = Canvas(returnedBitmap)
     //Get the view's background
