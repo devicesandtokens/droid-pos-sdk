@@ -18,10 +18,10 @@ import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response
 import com.interswitchng.smartpos.shared.services.iso8583.utils.IsoUtils
 import com.interswitchng.smartpos.shared.utilities.toast
 import com.interswitchng.smartpos.shared.viewmodel.RootViewModel
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 
 internal class CardViewModel(private val posDevice: POSDevice, private val isoService: IsoService) :
         RootViewModel() {
@@ -112,7 +112,6 @@ internal class CardViewModel(private val posDevice: POSDevice, private val isoSe
             }
         }
     }
-
 
 
     fun processOnline(
@@ -229,30 +228,49 @@ internal class CardViewModel(private val posDevice: POSDevice, private val isoSe
     fun processOnlineCNP(
             paymentModel: PaymentModel,
             accountType: AccountType,
-            terminalInfo: TerminalInfo,
-            expiryDate: String,
-            cardPan: String
+            terminalInfo: TerminalInfo
     ) {
 
         //var responseProcessed: Optional<Pair<TransactionResponse, EmvData>> = None
 
         uiScope.launch {
 
-            val emvData = emv.getTransactionInfo() //For CardNotPresent,there is no emvData
-            if (emvData != null) {//so remove this condition
+            val cardExpiryDate = paymentModel.card!!.expiryDate
+            val cardPan = paymentModel.card!!.cardPan
+            val cardCvv = paymentModel.card!!.cvv
+            val cardTrack2 = "${cardPan}D$cardExpiryDate"
+
+            val emvData = EmvData(
+                    cardExpiryDate!!,
+                    "",
+                    cardPan!!,
+                    cardTrack2,
+                    "",
+                    "",
+                    "",
+                    IccData(),
+                    ""
+            )
+
+           // val emvData = emv.getTransactionInfo() //For CardNotPresent,there is no emvData
                 val response = withContext(ioScope) {
 
-                    emvData.cardExpiry = expiryDate
-                    emvData.cardPAN = cardPan
-
-                    // return response based on data
-
-                    // create transaction info and issue online purchase request
-                    val txnInfo = TransactionInfo.fromEmv(
-                            emvData,
-                            paymentModel,
+                    val txnInfo = TransactionInfo(
+                            cardExpiryDate,
+                            "",
+                            cardPan,
+                            cardTrack2,
+                            "",
+                            IccData(),
+                            "",
+                            "",
+                            paymentModel.amount,
+                            paymentModel.getTransactionStan(),
                             PurchaseType.Card,
-                            accountType
+                            AccountType.Default,
+                            OriginalTransactionInfoData(time = -1),
+                            "",
+                            cardCvv!!
                     )
 
                     initiateCNPTransaction(paymentModel.type!!, terminalInfo, txnInfo)
@@ -286,10 +304,6 @@ internal class CardViewModel(private val posDevice: POSDevice, private val isoSe
                         _transactionResponse.value = Some(Pair(response, emvData))
                     }
                 }
-            } else {
-                _onlineResult.postValue(OnlineProcessResult.NO_EMV)
-                //return None
-            }
         }
 
     }
@@ -330,19 +344,7 @@ internal class CardViewModel(private val posDevice: POSDevice, private val isoSe
             terminalInfo: TerminalInfo,
             txnInfo: TransactionInfo
     ): TransactionResponse? {
-        return when (transactionType) {
-            TransactionType.CARD_PURCHASE -> isoService.initiateCNPPurchase(terminalInfo, txnInfo)
-            TransactionType.PRE_AUTHORIZATION -> isoService.initiatePreAuthorization(
-                    terminalInfo,
-                    txnInfo
-            )
-            TransactionType.REFUND -> isoService.initiateRefund(terminalInfo, txnInfo)
-            TransactionType.COMPLETION -> {
-                txnInfo.originalTransactionInfoData = originalTxnData
-                isoService.initiateCompletion(terminalInfo, txnInfo)
-            }
-            else -> null
-        }
+        return isoService.initiateCNPPurchase(terminalInfo, txnInfo)
     }
 
     override fun onCleared() {

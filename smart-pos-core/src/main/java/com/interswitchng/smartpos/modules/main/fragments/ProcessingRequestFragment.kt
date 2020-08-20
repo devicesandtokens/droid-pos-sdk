@@ -83,9 +83,7 @@ class ProcessingRequestFragment : BaseFragment(TAG) {
                 cardViewModel.processOnlineCNP(
                         paymentModel,
                         accountType,
-                        terminalInfo,
-                        paymentModel.card!!.expiryDate!!,
-                        paymentModel.card!!.cardPan!!
+                        terminalInfo
                 )
             } else if (paymentModel.type == PaymentModel.TransactionType.CASH_OUT) {
                 cardViewModel.processOnlineBP(

@@ -69,6 +69,7 @@ class CardDetailsFragment : BaseFragment(TAG) {
                 amount = amountInput
                 card = cardModel
                 paymentType = PaymentModel.PaymentType.CARD_NOT_PRESENT
+                type = PaymentModel.TransactionType.CARD_NOT_PRESENT
             }
 
             runWithInternet {

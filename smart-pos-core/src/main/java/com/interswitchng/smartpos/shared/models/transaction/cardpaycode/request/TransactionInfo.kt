@@ -25,7 +25,8 @@ internal data class TransactionInfo(
         val purchaseType: PurchaseType,
         val accountType: AccountType,
         var originalTransactionInfoData: OriginalTransactionInfoData? = null,
-        val pinKsn: String
+        val pinKsn: String,
+        val cvv: String = ""
 ) {
 
 
