@@ -9,13 +9,17 @@ import com.interswitchng.smartpos.R
 import com.interswitchng.smartpos.modules.main.dialogs.FingerprintBottomDialog
 import com.interswitchng.smartpos.modules.main.dialogs.MerchantCardDialog
 import com.interswitchng.smartpos.shared.activities.BaseFragment
+import com.interswitchng.smartpos.shared.interfaces.library.KeyValueStore
 import com.interswitchng.smartpos.shared.utilities.DialogUtils
 import kotlinx.android.synthetic.main.isw_settings_home.*
+import org.koin.android.ext.android.inject
 
 class SettingsHomeFragment : BaseFragment(TAG) {
 
     override val layoutId: Int
         get() = R.layout.isw_settings_home
+
+    private val store: KeyValueStore by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,6 +61,7 @@ class SettingsHomeFragment : BaseFragment(TAG) {
     private fun authorizeAndPerformAction(action: () -> Unit) {
         val fingerprintDialog = FingerprintBottomDialog (isAuthorization = true) { isValidated ->
             if (isValidated) {
+                store.saveBoolean("SETUP", false)
                 action.invoke()
             } else {
                 toast("Unauthorized Access!!")
@@ -75,7 +80,10 @@ class SettingsHomeFragment : BaseFragment(TAG) {
         }
          dialog = MerchantCardDialog {
             when (it) {
-                MerchantCardDialog.AUTHORIZED -> action.invoke()
+                MerchantCardDialog.AUTHORIZED -> {
+                    store.saveBoolean("SETUP", false)
+                    action.invoke()
+                }
                 MerchantCardDialog.FAILED -> toast("Unauthorized Access!!")
 //                MerchantCardDialog.NOT_ENROLLED -> { alert.setTitle("Supervisor's card not enrolled")
 //                    alert.setMessage("You have not yet enrolled a supervisor's card. Please enroll a supervisor's card on the settings page after downloading terminal configuration.")

@@ -13,10 +13,10 @@ class SetupActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (setupViewModel.isSetup()) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
+        /*  if (setupViewModel.isSetup()) {
+              val intent = Intent(this, MainActivity::class.java)
+              startActivity(intent)
+          }*/
         setContentView(R.layout.isw_fragment_setup)
     }
 }

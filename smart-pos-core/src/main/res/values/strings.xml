@@ -164,6 +164,10 @@
     <string name="isw_enter_card_details">Enter Card Details</string>
     <string name="isw_card_not_present_completed">Card Not Present Completed</string>
     <string name="isw_completion_completed">Completion Completed</string>
+    <string name="isw_refund_completed">Refund Completed</string>
+    <string name="isw_reversal_completed">Reversal Completed</string>
+    <string name="isw_cash_out_completed">Cash Out Completed</string>
+    <string name="isw_purchase_completed">Purchase Completed</string>
     <string name="isw_transaction_type">Transaction Type: %s</string>
 
     <string-array name="isw_account_types">
