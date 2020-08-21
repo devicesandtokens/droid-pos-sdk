@@ -45,20 +45,38 @@ class AuthenticationFragment : BaseFragment(TAG) {
             val stan = isw_stan_value.text.toString()
             val authId = isw_auth_id_value.text.toString()
 
-            if (originalDateTime.isEmpty() || stan.isEmpty() || authId.isEmpty()) {
-                Toast.makeText(context, "Fields cannot be empty", Toast.LENGTH_LONG).show()
-            } else {
-                payment.newPayment {
-                    this.originalDateAndTime = originalDateTime
-                    this.originalStan = stan
-                    this.authorizationId = authId
+            if (terminalInfo.isKimono) {
+                if (stan.isEmpty() || authId.isEmpty()) {
+                    Toast.makeText(context, "Fields cannot be empty", Toast.LENGTH_LONG).show()
+                } else {
+                    payment.newPayment {
+                        this.originalDateAndTime = originalDateTime
+                        this.originalStan = stan
+                        this.authorizationId = authId
+                    }
+
+                    Toast.makeText(context, payment.type.toString(), Toast.LENGTH_LONG ).show()
+
+                    val direction = AuthenticationFragmentDirections.iswActionGotoAmountFromAuthorization(payment)
+                    navigate(direction)
                 }
+            } else{
+                if (originalDateTime.isEmpty() || stan.isEmpty()) {
+                    Toast.makeText(context, "Fields cannot be empty", Toast.LENGTH_LONG).show()
+                } else {
+                    payment.newPayment {
+                        this.originalDateAndTime = originalDateTime
+                        this.originalStan = stan
+                        this.authorizationId = authId
+                    }
 
-                Toast.makeText(context, payment.type.toString(), Toast.LENGTH_LONG ).show()
+                    Toast.makeText(context, payment.type.toString(), Toast.LENGTH_LONG ).show()
 
-                val direction = AuthenticationFragmentDirections.iswActionGotoAmountFromAuthorization(payment)
-                navigate(direction)
+                    val direction = AuthenticationFragmentDirections.iswActionGotoAmountFromAuthorization(payment)
+                    navigate(direction)
+                }
             }
+
         }
     }
 

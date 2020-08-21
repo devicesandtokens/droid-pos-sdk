@@ -121,16 +121,10 @@ class ReceiptFragment : BaseFragment(TAG) {
         }
         isw_rrn.text = result?.rrn
         isw_ref.text = result?.ref
+        isw_auth_id.text = result?.authorizationCode
+        isw_date_time_text.text = result?.originalTransmissionDateTime
 
-        if(isw_rrn.text.isEmpty() or isw_ref.text.isEmpty() or isw_aid.text.isEmpty()){
-            isw_rrn.visibility = View.GONE
-            isw_rrn_label.visibility = View.GONE
-            isw_aid.visibility = View.GONE
-            isw_aid_label.visibility = View.GONE
-            isw_ref_label.visibility = View.GONE
-            isw_ref.visibility = View.GONE
-
-        }
+        hideEmptyViews()
 
         val cardTypeName = when (result?.cardType) {
             CardType.MASTER -> "Master Card"
@@ -148,6 +142,31 @@ class ReceiptFragment : BaseFragment(TAG) {
             isw_payment_type.visibility = View.GONE
             isw_payment_type_label.visibility = View.GONE
         }
+    }
+
+    private fun hideEmptyViews() {
+        if (isw_rrn.text.isEmpty()) {
+            isw_rrn.visibility = View.GONE
+            isw_rrn_label.visibility = View.GONE
+        }
+        if(isw_ref.text.isEmpty()){
+            isw_ref_label.visibility = View.GONE
+            isw_ref.visibility = View.GONE
+        }
+        if(isw_aid.text.isEmpty()){
+            isw_aid.visibility = View.GONE
+            isw_aid_label.visibility = View.GONE
+        }
+        if(isw_auth_id.text.isEmpty()){
+            isw_auth_id.visibility = View.GONE
+            isw_auth_id_label.visibility = View.GONE
+        }
+        if(isw_date_time_text.text.isEmpty()){
+            isw_date_time_text.visibility = View.GONE
+            isw_date_time_label.visibility = View.GONE
+        }
+
+
     }
 
     private fun logTransaction() {

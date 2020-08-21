@@ -88,21 +88,6 @@
             app:layout_constraintTop_toBottomOf="@+id/isw_receipt_text"
             tools:text="Your transaction was successful." />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/isw_materialcardview"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="0dp"
-            app:cardBackgroundColor="@android:color/transparent"
-            app:cardElevation="0dp"
-            app:layout_constraintEnd_toEndOf="@id/isw_guideline3"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@id/isw_guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/isw_transaction_msg"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:strokeColor="@android:color/darker_gray"
-            app:strokeWidth="1dp" />
 
         <TextView
             android:id="@+id/isw_terminal_id_label"
@@ -115,7 +100,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/isw_guideline3"
             app:layout_constraintStart_toStartOf="@+id/isw_guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/isw_materialcardview" />
+            app:layout_constraintTop_toBottomOf="@+id/isw_transaction_msg" />
 
         <TextView
             android:id="@+id/isw_terminal_id"
@@ -159,6 +144,33 @@
             tools:text="Date: 2019-11-22 / 10:00AM" />
 
         <TextView
+            android:id="@+id/isw_date_time_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="4dp"
+            android:text="Date Time"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/isw_guideline3"
+            app:layout_constraintStart_toStartOf="@+id/isw_guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/isw_date_text" />
+
+        <TextView
+            android:id="@+id/isw_date_time_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/isw_guideline3"
+            app:layout_constraintStart_toStartOf="@+id/isw_guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/isw_date_time_label"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Date: 2019-11-22 / 10:00AM" />
+
+        <TextView
             android:id="@+id/isw_amount_paid_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -169,7 +181,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/isw_guideline3"
             app:layout_constraintStart_toStartOf="@+id/isw_guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/isw_date_text" />
+            app:layout_constraintTop_toBottomOf="@+id/isw_date_time_text" />
 
         <TextView
             android:id="@+id/isw_amount_paid"
@@ -294,21 +306,21 @@
             tools:text="0849399" />
 
         <TextView
-            android:id="@+id/isw_rrn_label"
+            android:id="@+id/isw_auth_id_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
-            android:text="RRN"
+            android:text="Auth Code"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/isw_guideline3"
             app:layout_constraintStart_toStartOf="@+id/isw_guideline2"
             app:layout_constraintTop_toBottomOf="@+id/isw_stan" />
 
         <TextView
-            android:id="@+id/isw_rrn"
+            android:id="@+id/isw_auth_id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -318,7 +330,7 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/isw_guideline3"
             app:layout_constraintStart_toStartOf="@+id/isw_guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/isw_rrn_label"
+            app:layout_constraintTop_toBottomOf="@+id/isw_auth_id_label"
             tools:text="0849399" />
 
         <TextView
@@ -332,7 +344,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/isw_guideline3"
             app:layout_constraintStart_toStartOf="@+id/isw_guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/isw_rrn" />
+            app:layout_constraintTop_toBottomOf="@+id/isw_auth_id" />
 
         <TextView
             android:id="@+id/isw_aid"
@@ -349,6 +361,33 @@
             tools:text="0849399" />
 
         <TextView
+            android:id="@+id/isw_rrn_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="4dp"
+            android:text="RRN"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/isw_guideline3"
+            app:layout_constraintStart_toStartOf="@+id/isw_guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/isw_aid" />
+
+        <TextView
+            android:id="@+id/isw_rrn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/isw_guideline3"
+            app:layout_constraintStart_toStartOf="@+id/isw_guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/isw_rrn_label"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Date: 2019-11-22 / 10:00AM" />
+
+        <TextView
             android:id="@+id/isw_ref_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -360,7 +399,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/isw_guideline3"
             app:layout_constraintStart_toStartOf="@+id/isw_guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/isw_aid" />
+            app:layout_constraintTop_toBottomOf="@+id/isw_rrn" />
 
         <TextView
             android:id="@+id/isw_ref"
