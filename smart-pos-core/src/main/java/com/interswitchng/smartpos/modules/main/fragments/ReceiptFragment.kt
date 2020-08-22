@@ -110,7 +110,10 @@ class ReceiptFragment : BaseFragment(TAG) {
         isw_stan.text = result?.stan?.padStart(6, '0')
         isw_aid.text = result?.AID
         isw_terminal_id.text = terminalInfo.terminalId
-        isw_expiry_date.text = result?.cardExpiry
+        val expiryYear = result?.cardExpiry?.take(2)
+        val expiryMonth = result?.cardExpiry?.takeLast(2)
+        val expiryDate = "${expiryMonth}/${expiryYear}"
+        isw_expiry_date.text = expiryDate
         isw_card_pan.text = result!!.cardPan.run {
             val length = result!!.cardPan.length
             if (length < 10) return@run ""

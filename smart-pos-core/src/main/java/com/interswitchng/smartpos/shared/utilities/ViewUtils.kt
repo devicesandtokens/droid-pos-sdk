@@ -1,16 +1,17 @@
 package com.interswitchng.smartpos.shared.utilities
 
-import android.content.ActivityNotFoundException
+import android.R
+import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.net.Uri
 import android.provider.MediaStore
 import android.view.View
+import android.widget.HorizontalScrollView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
+import androidx.core.widget.NestedScrollView
 import java.io.ByteArrayOutputStream
 
 
@@ -49,8 +50,12 @@ fun View.isNotVisible(): Boolean = this.visibility != View.VISIBLE
 
 
 fun getBitmapFromView(view: View): Bitmap? {
+
+    val z = view as NestedScrollView
+    val totalHeight = z.getChildAt(0).height
+    val totalWidth = z.getChildAt(0).width
     //Define a bitmap with the same size as the view
-    val returnedBitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+    val returnedBitmap = Bitmap.createBitmap(totalWidth, totalHeight, Bitmap.Config.ARGB_8888)
     //Bind a canvas to it
     val canvas = Canvas(returnedBitmap)
     //Get the view's background

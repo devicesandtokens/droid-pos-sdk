@@ -57,7 +57,10 @@ internal class CardSlip(terminal: TerminalInfo, status: TransactionStatus, priva
             val panConfig = PrintStringConfiguration(isBold = true)
             val cardType = pairString("card type", info.cardType + "card")
             val cardPan = pairString("card pan", pan, stringConfig = panConfig)
-            val cardExpiry = pairString("expiry date", info.cardExpiry)
+            val expiryYear = info.cardExpiry.take(2)
+            val expiryMonth = info.cardExpiry.takeLast(2)
+            val expiryDate = "${expiryMonth}/${expiryYear}"
+            val cardExpiry = pairString("expiry date", expiryDate)
             val pinStatus = pairString("", info.pinStatus)
 
             list.addAll(listOf(cardType, cardPan, cardExpiry, stan, authCode, pinStatus, line))
