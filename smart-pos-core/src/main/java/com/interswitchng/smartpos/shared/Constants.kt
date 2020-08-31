@@ -100,10 +100,16 @@ object Constants {
 
         }
 
+    val ISW_EPMS: String
+        get() {
+            return KeysUtils.productionEPMS()
+        }
     val ISW_CMS_TEST: String
         get() {
             return KeysUtils.testCMS()
         }
+
+
 
 
     val ISW_KIMONO_BASE_URL: String

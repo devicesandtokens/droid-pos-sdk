@@ -110,9 +110,12 @@ class ReceiptFragment : BaseFragment(TAG) {
         isw_stan.text = result?.stan?.padStart(6, '0')
         isw_aid.text = result?.AID
         isw_terminal_id.text = terminalInfo.terminalId
-        val expiryYear = result?.cardExpiry?.take(2)
-        val expiryMonth = result?.cardExpiry?.takeLast(2)
-        val expiryDate = "${expiryMonth}/${expiryYear}"
+        val expiryYear = result?.cardExpiry?.take(2).toString()
+        val expiryMonth = result?.cardExpiry?.takeLast(2).toString()
+        var expiryDate = "${expiryMonth}/${expiryYear}"
+        if(type == PaymentModel.TransactionType.CARD_NOT_PRESENT){
+           expiryDate = "${expiryYear}/${expiryMonth}"
+        }
         isw_expiry_date.text = expiryDate
         isw_card_pan.text = result!!.cardPan.run {
             val length = result!!.cardPan.length
@@ -126,6 +129,11 @@ class ReceiptFragment : BaseFragment(TAG) {
         isw_ref.text = result?.ref
         isw_auth_id.text = result?.authorizationCode
         isw_date_time_text.text = result?.originalTransmissionDateTime
+        var paymentType = result?.paymentType.toString()
+        if(type == PaymentModel.TransactionType.CARD_NOT_PRESENT){
+            paymentType = "CardNotPresent"
+        }
+        isw_payment_type_text.text = paymentType
 
         hideEmptyViews()
 
@@ -139,11 +147,11 @@ class ReceiptFragment : BaseFragment(TAG) {
             else -> "Unknown Card"
         }
 
-        isw_payment_type.text = getString(R.string.isw_receipt_payment_type, cardTypeName)
+        isw_card_type.text = getString(R.string.isw_receipt_payment_type, cardTypeName)
 
-        if(type == PaymentModel.TransactionType.CARD_NOT_PRESENT){
-            isw_payment_type.visibility = View.GONE
-            isw_payment_type_label.visibility = View.GONE
+        if(result?.paymentType != PaymentType.Card || type == PaymentModel.TransactionType.CARD_NOT_PRESENT){
+            isw_card_type.visibility = View.GONE
+            isw_card_type_label.visibility = View.GONE
         }
     }
 
@@ -151,6 +159,14 @@ class ReceiptFragment : BaseFragment(TAG) {
         if (isw_rrn.text.isEmpty()) {
             isw_rrn.visibility = View.GONE
             isw_rrn_label.visibility = View.GONE
+        }
+        if(isw_card_pan.text.isEmpty()){
+            isw_card_pan.visibility = View.GONE
+            isw_card_pan_label.visibility = View.GONE
+        }
+        if(isw_expiry_date.text == "/"){
+            isw_expiry_date.visibility = View.GONE
+            isw_expiry_date_label.visibility = View.GONE
         }
         if(isw_ref.text.isEmpty()){
             isw_ref_label.visibility = View.GONE
@@ -168,8 +184,6 @@ class ReceiptFragment : BaseFragment(TAG) {
             isw_date_time_text.visibility = View.GONE
             isw_date_time_label.visibility = View.GONE
         }
-
-
     }
 
     private fun logTransaction() {
@@ -373,6 +387,11 @@ class ReceiptFragment : BaseFragment(TAG) {
             // print slip
             printSlip?.let {
                 if (result?.hasPrintedCustomerCopy == 0) {
+                    if(isFromActivityDetail){
+                        resultViewModel.printSlip(UserType.Customer, it, reprint = true)
+                        result?.hasPrintedCustomerCopy = 1
+                        resultViewModel.updateTransaction(result!!)
+                    }
                     resultViewModel.printSlip(UserType.Customer, it)
                     result?.hasPrintedCustomerCopy = 1
                     resultViewModel.updateTransaction(result!!)

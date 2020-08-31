@@ -116,9 +116,46 @@
 
             </LinearLayout>
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/isw_content_margin"
+                android:layout_marginTop="@dimen/isw_content_margin"
+                android:layout_marginEnd="@dimen/isw_content_margin"
+                android:id="@+id/iswEpmsContainer"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+
+                <TextView
+                    android:id="@+id/tvIsEPMS"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/isw_content_small_margin"
+                    android:layout_weight="3"
+                    android:gravity="bottom"
+                    android:text="Configure EPMS"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <Switch
+                    android:id="@+id/switchToEPMS"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="@dimen/isw_content_small_margin"
+                    android:textSize="16sp"
+                    android:theme="@style/ISW.Switch"
+                    tools:checked="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/iswNibssTestContainer"
                 android:layout_marginStart="@dimen/isw_content_margin"
                 android:layout_marginTop="@dimen/isw_content_margin"
                 android:layout_marginEnd="@dimen/isw_content_margin"
@@ -478,6 +515,92 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/merchantCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/isw_content_margin"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/isw_content_margin"
+                    android:layout_marginEnd="@dimen/isw_content_margin"
+                    android:text="@string/isw_title_merchant_code"
+                    android:textColor="@color/iswTextColorDark"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tiMerchantCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/isw_content_margin"
+                    android:layout_marginEnd="@dimen/isw_content_margin"
+                    android:textColor="@color/iswTextColorDark"
+                    app:hintEnabled="false">
+
+                    <EditText
+                        android:id="@+id/etMerchantCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/isw_title_merchant_code"
+                        android:maxLength="10"
+                        android:textSize="18sp"
+                        tools:text="" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/merchantAlias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/isw_content_margin"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/isw_content_margin"
+                    android:layout_marginEnd="@dimen/isw_content_margin"
+                    android:text="@string/isw_title_merchant_alias"
+                    android:textColor="@color/iswTextColorDark"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tiMerchantAlias"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/isw_content_margin"
+                    android:layout_marginEnd="@dimen/isw_content_margin"
+                    android:textColor="@color/iswTextColorDark"
+                    app:hintEnabled="false">
+
+                    <EditText
+                        android:id="@+id/etMerchantAlias"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/isw_title_merchant_alias"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:textSize="18sp"
+                        tools:text="" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+
 
 
             <LinearLayout

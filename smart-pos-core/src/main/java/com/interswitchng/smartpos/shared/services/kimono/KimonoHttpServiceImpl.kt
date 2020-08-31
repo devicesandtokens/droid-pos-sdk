@@ -81,7 +81,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
 //    }
 
 
-    override fun downloadKey(terminalId: String, ip: String, port: Int, isNibbsTest: Boolean): Boolean {
+    override fun downloadKey(terminalId: String, ip: String, port: Int, isNibbsTest: Boolean, isEPMS: Boolean): Boolean {
 
 
         try {
@@ -352,7 +352,10 @@ internal class KimonoHttpServiceImpl(private val context: Context,
                 pinKsn = ""
         )
 
-        val requestBody: String = PurchaseRequest.toCardPurchaseString(device,terminalInfo,transaction)
+        logger.log("i: ${paymentInfo.amount} in kimonoHttpServiceImpl")
+        logger.log("i: ${transaction.amount} in kimonoHttpServiceImpl")
+
+        val requestBody: String = PurchaseRequest.toPaycodeString(device,terminalInfo,transaction)
         val body = RequestBody.create(MediaType.parse("text/xml"), requestBody)
 
 

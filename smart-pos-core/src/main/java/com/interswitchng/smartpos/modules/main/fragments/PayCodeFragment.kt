@@ -9,15 +9,24 @@ import com.interswitchng.smartpos.IswPos
 import com.interswitchng.smartpos.R
 import com.interswitchng.smartpos.modules.main.dialogs.PaymentTypeDialog
 import com.interswitchng.smartpos.modules.main.models.PaymentModel
+import com.interswitchng.smartpos.modules.main.models.TransactionResponseModel
 import com.interswitchng.smartpos.modules.paycode.PayCodeViewModel
 import com.interswitchng.smartpos.shared.activities.BaseFragment
+import com.interswitchng.smartpos.shared.models.printer.info.TransactionType
 import com.interswitchng.smartpos.shared.models.transaction.PaymentInfo
+import com.interswitchng.smartpos.shared.models.transaction.PaymentType
+import com.interswitchng.smartpos.shared.models.transaction.TransactionResult
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.CardType
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.AccountType
 import com.interswitchng.smartpos.shared.models.transaction.ussdqr.response.Transaction
+import com.interswitchng.smartpos.shared.services.iso8583.utils.IsoUtils
 import com.interswitchng.smartpos.shared.utilities.DeviceUtils
 import com.interswitchng.smartpos.shared.utilities.DialogUtils
+import com.interswitchng.smartpos.shared.utilities.DisplayUtils
 import com.interswitchng.smartpos.shared.utilities.toast
 import kotlinx.android.synthetic.main.isw_fragment_paycode.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.util.*
 
 class PayCodeFragment : BaseFragment(TAG) {
     private val payCodeViewModel: PayCodeViewModel by viewModel()
@@ -29,6 +38,8 @@ class PayCodeFragment : BaseFragment(TAG) {
     private val paymentModel by lazy { payCodeFragmentArgs.PaymentModel }
 
     private lateinit var paymentTypeDialog: PaymentTypeDialog
+
+    private lateinit var transactionResult: TransactionResult
 
     private val paymentInfo by lazy {
         PaymentInfo(paymentModel.amount, IswPos.getNextStan())
@@ -121,13 +132,20 @@ class PayCodeFragment : BaseFragment(TAG) {
                 when (this) {
                     is None -> context?.toast("Unable to process Transaction").also { }//finish() }
                     is Some -> {
+                        dismissAlert()
                         // set result
-                        //transactionResult = value
-                        // use default transaction because the
-                        // transaction is not need for result
-                        val txn = Transaction.default()
-                        // show transaction result screen
-                       // showTransactionResult(txn)
+                        transactionResult = value
+                        // show receipt fragment
+
+                        val direction = PayCodeFragmentDirections.iswActionIswFragmentPaycodeToIswReceiptFragment(
+                                paymentModel,
+                                TransactionResponseModel(
+                                        transactionResult = transactionResult,
+                                        transactionType = paymentModel.type!!
+                                ),
+                        false
+                        )
+                        navigate(direction)
                     }
                 }
             }

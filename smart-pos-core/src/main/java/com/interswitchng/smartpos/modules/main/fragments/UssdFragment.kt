@@ -1,6 +1,7 @@
 package com.interswitchng.smartpos.modules.main.fragments
 
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
@@ -20,13 +21,21 @@ import com.gojuno.koptional.None
 import com.gojuno.koptional.Some
 import com.interswitchng.smartpos.IswPos
 import com.interswitchng.smartpos.R
+import com.interswitchng.smartpos.shared.models.printer.info.TransactionType
+import com.interswitchng.smartpos.shared.models.transaction.PaymentType
 import com.interswitchng.smartpos.modules.main.dialogs.PaymentTypeDialog
 import com.interswitchng.smartpos.modules.main.models.PaymentModel
+import com.interswitchng.smartpos.modules.main.models.TransactionResponseModel
 import com.interswitchng.smartpos.modules.ussdqr.adapters.BankListAdapter
 import com.interswitchng.smartpos.modules.ussdqr.viewModels.UssdViewModel
 import com.interswitchng.smartpos.shared.Constants.EMPTY_STRING
 import com.interswitchng.smartpos.shared.activities.BaseFragment
+import com.interswitchng.smartpos.shared.models.posconfig.PrintObject
+import com.interswitchng.smartpos.shared.models.printer.slips.TransactionSlip
 import com.interswitchng.smartpos.shared.models.transaction.PaymentInfo
+import com.interswitchng.smartpos.shared.models.transaction.TransactionResult
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.CardType
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.AccountType
 import com.interswitchng.smartpos.shared.models.transaction.ussdqr.request.CodeRequest
 import com.interswitchng.smartpos.shared.models.transaction.ussdqr.request.TransactionStatus
 import com.interswitchng.smartpos.shared.models.transaction.ussdqr.response.Bank
@@ -34,12 +43,15 @@ import com.interswitchng.smartpos.shared.models.transaction.ussdqr.response.Code
 import com.interswitchng.smartpos.shared.models.transaction.ussdqr.response.PaymentStatus
 import com.interswitchng.smartpos.shared.models.transaction.ussdqr.response.Transaction
 import com.interswitchng.smartpos.shared.utilities.*
+import com.interswitchng.smartpos.shared.services.iso8583.utils.IsoUtils
 import kotlinx.android.synthetic.main.isw_activity_ussd.*
+import kotlinx.android.synthetic.main.isw_fragment_receipt.*
 import kotlinx.android.synthetic.main.isw_fragment_ussd.*
 import kotlinx.android.synthetic.main.isw_generating_code_layout.*
 import kotlinx.android.synthetic.main.isw_select_bank_view.*
 import kotlinx.android.synthetic.main.isw_ussd_content_layout.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -60,6 +72,7 @@ class UssdFragment : BaseFragment(TAG) {
     private var ussdCode: String? = null
     private val dialog by lazy { DialogUtils.getLoadingDialog(context!!) }
     private val alert by lazy { DialogUtils.getAlertDialog(context!!) }
+    private var printSlip = mutableListOf<PrintObject>()
    // private val logger by lazy { Logger.with("USSD") }
 
     //private lateinit var banksDialog: SelectBankBottomSheet
@@ -215,11 +228,22 @@ class UssdFragment : BaseFragment(TAG) {
                             0,
                             "Pending")
 
-                        //val result = getTransactionResult(transaction)
-                        //printSlip = result?.getSlip(terminalInfo)?.getSlipItems() ?: printSlip
+                        /*val result = getTransactionResult(transaction)
+                        printSlip = result?.getSlip(terminalInfo)?.getSlipItems() ?: printSlip*/
+                    } else if(it is PaymentStatus.Complete){
+                        // navigate to receipt fragment
+                        val direction = UssdFragmentDirections.iswActionIswFragmentUssdToIswReceiptFragment(
+                                paymentModel,
+                                TransactionResponseModel(
+                                        transactionResult = getTransactionResult(it.transaction),
+                                        transactionType = paymentModel.type!!
+                                ),
+                                false
+                        )
+                        navigate(direction)
+                    } else {
+                        handlePaymentStatus(status)
                     }
-
-                    handlePaymentStatus(status)
                 }
             }
 
@@ -249,9 +273,10 @@ class UssdFragment : BaseFragment(TAG) {
             // show loading dialog
             dialog.show()
 
+            //terminalInfo.merchantAlias
             // create payment info with bank code
             val info = PaymentInfo(paymentInfo.amount, selectedBank.code)
-            val request = CodeRequest.from(iswPos.config.alias, terminalInfo, info,
+            val request = CodeRequest.from(terminalInfo.merchantAlias, terminalInfo, info,
                 CodeRequest.TRANSACTION_USSD
             )
 
@@ -264,11 +289,11 @@ class UssdFragment : BaseFragment(TAG) {
     }
 
     private fun showButtons(response: CodeResponse) {
-        initiateButton.isEnabled = true
-        initiateButton.setOnClickListener {
+        ussdConfirmPayment.isEnabled = true
+        ussdConfirmPayment.setOnClickListener {
             if (DeviceUtils.isConnectedToInternet(context!!)) {
-                initiateButton.isEnabled = false
-                initiateButton.isClickable = false
+                ussdConfirmPayment.isEnabled = false
+                ussdConfirmPayment.isClickable = false
 
                 val status = TransactionStatus(response.transactionReference!!, iswPos.config.merchantCode)
                 // check transaction status
@@ -276,14 +301,23 @@ class UssdFragment : BaseFragment(TAG) {
 
             } else runWithInternet {
                 // re-perform click
-                initiateButton.performClick()
+                ussdConfirmPayment.performClick()
             }
         }
 
-        printCodeButton.isEnabled = true
+        ussdShare.setOnClickListener {
+            val shareIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, ussdCodeText.text.toString())
+                type = "text/*"
+            }
+            startActivity(Intent.createChooser(shareIntent, "Select Application"))
+        }
+
+       /* printCodeButton.isEnabled = true
         printCodeButton.setOnClickListener {
             //ussdViewModel.printCode(this, posDevice, UserType.Customer, printSlip)
-        }
+        }*/
     }
 
 
@@ -326,10 +360,10 @@ class UssdFragment : BaseFragment(TAG) {
                     }
 
                     // show buttons
-                   // showButtons(response)
+                    showButtons(response)
 
                     // check transaction status
-                    val status = TransactionStatus(response.transactionReference!!, iswPos.config.merchantCode)
+                    val status = TransactionStatus(response.transactionReference!!, terminalInfo.merchantCode)
                     ussdViewModel.pollTransactionStatus(status)
 
                 } else runWithInternet {
@@ -359,7 +393,7 @@ class UssdFragment : BaseFragment(TAG) {
             .show()
     }
 
-    /*override fun getTransactionResult(transaction: Transaction): TransactionResult? {
+     private fun getTransactionResult(transaction: Transaction): TransactionResult? {
         val now = Date()
 
         val responseMsg = IsoUtils.getIsoResult(transaction.responseCode)?.second
@@ -369,23 +403,24 @@ class UssdFragment : BaseFragment(TAG) {
         return TransactionResult(
             paymentType = PaymentType.USSD,
             dateTime = DisplayUtils.getIsoString(now),
-            amount = DisplayUtils.getAmountString(paymentInfo),
+            amount = paymentInfo.amount.toString(),
+                accountType = AccountType.Default,
             type = TransactionType.Purchase,
             authorizationCode = transaction.responseCode,
             responseMessage = responseMsg,
             responseCode = transaction.responseCode,
             cardPan = "", cardExpiry = "", cardType = CardType.None,
             stan = paymentInfo.getStan(), pinStatus = "", AID = "", code = ussdCode!!,
-            telephone = iswPos.config.merchantTelephone
+            telephone = iswPos.config.merchantTelephone, csn = "", icc = "", cardTrack2 = "", cardPin = "",
+                src = "", time = now.time
         )
-    }*/
-/*
+    }
     override fun onCheckStopped() {
         super.onCheckStopped()
-        initiateButton.isEnabled = true
-        initiateButton.isClickable = true
+        ussdConfirmPayment.isEnabled = true
+        ussdConfirmPayment.isClickable = true
         ussdViewModel.cancelPoll()
-    }*/
+    }
 
 
     companion object {

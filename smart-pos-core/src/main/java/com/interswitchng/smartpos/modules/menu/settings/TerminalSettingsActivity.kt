@@ -194,7 +194,8 @@ class TerminalSettingsActivity : MenuActivity() {
                         serverIp,
                         serverPort.toInt(),
                         switchKimono.isChecked,
-                        switchToNIBBS.isChecked
+                        switchToNIBBS.isChecked,
+                        switchToEPMS.isChecked
                 )
             }
         }
@@ -262,6 +263,11 @@ class TerminalSettingsActivity : MenuActivity() {
                 etAgentId.isEnabled = true
                 etAgentEmail.isEnabled = true
 
+                //merchantAlias not required if not kimono
+                etMerchantAlias.isEnabled = true
+                //merchantCode is not required if not kimono
+                etMerchantCode.isEnabled = true
+
                 // show server url field
                 etServerUrl.isEnabled = true
 
@@ -279,6 +285,11 @@ class TerminalSettingsActivity : MenuActivity() {
 
                 etAgentId.isEnabled = false
                 etAgentEmail.isEnabled = false
+
+                //merchantAlias not required if not kimono
+                etMerchantAlias.isEnabled = false
+                //merchantCode is not required if not kimono
+                etMerchantCode.isEnabled = false
 
                 // show server and port fields
                 etServerPort.isEnabled = true
@@ -298,6 +309,22 @@ class TerminalSettingsActivity : MenuActivity() {
             // set the agentEmail container based on kimono flag
             agentEmail.visibility =
                     if (button.isChecked) View.VISIBLE else View.GONE
+
+            // set the merchantCode container based on kimono flag
+            merchantCode.visibility =
+                    if (button.isChecked) View.VISIBLE else View.GONE
+
+            // set the merchantAlias container based on kimono flag
+            merchantAlias.visibility =
+                    if (button.isChecked) View.VISIBLE else View.GONE
+
+            // set the EPMS container based on kimono flag
+            iswEpmsContainer.visibility =
+                    if (button.isChecked) View.GONE else View.VISIBLE
+
+            // set the merchantAlias container based on kimono flag
+            iswNibssTestContainer.visibility =
+                    if (button.isChecked) View.GONE else View.VISIBLE
 
         }
 
@@ -359,8 +386,12 @@ class TerminalSettingsActivity : MenuActivity() {
             etCapabilities.setText(capabilities)
             etAgentId.setText(agentId)
             etAgentEmail.setText(agentEmail)
+            etMerchantCode.setText(merchantCode)
+            etMerchantAlias.setText(merchantAlias)
 
             switchKimono.isChecked = isKimono
+            switchToEPMS.isChecked = isEPMS
+            switchToNIBBS.isChecked = isNibbsTest
         }
         val serverIp = terminalInfo?.serverIp ?: Constants.ISW_TERMINAL_IP
         val serverPort = terminalInfo?.serverPort ?: BuildConfig.ISW_TERMINAL_PORT
@@ -472,6 +503,8 @@ class TerminalSettingsActivity : MenuActivity() {
             isKimono = switchKimono.isChecked
             agentId = etAgentId.getString()
             agentEmail = etAgentEmail.getString()
+            merchantCode = etMerchantCode.getString()
+            merchantAlias = etMerchantAlias.getString()
 
 
             // only set capabilities if it was provided
@@ -499,6 +532,8 @@ class TerminalSettingsActivity : MenuActivity() {
             if (serverUrl.isNotEmpty()) tiServerUrl.error = serverUrl
             if (agentId.isNotEmpty()) tiAgentId.error = agentId
             if (agentEmail.isNotEmpty()) tiAgentEmail.error = agentEmail
+            if (merchantCode.isNotEmpty()) tiMerchantCode.error = merchantCode
+            if (merchantAlias.isNotEmpty()) tiMerchantAlias.error = merchantAlias
         }
 
         alert.show()

@@ -192,6 +192,51 @@ internal class PurchaseRequest
 
         }
 
+        fun toPaycodeString(device:POSDevice, terminalInfo: TerminalInfo, transaction: TransactionInfo): String {
+
+
+            val hasPin = transaction.cardPIN.isNotEmpty()
+            var transactionAmount = transaction.amount
+
+
+            Logger.with("amount kimono").log(transaction.amount.toString())
+
+            val amount = String.format(Locale.getDefault(), "%012d", transactionAmount)
+            Logger.with("purchaserequest").logErr(amount)
+            val now = Date()
+            val date = DateUtils.dateFormatter.format(now)
+            var icc= getIcc(terminalInfo,amount,date,transaction)
+
+            val iswConfig = IswPos.getInstance().config
+            var keyLabel=if (iswConfig.environment == Environment.Test) "000006" else "000002"
+
+            var dedicatedFileTag="<DedicatedFileName>A0000003710001</DedicatedFileName>"
+
+
+            var  track2 = let {
+                val neededLength = transaction.cardTrack2.length - 2
+                val isVisa = transaction.cardTrack2.startsWith('4')
+                val hasCharacter = transaction.cardTrack2.last().isLetter()
+
+                // remove character suffix for visa
+                if (isVisa && hasCharacter) transaction.cardTrack2.substring(0..neededLength)
+                else transaction.cardTrack2
+            }
+
+
+            val pinData= """<pinData><ksnd>605</ksnd><pinType>Dukpt</pinType><ksn>${transaction.pinKsn}</ksn><pinBlock>${transaction.cardPIN}</pinBlock></pinData>"""
+
+
+            val requestBody = """<?xml version="1.0" encoding="UTF-8" ?><purchaseRequest>
+           <terminalInformation><batteryInformation>-1</batteryInformation> <currencyCode>${terminalInfo.currencyCode}</currencyCode><languageInfo>EN</languageInfo><merchantId>${terminalInfo.merchantId}</merchantId><merhcantLocation>${terminalInfo.merchantNameAndLocation}</merhcantLocation> <posConditionCode>00</posConditionCode> <posDataCode>${if (hasPin) "510101511344101" else "511101511344101"}</posDataCode> <posEntryMode>051</posEntryMode> <posGeoCode>00234000000000566</posGeoCode> <printerStatus>1</printerStatus><terminalId>${terminalInfo.terminalId}</terminalId> <terminalType>${device.name}</terminalType> <transmissionDate>${DateUtils.universalDateFormat.format(Date())}</transmissionDate> <uniqueId>3H661643</uniqueId></terminalInformation><cardData><cardSequenceNumber>000</cardSequenceNumber> <track2><pan>${transaction.cardPAN}</pan> <expiryMonth>${transaction.cardExpiry.takeLast(2)}</expiryMonth> <expiryYear>${transaction.cardExpiry.take(2)}</expiryYear> <track2>${track2}</track2></track2><emvData><AmountAuthorized>${icc.TRANSACTION_AMOUNT}</AmountAuthorized> <AmountOther>000000000000</AmountOther> <ApplicationInterchangeProfile>3800</ApplicationInterchangeProfile> <atc>0527</atc><Cryptogram>31BDCBC7CFF6253B</Cryptogram> <CryptogramInformationData>80</CryptogramInformationData> <CvmResults>410302</CvmResults><iad>0110A50003020000000000000000000000FF</iad> <TransactionCurrencyCode>${terminalInfo.currencyCode}</TransactionCurrencyCode> <TerminalVerificationResult>0880000000</TerminalVerificationResult> <TerminalCountryCode>${terminalInfo.currencyCode}</TerminalCountryCode> <TerminalType>22</TerminalType> <TerminalCapabilities>E0F0C8</TerminalCapabilities> <TransactionDate>191017</TransactionDate> <TransactionType>00</TransactionType> <UnpredictableNumber>F435D8A2</UnpredictableNumber> ${dedicatedFileTag}</emvData></cardData><fromAccount>${transaction.accountType.name}</fromAccount> <stan>${transaction.stan}</stan> <minorAmount>${transactionAmount}</minorAmount> ${pinData} <keyLabel>${keyLabel}</keyLabel></purchaseRequest>
+        """
+
+            return requestBody
+
+        }
+
+
+
 
         fun toReversal(device:POSDevice,terminalInfo: TerminalInfo, transaction: TransactionInfo):String
         {
@@ -440,6 +485,10 @@ internal class TerminalInformation {
     var agentId: String = ""
     @field:Element(name = "agentEmail", required = false)
     var agentEmail: String = ""
+    @field:Element(name = "merchantCode", required = false)
+    var merchantCode: String = ""
+    @field:Element(name = "merchantAlias", required = false)
+    var merchantAlias: String = ""
 
 
     lateinit var error: TerminalInformation
@@ -451,7 +500,7 @@ internal class TerminalInformation {
 
             val properties = listOf(error.terminalId, error.merchantId, error.serverIp, error.capabilities,
                     error.merchantNameAndLocation, error.merchantCategoryCode, error.serverPort, error.serverUrl,
-                    error.countryCode, error.currencyCode, error.callHomeTimeInMin, error.serverTimeoutInSec, error.agentId, error.agentEmail)
+                    error.countryCode, error.currencyCode, error.callHomeTimeInMin, error.serverTimeoutInSec, error.agentId, error.agentEmail,error.merchantCode,error.merchantAlias)
 
 
             // validate that all error properties are empty
@@ -475,7 +524,9 @@ internal class TerminalInformation {
                     serverUrl = serverUrl,
                     serverPort = serverPort.toIntOrNull() ?: -1,
                     agentId = agentId,
-                    agentEmail = agentEmail
+                    agentEmail = agentEmail,
+                    merchantCode = merchantCode,
+                    merchantAlias = merchantAlias
 
             )
         }
@@ -504,10 +555,10 @@ internal class TerminalInformation {
 
 
         // validate merchant code
-        val merchantCode = InputValidator(merchantCategoryCode)
+        val merchantCategoryCode = InputValidator(merchantCategoryCode)
                 .isNotEmpty().isNumber().isExactLength(4)
         // assign error message for field
-        if (merchantCode.hasError) error.merchantCategoryCode = merchantCode.message
+        if (merchantCategoryCode.hasError) error.merchantCategoryCode = merchantCategoryCode.message
 
 
         // validate country code
@@ -551,10 +602,22 @@ internal class TerminalInformation {
         if (isKimono && agentId.hasError) error.agentId = agentId.message
 
         // validate agentEmail value
-        val agentEmail = InputValidator(agentEmail).isNotEmpty().isAlphaNumeric()
+        val agentEmail = InputValidator(agentEmail).isNotEmpty()
 
         //assign error message for field
-        if (isKimono && agentId.hasError) error.agentEmail = agentEmail.message
+        if (isKimono && agentEmail.hasError) error.agentEmail = agentEmail.message
+
+        // validate merchantCode value
+        val merchantCode = InputValidator(merchantCode).isNotEmpty()
+
+        //assign error message for field
+        if (isKimono && merchantCode.hasError) error.merchantCode = merchantCode.message
+
+        // validate merchantAlias value
+        val merchantAlias = InputValidator(merchantAlias).isNotEmpty().isNumber()
+
+        //assign error message for field
+        if (isKimono && merchantAlias.hasError) error.merchantAlias = merchantAlias.message
 
 
         // validate terminal capabilities value

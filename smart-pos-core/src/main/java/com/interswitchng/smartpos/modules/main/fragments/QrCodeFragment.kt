@@ -1,5 +1,6 @@
 package com.interswitchng.smartpos.modules.main.fragments
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -11,8 +12,10 @@ import com.interswitchng.smartpos.IswPos
 import com.interswitchng.smartpos.R
 import com.interswitchng.smartpos.modules.main.dialogs.PaymentTypeDialog
 import com.interswitchng.smartpos.modules.main.models.PaymentModel
+import com.interswitchng.smartpos.modules.main.models.TransactionResponseModel
 import com.interswitchng.smartpos.modules.ussdqr.viewModels.QrViewModel
 import com.interswitchng.smartpos.shared.activities.BaseFragment
+import com.interswitchng.smartpos.shared.models.core.UserType
 import com.interswitchng.smartpos.shared.models.posconfig.PrintObject
 import com.interswitchng.smartpos.shared.models.printer.info.TransactionType
 import com.interswitchng.smartpos.shared.models.transaction.PaymentInfo
@@ -26,12 +29,13 @@ import com.interswitchng.smartpos.shared.models.transaction.ussdqr.response.Code
 import com.interswitchng.smartpos.shared.models.transaction.ussdqr.response.PaymentStatus
 import com.interswitchng.smartpos.shared.models.transaction.ussdqr.response.Transaction
 import com.interswitchng.smartpos.shared.services.iso8583.utils.IsoUtils
-import com.interswitchng.smartpos.shared.utilities.DeviceUtils
+import com.interswitchng.smartpos.shared.utilities.*
 import com.interswitchng.smartpos.shared.utilities.DialogUtils
 import com.interswitchng.smartpos.shared.utilities.DisplayUtils
-import com.interswitchng.smartpos.shared.utilities.toast
+import kotlinx.android.synthetic.main.isw_activity_qr_code.*
 import kotlinx.android.synthetic.main.isw_fragment_processing_transaction.*
 import kotlinx.android.synthetic.main.isw_fragment_qr_code.*
+import kotlinx.android.synthetic.main.isw_fragment_receipt.*
 import kotlinx.android.synthetic.main.isw_generating_code_layout.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
@@ -106,10 +110,20 @@ class QrCodeFragment : BaseFragment(TAG) {
                                 0,
                                 "Pending")
 
-                        val result = getTransactionResult(transaction)
-                        printSlip = result?.getSlip(terminalInfo)?.getSlipItems() ?: printSlip
+                       /* val result = getTransactionResult(transaction)
+                        printSlip = result?.getSlip(terminalInfo)?.getSlipItems() ?: printSlip*/
+                    } else if(it is PaymentStatus.Complete){
+                        //navigate to receipt fragment
+                        val direction = QrCodeFragmentDirections.iswActionIswFragmentQrcodeToIswReceiptFragment(
+                                paymentModel,
+                                TransactionResponseModel(
+                                        transactionResult = getTransactionResult(it.transaction),
+                                        transactionType = paymentModel.type!!
+                                ),
+                                false
+                        )
+                        navigate(direction)
                     }
-
                     handlePaymentStatus(status)
                 }
             }
@@ -136,7 +150,7 @@ class QrCodeFragment : BaseFragment(TAG) {
             dialog?.show()
 
             // create and request code
-            val request = CodeRequest.from(iswPos.config.alias, terminalInfo,
+            val request = CodeRequest.from(terminalInfo.merchantAlias, terminalInfo,
                     paymentInfo, CodeRequest.TRANSACTION_QR, CodeRequest.QR_FORMAT_RAW
             )
 
@@ -173,7 +187,6 @@ class QrCodeFragment : BaseFragment(TAG) {
 
     private fun handleResponse(response: CodeResponse) {
         updateProgressBarAndSwitchView()
-
         when (response.responseCode) {
             CodeResponse.OK -> {
                 if (DeviceUtils.isConnectedToInternet(context!!)) {
@@ -183,10 +196,12 @@ class QrCodeFragment : BaseFragment(TAG) {
                     printSlip.add(PrintObject.BitMap(bitmap))
 
                     isw_qr_code_image.setImageBitmap(response.qrCodeImage)
-                    //showTransactionMocks(response)
 
+                    showTransactionMocks(response)
+
+                    //terminalInfo.merchantCode
                     // check transaction status
-                    val status = TransactionStatus(response.transactionReference!!, iswPos.config.merchantCode)
+                    val status = TransactionStatus(response.transactionReference!!, terminalInfo.merchantCode)
 
                     // ensure internet connection before
                     // polling for transaction result
@@ -219,7 +234,7 @@ class QrCodeFragment : BaseFragment(TAG) {
         return TransactionResult(
                 paymentType = PaymentType.QR,
                 dateTime = DisplayUtils.getIsoString(now),
-                amount = DisplayUtils.getAmountString(paymentInfo),
+                amount = paymentInfo.amount.toString(),
                 type = TransactionType.Purchase,
                 accountType = AccountType.Default,
                 authorizationCode = transaction.responseCode,
@@ -229,15 +244,43 @@ class QrCodeFragment : BaseFragment(TAG) {
                 stan = paymentInfo.getStan(), pinStatus = "", AID = "",
                 code = qrData!!, telephone = iswPos.config.merchantTelephone, csn = "", icc = "", cardTrack2 = "", cardPin = "",
                 src = "",
-                time = -1L
+                time = now.time
         )
+    }
+
+    private fun showTransactionMocks(response: CodeResponse) {
+        isw_qr_confirm_payment.isEnabled = true
+
+        isw_qr_confirm_payment.setOnClickListener {
+            if (DeviceUtils.isConnectedToInternet(requireContext())) {
+                isw_qr_confirm_payment.isEnabled = false
+                isw_qr_confirm_payment.isClickable = false
+
+                // check transaction status
+                val status = TransactionStatus(response.transactionReference!!, terminalInfo.merchantCode)
+                qrViewModel.checkTransactionStatus(status)
+            } else runWithInternet {
+                isw_qr_confirm_payment.performClick()
+            }
+        }
+
+        isw_share_qr_code.setOnClickListener {
+            val shareIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_STREAM, getImageUri(requireContext(), response.qrCodeImage!!))
+                type = "image/*"
+            }
+            startActivity(Intent.createChooser(shareIntent, "Select Application"))
+        }
+
+
     }
 
 
     override fun onCheckStopped() {
         super.onCheckStopped()
-        //initiateButton.isEnabled = true
-        //initiateButton.isClickable = true
+        isw_qr_confirm_payment.isEnabled = true
+        isw_qr_confirm_payment.isClickable = true
         qrViewModel.cancelPoll()
     }
 

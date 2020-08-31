@@ -49,9 +49,10 @@ internal class TransactionLogServiceImpl(private val monarchy: Monarchy) : Trans
         // get the date range for current date as morning and midnight
         val (morning, midnight) = getDateRange(date)
 
-        // query for stream of transaction logs for specified day by creating dataSource factory
+        // query for stream of transaction logs for specified day by creating dataSource factory excluding reversal
         val logDataSourceFactory = monarchy.createDataSourceFactory { realm ->
             realm.where<TransactionLog>()
+                    .notEqualTo("transactionType" , TransactionType.Reversal.ordinal)
                     .greaterThan("time", morning)
                     .lessThan("time", midnight)
                     .sort("time", Sort.DESCENDING)
@@ -91,9 +92,10 @@ internal class TransactionLogServiceImpl(private val monarchy: Monarchy) : Trans
         // get the date range for current date as morning and midnight
         val (morning, midnight) = getDateRange(date)
 
-        // query for stream of transaction logs for specified day by retrieving livedata list
+        // query for stream of transaction logs for specified day by retrieving livedata list excluding reversal
         return monarchy.findAllCopiedWithChanges { realm ->
             realm.where<TransactionLog>()
+                    .notEqualTo("transactionType" , TransactionType.Reversal.ordinal)
                     .greaterThan("time", morning)
                     .lessThan("time", midnight)
                     .sort("time", Sort.DESCENDING)

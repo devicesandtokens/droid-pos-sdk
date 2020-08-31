@@ -1,12 +1,7 @@
 package com.interswitchng.smartpos.modules.main.fragments
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 
 import com.interswitchng.smartpos.R
@@ -29,7 +24,7 @@ class TransactionSentFragment : BaseFragment(TAG) {
     }
 
     private fun initializeViews() {
-        isw_payment_type.text = payment.type.toString()
+        isw_card_type.text = payment.type.toString()
 
         //isw_amount_paid.text = String.format("NGN %s", payment.formattedAmount)
         isw_amount_paid.text = String.format("NGN %s", "10.00") //Added on request from Eddy

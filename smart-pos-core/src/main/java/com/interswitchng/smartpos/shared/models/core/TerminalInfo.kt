@@ -32,7 +32,12 @@ data class TerminalInfo(
         var serverIp: String = Constants.ISW_TERMINAL_IP,
         var serverPort: Int = BuildConfig.ISW_TERMINAL_PORT,
         val agentId: String,
-        val agentEmail: String) {
+        val agentEmail: String,
+        val merchantCode: String,
+        val merchantAlias: String,
+        var isNibbsTest: Boolean = false,
+        var isEPMS: Boolean = false
+) {
 
 
     internal fun persist(store: KeyValueStore): Boolean {

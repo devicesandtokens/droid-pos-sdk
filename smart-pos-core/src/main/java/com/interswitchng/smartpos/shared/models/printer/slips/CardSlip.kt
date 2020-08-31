@@ -65,6 +65,14 @@ internal class CardSlip(terminal: TerminalInfo, status: TransactionStatus, priva
 
             list.addAll(listOf(cardType, cardPan, cardExpiry, stan, authCode, pinStatus, line))
 
+            if(info.cardExpiry.isEmpty()){
+                list.remove(cardExpiry)
+            }
+
+            if(info.cardPan.isEmpty()){
+                list.remove(cardPan)
+            }
+
             if (info.type == TransactionType.CashOut) {
                 list.remove(cardExpiry)
                 list.remove(authCode)

@@ -172,12 +172,12 @@
         android:layout_marginTop="10dp"
         android:text="Payment Type"
         android:textColor="#8097B1"
-        app:layout_constraintBottom_toTopOf="@+id/isw_payment_type"
+        app:layout_constraintBottom_toTopOf="@+id/isw_card_type"
         app:layout_constraintStart_toStartOf="@+id/isw_guideline2"
         app:layout_constraintTop_toBottomOf="@+id/isw_customer_name" />
 
     <TextView
-        android:id="@+id/isw_payment_type"
+        android:id="@+id/isw_card_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -200,7 +200,7 @@
         android:textColor="#8097B1"
         app:layout_constraintBottom_toTopOf="@+id/isw_amount_paid"
         app:layout_constraintStart_toStartOf="@+id/isw_guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/isw_payment_type" />
+        app:layout_constraintTop_toBottomOf="@+id/isw_card_type" />
 
     <TextView
         android:id="@+id/isw_amount_paid"

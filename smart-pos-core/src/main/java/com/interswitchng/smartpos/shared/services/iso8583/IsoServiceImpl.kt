@@ -1,7 +1,6 @@
 package com.interswitchng.smartpos.shared.services.iso8583
 
 import android.content.Context
-import android.widget.Toast
 import com.interswitchng.smartpos.IswPos.Companion.getNextStan
 import com.interswitchng.smartpos.modules.main.fragments.CardTransactionsFragment
 import com.interswitchng.smartpos.shared.Constants
@@ -14,7 +13,6 @@ import com.interswitchng.smartpos.shared.interfaces.library.IsoSocket
 import com.interswitchng.smartpos.shared.interfaces.library.KeyValueStore
 import com.interswitchng.smartpos.shared.models.core.TerminalInfo
 import com.interswitchng.smartpos.shared.models.transaction.PaymentInfo
-import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.OriginalTransactionInfoData
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.TransactionInfo
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.TransactionResponse
 import com.interswitchng.smartpos.shared.services.iso8583.utils.*
@@ -171,22 +169,26 @@ internal class IsoServiceImpl(
         return null
     }
 
-    override fun downloadKey(terminalId: String, ip: String, port: Int, isNibbsTest: Boolean): Boolean {
-        var cms: String
-        if (isNibbsTest) {
-            cms = Constants.ISW_CMS_TEST
+    override fun downloadKey(terminalId: String, ip: String, port: Int, isNibbsTest: Boolean,isEPMS: Boolean): Boolean {
+        var key: String = if (isNibbsTest && !isEPMS) {
+            Constants.ISW_CMS_TEST
+        } else if(!isNibbsTest && !isEPMS){
+            Constants.ISW_CMS
+        } else if(!isNibbsTest && isEPMS){
+            Constants.ISW_EPMS
         } else {
-            cms = Constants.ISW_CMS
+            Constants.ISW_CMS_TEST
         }
+
 
         // load keys
         // getResult clear key
 
         //val cms2 = context.getString(R.string.isw_cms)
-        Logger.with("Constants Keys").logErr(cms.toString())
+        Logger.with("Constants Keys").logErr(key.toString())
 
         // getResult master key & save
-        val isDownloaded = makeKeyCall(terminalId, ip, port, "9A0000", cms)?.let { masterKey ->
+        val isDownloaded = makeKeyCall(terminalId, ip, port, "9A0000", key)?.let { masterKey ->
             store.saveString(KEY_MASTER_KEY, masterKey)
             // load master key into pos
             try {
@@ -605,7 +607,9 @@ internal class IsoServiceImpl(
 
         try {
             val pan = generatePan(code)
-            val amount = String.format(Locale.getDefault(), "%012d", paymentInfo.amount.toInt())
+            val amount = String.format(Locale.getDefault(), "%012d", paymentInfo.amount)
+            logger.log("i: ${paymentInfo.amount} in IsoServiceImpl")
+            logger.log("i: $amount in IsoServiceImpl")
             val now = Date()
             val message = NibssIsoMessage(messageFactory.newMessage(0x200))
             val processCode = "001000"

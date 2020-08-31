@@ -109,7 +109,7 @@
             android:layout_height="match_parent"
             android:id="@+id/isw_card_expiry_date"
             android:gravity="start"
-            android:inputType="text"
+            android:inputType="date"
             android:textColor="@color/iswColorPrimary"
             android:textSize="15sp" />
 

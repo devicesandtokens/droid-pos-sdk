@@ -22,11 +22,11 @@ internal  class SettingsViewModel : RootViewModel(), KoinComponent {
     val configDownloadSuccess: LiveData<Boolean> = _configDownloadSuccess
 
 
-    fun downloadKeys(terminalId: String, ip: String, port: Int, isKimono: Boolean, isNibbsTest: Boolean) {
+    fun downloadKeys(terminalId: String, ip: String, port: Int, isKimono: Boolean, isNibbsTest: Boolean,isEPMS: Boolean) {
         val isoService: IsoService = get { parametersOf(isKimono) }
         uiScope.launch {
             val isSuccessful = withContext(ioScope) {
-                isoService.downloadKey(terminalId, ip, port, isNibbsTest)
+                isoService.downloadKey(terminalId, ip, port, isNibbsTest, isEPMS)
             }
             _keysDownloadSuccess.value = isSuccessful
         }

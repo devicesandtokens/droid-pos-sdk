@@ -46,7 +46,7 @@ internal class PayCodeViewModel(private val isoService: IsoService, private val 
                         Some(TransactionResult(
                                 paymentType = PaymentType.PayCode,
                                 dateTime = DisplayUtils.getIsoString(now),
-                                amount = DisplayUtils.getAmountString(paymentInfo),
+                                amount = paymentInfo.amount.toString(),
                                 type = TransactionType.Purchase,
                                 accountType = AccountType.Default,
                                 authorizationCode = response.authCode,
@@ -55,7 +55,7 @@ internal class PayCodeViewModel(private val isoService: IsoService, private val 
                                 stan = response.stan, pinStatus = "", AID = "", code = "",
                                 cardPan = "", cardExpiry = "", cardType = CardType.None,
                                 telephone = iswPos.config.merchantTelephone, cardTrack2 = "",
-                                cardPin = "", icc = "", csn = "", src = "", time = -1L))
+                                cardPin = "", icc = "", csn = "", src = "", time = Date().time))
                     }
                 }
             }

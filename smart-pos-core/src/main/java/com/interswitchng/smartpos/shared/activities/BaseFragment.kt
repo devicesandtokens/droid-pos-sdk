@@ -158,7 +158,7 @@ abstract class BaseFragment (fragmentName: String) : Fragment() {
 
             is PaymentStatus.Timeout -> {
                 val title = "Payment not Confirmed"
-                val message = "Unable to confirm payment at the moment, please try again later by manually clicking the button below"
+                val message = "Unable to confirm payment at the moment, please try again later by manually clicking the confirm payment button below"
 
                 // change notification to error
                 Alerter.create(this.activity)
@@ -168,7 +168,7 @@ abstract class BaseFragment (fragmentName: String) : Fragment() {
                     .setDismissable(true)
                     .enableSwipeToDismiss()
                     .setBackgroundColorRes(android.R.color.holo_orange_dark)
-                    .setDuration(15 * 1000)
+                    .setDuration(10 * 1000)
                     .show()
 
                 onCheckStopped()

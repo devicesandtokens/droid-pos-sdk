@@ -12,7 +12,6 @@ import androidx.paging.PagedList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.interswitchng.smartpos.R
-import com.interswitchng.smartpos.modules.main.dialogs.EndOfDayPrintDialog
 import com.interswitchng.smartpos.shared.activities.BaseFragment
 import com.interswitchng.smartpos.shared.adapters.TransactionLogAdapter
 import com.interswitchng.smartpos.shared.models.printer.info.TransactionType
@@ -35,9 +34,8 @@ class ReportFragment : BaseFragment(TAG), DatePickerDialog.OnDateSetListener, Ad
 
     private lateinit var reportLiveData: LiveData<PagedList<TransactionLog>>
 
-    private lateinit var endOfDayPrintDialog: EndOfDayPrintDialog
 
-    val transactionTypes = arrayOf("All") + TransactionType.values().map { it.name }
+    private val transactionTypes = arrayListOf("All")
     private var transactionType: TransactionType? = null
 
 
@@ -50,6 +48,8 @@ class ReportFragment : BaseFragment(TAG), DatePickerDialog.OnDateSetListener, Ad
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        updateSpinnerList(selectedDate)
 
         // setup the spinner
         val spinnerAdapter = ArrayAdapter(
@@ -142,6 +142,32 @@ class ReportFragment : BaseFragment(TAG), DatePickerDialog.OnDateSetListener, Ad
 
     }
 
+    private fun updateSpinnerList(day: Date) {
+        val owner = {lifecycle}
+
+        for (transactionType in TransactionType.values()) {
+
+            // remove observers from current live data
+            if (::reportLiveData.isInitialized)
+                reportLiveData.removeObservers(owner)
+            // get transactions for current type except reversal
+            if (transactionType != TransactionType.Reversal) {
+
+                reportLiveData = reportViewModel.getReport(day, transactionType)
+
+                reportLiveData.observe(owner) {
+
+                    if (it.isNotEmpty()) {
+                        if(transactionType.name !in transactionTypes) {
+                            spinnerTransactionTypes.visibility = View.VISIBLE
+                            transactionTypes.add(transactionType.name)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
         // get the neame of the transaction type
         val transactionTypeName = transactionTypes[position]
@@ -203,8 +229,9 @@ class ReportFragment : BaseFragment(TAG), DatePickerDialog.OnDateSetListener, Ad
 
         // show recycler view based on results
         if (hasNoContent) {
-            // hide recycler view and show no result
+            // hide recycler view,hide spinner and show no result
             rvTransactions.visibility = View.GONE
+            spinnerTransactionTypes.visibility = View.GONE
             tvResultHint.visibility = View.VISIBLE
             // format text for no result
             val date = DateUtils.shortDateFormat.format(day)
@@ -212,8 +239,9 @@ class ReportFragment : BaseFragment(TAG), DatePickerDialog.OnDateSetListener, Ad
         } else {
             // submit paged list to adapter
             adapter.submitList(list)
-            // hide no report hint, and show recycler view
+            // hide no report hint, show spinner, and show recycler view
             rvTransactions.visibility = View.VISIBLE
+            spinnerTransactionTypes.visibility = View.VISIBLE
             tvResultHint.visibility = View.GONE
         }
     }

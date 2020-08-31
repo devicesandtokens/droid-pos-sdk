@@ -37,6 +37,9 @@ internal class ReportViewModel(
     private val _printerMessage = MutableLiveData<String>()
     val printerMessage: LiveData<String> get() = _printerMessage
 
+    private val _spinnerList = MutableLiveData<ArrayList<String>>()
+    val spinnerList: LiveData<ArrayList<String>> get() = _spinnerList
+
     private val _endOfDatTransactions = MutableLiveData<List<TransactionLog>>()
     val endOfDatTransactions: LiveData<List<TransactionLog>> = _endOfDatTransactions
 
@@ -80,6 +83,9 @@ internal class ReportViewModel(
         }
     }
 
+    fun getTransactionListFor(date: Date,transactionType: TransactionType): List<TransactionLog> {
+        return transactionLogService.getTransactionListFor(date, transactionType)
+    }
 
     fun printAll(date: Date) {
         // get printer status on IO thread
@@ -87,10 +93,11 @@ internal class ReportViewModel(
 
             for (transactionType in TransactionType.values()) {
 
-                // get transactions for current type
-                val transactions = withContext(ioScope) {
-                    transactionLogService.getTransactionListFor(date, transactionType)
-                }
+                // get transactions for current type except reversal transactions
+                if (transactionType != TransactionType.Reversal) {
+                    val transactions = withContext(ioScope) {
+                        getTransactionListFor(date, transactionType)
+                    }
 
                 // get print status before printing
                 val printStatus = withContext(ioScope) {
@@ -108,6 +115,7 @@ internal class ReportViewModel(
                         delay(2000)
                     }
                 }
+            }
             }
         }
     }

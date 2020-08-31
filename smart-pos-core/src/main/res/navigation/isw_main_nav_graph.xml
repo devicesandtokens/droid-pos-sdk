@@ -199,6 +199,13 @@
         <argument
             android:name="PaymentModel"
             app:argType="com.interswitchng.smartpos.modules.main.models.PaymentModel" />
+
+        <action
+            android:id="@+id/isw_action_isw_fragment_qrcode_to_isw_receipt_fragment"
+            app:destination="@id/isw_fragment_receipt"
+            app:enterAnim="@anim/isw_slide_in_right"
+            app:exitAnim="@anim/isw_slide_out_left"
+            app:popUpTo="@+id/isw_transaction" />
     </fragment>
 
     <fragment
@@ -230,6 +237,12 @@
         <argument
             android:name="PaymentModel"
             app:argType="com.interswitchng.smartpos.modules.main.models.PaymentModel" />
+        <action
+            android:id="@+id/isw_action_isw_fragment_paycode_to_isw_receipt_fragment"
+            app:destination="@id/isw_fragment_receipt"
+            app:enterAnim="@anim/isw_slide_in_right"
+            app:exitAnim="@anim/isw_slide_out_left"
+            app:popUpTo="@+id/isw_transaction" />
     </fragment>
 
     <fragment
@@ -467,6 +480,13 @@
         <argument
             android:name="PaymentModel"
             app:argType="com.interswitchng.smartpos.modules.main.models.PaymentModel" />
+
+        <action
+            android:id="@+id/isw_action_isw_fragment_ussd_to_isw_receipt_fragment"
+            app:destination="@id/isw_fragment_receipt"
+            app:enterAnim="@anim/isw_slide_in_right"
+            app:exitAnim="@anim/isw_slide_out_left"
+            app:popUpTo="@+id/isw_transaction" />
     </fragment>
 
     <fragment
@@ -559,7 +579,7 @@
     <!--    </fragment>-->
     <!--    -->
 
-    <fragment
+ <!--   <fragment
         android:id="@+id/isw_paycodefragment"
         android:name="com.interswitchng.smartpos.modules.main.fragments.PayCodeFragment"
         android:label="PayCodeFragment">
@@ -571,7 +591,7 @@
             app:destination="@id/isw_fragment_processing_transaction"
             app:enterAnim="@anim/isw_slide_in_right"
             app:exitAnim="@anim/isw_slide_out_left" />
-    </fragment>
+    </fragment>-->
     <fragment
         android:id="@+id/isw_transactionfailurefragment"
         android:name="com.interswitchng.smartpos.modules.main.fragments.TransactionFailureFragment"

@@ -70,6 +70,7 @@ class AmountFragment : BaseFragment(TAG) {
         payment.newPayment {
             amount = latestAmountWithoutComma.toInt()//latestAmount.toDouble()
             formattedAmount = latestAmount
+            logger.log("i: $amount in amount fragment")
 
         }
 

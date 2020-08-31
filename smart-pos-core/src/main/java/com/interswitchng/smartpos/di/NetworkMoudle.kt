@@ -138,10 +138,14 @@ internal val networkModule = module {
         // getResult the okhttp client for the retrofit
         val clientBuilder: OkHttpClient.Builder = get()
 
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+
         // getResult auth interceptor for client
         val authInterceptor: Interceptor = get(AUTH_INTERCEPTOR)
         // add auth interceptor for max services
         clientBuilder.addInterceptor(authInterceptor)
+        clientBuilder.addInterceptor(interceptor)
 
         // add client to retrofit builder
         val client = clientBuilder.build()
