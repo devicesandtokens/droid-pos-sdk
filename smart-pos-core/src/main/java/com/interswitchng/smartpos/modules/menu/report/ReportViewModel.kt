@@ -83,7 +83,7 @@ internal class ReportViewModel(
         }
     }
 
-    fun getTransactionListFor(date: Date,transactionType: TransactionType): List<TransactionLog> {
+    private fun getTransactionListFor(date: Date, transactionType: TransactionType): List<TransactionLog> {
         return transactionLogService.getTransactionListFor(date, transactionType)
     }
 

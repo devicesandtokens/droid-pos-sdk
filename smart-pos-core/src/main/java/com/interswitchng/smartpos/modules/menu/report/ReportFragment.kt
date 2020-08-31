@@ -143,6 +143,7 @@ class ReportFragment : BaseFragment(TAG), DatePickerDialog.OnDateSetListener, Ad
     }
 
     private fun updateSpinnerList(day: Date) {
+        selectedDate = day
         val owner = {lifecycle}
 
         for (transactionType in TransactionType.values()) {
@@ -253,6 +254,7 @@ class ReportFragment : BaseFragment(TAG), DatePickerDialog.OnDateSetListener, Ad
         calendar.set(Calendar.MONTH, monthOfYear)
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
+        updateSpinnerList(calendar.time)
         // show report for selected date
         showReportFor(calendar.time, transactionType)
     }
