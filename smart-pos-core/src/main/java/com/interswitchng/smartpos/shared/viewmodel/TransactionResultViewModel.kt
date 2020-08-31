@@ -110,7 +110,8 @@ internal class TransactionResultViewModel(private val posDevice: POSDevice,
 
                     // add re-print flag
                     if (reprint) {
-                        val rePrintFlag = PrintObject.Data("*** Re-Print ***", PrintStringConfiguration(displayCenter = true, isBold = true))
+                        val rePrintFlag = PrintObject.Data("*** Re-Print ***", PrintStringConfiguration(displayCenter = true, isBold = true, isTitle = true))
+                        slipItems.add(0, rePrintFlag)
                         slipItems += rePrintFlag
                     }
 
@@ -142,8 +143,6 @@ internal class TransactionResultViewModel(private val posDevice: POSDevice,
         val resultLog = TransactionLog.fromResult(result)
         transactionLogService.updateTransactionResult(resultLog)
     }
-
-
 
     fun initiateReversal(terminalInfo: TerminalInfo, transactionInfo: TransactionInfo) {
         println("Called me the chairman of reversal")

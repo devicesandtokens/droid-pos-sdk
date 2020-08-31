@@ -391,10 +391,11 @@ class ReceiptFragment : BaseFragment(TAG) {
                         resultViewModel.printSlip(UserType.Customer, it, reprint = true)
                         result?.hasPrintedCustomerCopy = 1
                         resultViewModel.updateTransaction(result!!)
-                    }
+                    } else {
                     resultViewModel.printSlip(UserType.Customer, it)
                     result?.hasPrintedCustomerCopy = 1
                     resultViewModel.updateTransaction(result!!)
+                    }
                 } else if (result?.hasPrintedMerchantCopy == 1) {
                     resultViewModel.printSlip(UserType.Merchant, it, reprint = true)
                 } else {
