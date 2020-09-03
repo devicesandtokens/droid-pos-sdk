@@ -18,6 +18,7 @@ import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.PurchaseType
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.TransactionInfo
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.TransactionResponse
+import com.interswitchng.smartpos.shared.services.iso8583.utils.DateUtils
 import com.interswitchng.smartpos.shared.services.iso8583.utils.IsoUtils
 import com.interswitchng.smartpos.shared.utilities.DisplayUtils
 import com.interswitchng.smartpos.shared.utilities.toast
@@ -190,7 +191,7 @@ class ProcessingRequestFragment : BaseFragment(TAG) {
                 val now = Date()
                 transactionResult = TransactionResult(
                         paymentType = PaymentType.Card,
-                        dateTime = DisplayUtils.getIsoString(now),
+                        dateTime = DateUtils.universalDateFormat.format(now),
                         amount = paymentModel.amount.toString(),
                         type = transactionType,
                         accountType = accountType,

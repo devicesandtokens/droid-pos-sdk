@@ -73,13 +73,17 @@ internal class CardSlip(terminal: TerminalInfo, status: TransactionStatus, priva
                 list.remove(cardPan)
             }
 
+            if(info.originalDateTime.isEmpty()){
+                list.remove(dateTime)
+            }
+
             if (info.type == TransactionType.CashOut) {
                 list.remove(cardExpiry)
                 list.remove(authCode)
                 list.remove(pinStatus)
             }
 
-            if (info.type != TransactionType.PreAuth) list.remove(dateTime)
+           // if (info.type != TransactionType.PreAuth) list.remove(dateTime)
         }
 
         // return transaction info of slip
