@@ -579,6 +579,7 @@ internal class IsoServiceImpl(
 
 
             val request = message.message.writeData()
+            val requestLength = IsoUtils.bytesToHex(request).length
             logger.log(IsoUtils.bytesToHex(request))
             val response = socket.sendReceive(request)
             // close connection

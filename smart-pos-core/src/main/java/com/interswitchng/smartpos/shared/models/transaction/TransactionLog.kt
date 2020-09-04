@@ -148,6 +148,7 @@ open class TransactionLog(
                 pinKsn = result.pinKsn,
                 src = result.src,
                 cardPin = result.cardPin,
+                time = result.time,
                 cardTrack2 = result.cardTrack2,
                 originalTransmissionDate = result.originalTransmissionDateTime,
                 name = result.name,
