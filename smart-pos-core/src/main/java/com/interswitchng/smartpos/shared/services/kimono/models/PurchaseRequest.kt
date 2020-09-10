@@ -492,6 +492,10 @@ internal class TerminalInformation {
     var merchantCode: String = ""
     @field:Element(name = "merchantAlias", required = false)
     var merchantAlias: String = ""
+    @field:Element(name = "isNibbsTest", required = false)
+    var isNibbsTest: Boolean = false
+    @field:Element(name = "isEPMS", required = false)
+    var isEPMS: Boolean = false
 
 
     lateinit var error: TerminalInformation
@@ -529,8 +533,9 @@ internal class TerminalInformation {
                     agentId = agentId,
                     agentEmail = agentEmail,
                     merchantCode = merchantCode,
-                    merchantAlias = merchantAlias
-
+                    merchantAlias = merchantAlias,
+                    isNibbsTest = isNibbsTest,
+                    isEPMS = isEPMS
             )
         }
 

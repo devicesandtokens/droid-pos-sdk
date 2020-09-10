@@ -26,7 +26,6 @@ class MerchantCardDialog constructor(
     private val cardViewModel by viewModel<CardViewModel>()
     private val store by inject<KeyValueStore>()
     val terminalInfo by lazy { TerminalInfo.get(store)!! }
-    private val deviceName = IswPos.getInstance().device.name
 
     override val layoutId: Int
         get() = R.layout.isw_sheet_layout_admin_merchant_card
@@ -36,7 +35,7 @@ class MerchantCardDialog constructor(
         cardViewModel.emvMessage.observe(this, Observer {
             it?.let(::processMessage)
         })
-        cardViewModel.setupTransaction(0, terminalInfo)
+       // cardViewModel.setupTransaction(0, terminalInfo)
 
         // ensure device supports finger  print
         val supportsFingerPrint = IswPos.getInstance().device.hasFingerPrintReader
@@ -51,40 +50,19 @@ class MerchantCardDialog constructor(
         if (isAuthorization) {
             //isw_textview17.text = getString(R.string.isw_insert_supervisor_s_card)
         }
-        if (deviceName == "TELPO") {
-            isw_enrollmentLabel.visibility = View.GONE
-            isw_imageview_insert_card.visibility = View.GONE
-        }
 
         isw_button_pin_proceed.setOnClickListener {
-            val savedPan = store.getString("M3RCHANT_PAN", "")
             val savedPin = store.getString("MERCHANT_PIN", "")
             val enteredPin = isw_pin_edit_text.text.toString()
             val hashedPin = SecurityUtils.getHash(enteredPin)
-
-
-            if (deviceName == "TELPO") {
-
-                when {
-                    enteredPin == "" -> context?.toast("Pin Field is empty. Please enter your pin")
-                    savedPin == hashedPin -> {
-                        context?.toast("Pin OK")
-                        clickListener.invoke(AUTHORIZED)
-                        dismiss()
-                    }
-                    else -> {
-                        clickListener.invoke(FAILED)
-                        dismiss()
-                    }
-                }
-            } else {
-                if (enteredPin == "") {
-                    context?.toast("Pin Field is empty. Please enter your pin")
-                } else if (savedPan == cardViewModel.getCardPAN() && savedPin == hashedPin) {
+            when {
+                enteredPin == "" -> context?.toast("Pin Field is empty. Please enter your pin")
+                savedPin == hashedPin -> {
                     context?.toast("Pin OK")
                     clickListener.invoke(AUTHORIZED)
                     dismiss()
-                } else {
+                }
+                else -> {
                     clickListener.invoke(FAILED)
                     dismiss()
                 }

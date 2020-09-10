@@ -27,9 +27,6 @@ class PaymentTypeDialog constructor(
             isw_card_not_present.visibility = View.GONE
             isw_qr_code.visibility =View.GONE
             isw_ussd.visibility = View.GONE
-        } else{
-            isw_qr_code.visibility =View.GONE
-            isw_ussd.visibility = View.GONE
         }
         currentlySelected?.let {
             when (it) {

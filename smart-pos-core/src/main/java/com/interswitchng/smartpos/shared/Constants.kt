@@ -131,6 +131,11 @@ object Constants {
             return Production.ISW_KEY_DOWNLOAD_URL
         }
 
+    val ISW_EPMS_PORT = "5043"
+    val ISW_CTMS_PORT = "5008"
+    val ISW_TERMINAL_IP_EPMS = "196.6.103.73"
+    val ISW_TERMINAL_IP_CTMS = "196.6.103.18"
+
     private object Production {
 
         const val ISW_USSD_QR_BASE_URL = "https://api.interswitchng.com/paymentgateway/api/v1/"

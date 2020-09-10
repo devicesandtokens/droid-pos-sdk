@@ -69,6 +69,7 @@ class QrCodeFragment : BaseFragment(TAG) {
     override fun onDestroy() {
         super.onDestroy()
         dialog?.dismiss()
+        dismissAlert()
     }
 
     private fun setupUI() {
@@ -113,6 +114,7 @@ class QrCodeFragment : BaseFragment(TAG) {
                        /* val result = getTransactionResult(transaction)
                         printSlip = result?.getSlip(terminalInfo)?.getSlipItems() ?: printSlip*/
                     } else if(it is PaymentStatus.Complete){
+                        dismissAlert()
                         //navigate to receipt fragment
                         val direction = QrCodeFragmentDirections.iswActionIswFragmentQrcodeToIswReceiptFragment(
                                 paymentModel,

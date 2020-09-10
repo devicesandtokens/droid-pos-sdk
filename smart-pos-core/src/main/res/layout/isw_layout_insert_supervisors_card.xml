@@ -46,17 +46,17 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:gravity="center"
-        android:text="@string/isw_authenticate_supervisor_s_card"
+        android:text="@string/isw_authenticate_pin"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/isw_imageview_insert_card"
+        app:layout_constraintBottom_toTopOf="@+id/isw_imageview7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/isw_pin_edit_text"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <ImageView
-        android:id="@+id/isw_imageview_insert_card"
+        android:id="@+id/isw_imageview7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"

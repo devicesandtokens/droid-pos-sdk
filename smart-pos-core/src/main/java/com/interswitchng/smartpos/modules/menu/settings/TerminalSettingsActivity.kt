@@ -110,7 +110,7 @@ class TerminalSettingsActivity : MenuActivity() {
                 finish()
                 return true
             } else {
-                toast("Scroll to Bottom and Enroll Supervisor's Card")
+                toast("Scroll to Bottom and Enroll Merchant's Pin")
             }
 
         } else if (item?.itemId == R.id.saveConfig) {
@@ -242,11 +242,25 @@ class TerminalSettingsActivity : MenuActivity() {
             // choose config file
             startActivityForResult(intent, RC_FILE_READ)
         }
-        /*  switchToNIBBS.setOnClickListener { button, _ ->
+          switchToEPMS.setOnCheckedChangeListener { button, _ ->
               if(button.isChecked){
-
+                  tvIsEPMS.text = "EPMS"
+                  etServerPort.setText(Constants.ISW_EPMS_PORT)
+                  etServerIP.setText(Constants.ISW_TERMINAL_IP_EPMS)
+              } else{
+                  tvIsEPMS.text = "CTMS"
+                  etServerPort.setText(Constants.ISW_CTMS_PORT)
+                  etServerIP.setText(Constants.ISW_TERMINAL_IP_CTMS)
               }
-          }*/
+          }
+
+        switchToNIBBS.setOnCheckedChangeListener { button, _ ->
+              if(button.isChecked){
+                  tvIsNibbsTest.text = "NIBBS TEST"
+              } else{
+                  tvIsNibbsTest.text = "NIBBS PRODUCTION"
+              }
+          }
 
         switchKimono.setOnCheckedChangeListener { button, _ ->
 
@@ -505,6 +519,8 @@ class TerminalSettingsActivity : MenuActivity() {
             agentEmail = etAgentEmail.getString()
             merchantCode = etMerchantCode.getString()
             merchantAlias = etMerchantAlias.getString()
+            isEPMS = switchToEPMS.isChecked
+            isNibbsTest = switchToNIBBS.isChecked
 
 
             // only set capabilities if it was provided
@@ -627,15 +643,14 @@ class TerminalSettingsActivity : MenuActivity() {
 
 
     private fun fetchSupervisorDetails() {
-        val savedPan = store.getString("M3RCHANT_PAN", "")
         val savedPin = store.getString("MERCHANT_PIN", "")
-        if (savedPan == "" && savedPin == "") {
-            supervisorStatusHeader.text = "Supervisor's card not set"
-            btnChangePassword.text = "Enroll supervisor's card"
+        if (savedPin == "") {
+            supervisorStatusHeader.text = "Merchant's Pin not set"
+            btnChangePassword.text = "Enter merchant's pin"
             supervisorCardIsEnrolled = false
         } else {
             supervisorStatusHeader.text = ""
-            btnChangePassword.text = "Change supervisor's card"
+            btnChangePassword.text = "Change Merchant's Pin"
             supervisorCardIsEnrolled = true
         }
     }

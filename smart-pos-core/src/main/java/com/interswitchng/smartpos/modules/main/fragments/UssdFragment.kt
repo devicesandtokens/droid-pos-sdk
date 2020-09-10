@@ -231,6 +231,7 @@ class UssdFragment : BaseFragment(TAG) {
                         /*val result = getTransactionResult(transaction)
                         printSlip = result?.getSlip(terminalInfo)?.getSlipItems() ?: printSlip*/
                     } else if(it is PaymentStatus.Complete){
+                        dismissAlert()
                         // navigate to receipt fragment
                         val direction = UssdFragmentDirections.iswActionIswFragmentUssdToIswReceiptFragment(
                                 paymentModel,
@@ -422,7 +423,10 @@ class UssdFragment : BaseFragment(TAG) {
         ussdViewModel.cancelPoll()
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        dismissAlert()
+    }
     companion object {
         const val TAG = "Ussd Fragment"
     }

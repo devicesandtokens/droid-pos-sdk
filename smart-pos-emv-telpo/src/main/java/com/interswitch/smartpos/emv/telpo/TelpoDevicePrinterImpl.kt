@@ -5,6 +5,8 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Matrix
+import android.graphics.drawable.BitmapDrawable
+import androidx.core.content.ContextCompat
 import com.interswitchng.smartpos.shared.interfaces.device.DevicePrinter
 import com.interswitchng.smartpos.shared.models.core.UserType
 import com.interswitchng.smartpos.shared.models.posconfig.PrintObject
@@ -13,7 +15,7 @@ import com.interswitchng.smartpos.shared.models.printer.info.PrintStatus
 import com.telpo.tps550.api.TelpoException
 import com.telpo.tps550.api.printer.UsbThermalPrinter
 
-class TelpoDevicePrinterImpl constructor(context: Context) : DevicePrinter {
+class TelpoDevicePrinterImpl constructor(private val context: Context) : DevicePrinter {
 
     private val printer = UsbThermalPrinter(context)
 
@@ -41,11 +43,11 @@ class TelpoDevicePrinterImpl constructor(context: Context) : DevicePrinter {
         printItem(posVersion)
 
         // print phone number at end of slip
-        val phoneNumber = PrintObject.Data("Tel: 016283888", PrintStringConfiguration(displayCenter = true))
+        val phoneNumber = PrintObject.Data("Tel: 0703 378 5961 , 0902 664 1582", PrintStringConfiguration(displayCenter = true))
         printItem(phoneNumber)
 
         // print email at end of slip
-        val email = PrintObject.Data("Email: support@Interswitchng.com", PrintStringConfiguration(displayCenter = true))
+        val email = PrintObject.Data("Email: touchpoint-support@interswitchng.com", PrintStringConfiguration(displayCenter = true))
         printItem(email)
 
         // print users copy
@@ -108,7 +110,18 @@ class TelpoDevicePrinterImpl constructor(context: Context) : DevicePrinter {
 
     fun printCompanyLogo() {
         printer.setAlgin(UsbThermalPrinter.ALGIN_MIDDLE)
-        TelpoPOSDeviceImpl.companyLogo.also { logo ->
+        val drawable = ContextCompat.getDrawable(context, R.drawable.isw_interswitch_logo)!!
+        val companyLogo: Bitmap = run {
+            return@run when (drawable) {
+                is BitmapDrawable -> drawable.bitmap
+                else -> Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888).also { bitmap ->
+                    val canvas = Canvas(bitmap)
+                    drawable.setBounds(0, 0, canvas.width, canvas.height)
+                    drawable.draw(canvas)
+                }
+            }
+        }
+        companyLogo.also { logo ->
             // copy out bitmap
             val it = logo.copy(logo.config, logo.isMutable)
             val smallScale =

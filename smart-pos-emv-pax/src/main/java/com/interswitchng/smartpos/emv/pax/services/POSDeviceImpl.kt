@@ -83,12 +83,12 @@ class POSDeviceImpl private constructor(override val printer: DevicePrinter,
         internal lateinit var companyLogo: Bitmap private set
 
         @JvmStatic
-        internal fun create(context: Context, printer: DevicePrinter = DevicePrinterImpl, factory: () -> EmvCardReader): POSDeviceImpl {
+        internal fun create(context: Context, printer: DevicePrinter = DevicePrinterImpl(context), factory: () -> EmvCardReader): POSDeviceImpl {
             // setupDevice pos device
             setupDevice(context)
 
             // setup logo
-            val drawable = ContextCompat.getDrawable(context, R.drawable.isw_pax_app_logo)!!
+            val drawable = ContextCompat.getDrawable(context, R.drawable.isw_interswitch_logo)!!
             companyLogo = run {
                 return@run when(drawable) {
                     is BitmapDrawable -> drawable.bitmap
@@ -106,7 +106,7 @@ class POSDeviceImpl private constructor(override val printer: DevicePrinter,
 
         @JvmStatic
         fun create(context: Context): POSDeviceImpl {
-            val printer: DevicePrinter = DevicePrinterImpl
+            val printer: DevicePrinter = DevicePrinterImpl(context)
             val factory = { EmvCardReaderImpl(context) }
             return create(context, printer, factory)
         }

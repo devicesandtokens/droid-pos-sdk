@@ -157,6 +157,11 @@ class PayCodeFragment : BaseFragment(TAG) {
         payCodeViewModel.processOnline(terminalInfo, code, paymentInfo)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        dismissAlert()
+    }
+
     companion object {
         const val TAG = "Pay Code"
     }

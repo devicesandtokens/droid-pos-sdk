@@ -272,6 +272,7 @@
     <string name="isw_sample_pin">123456</string>
     <string name="isw_title_merchant_code">Merchant Code</string>
     <string name="isw_title_merchant_alias">Merchant Alias</string>
+    <string name="isw_authenticate_pin">Authenticate Pin</string>
 
     <string-array name="isw_transaction_types">
         <item>Purchase</item>
