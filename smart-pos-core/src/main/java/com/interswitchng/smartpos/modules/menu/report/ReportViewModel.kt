@@ -270,7 +270,7 @@ internal class ReportViewModel(
     }
 
     private fun formatAmount(amount: String): String {
-        val spaceCount = 10 - amount.length
+        val spaceCount = 13 - amount.length
         val padding = " ".repeat(spaceCount)
         return amount + padding
     }
