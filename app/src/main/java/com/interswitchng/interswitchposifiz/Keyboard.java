@@ -1,4 +1,4 @@
-package com.interswitchng.interswitchpossdkdemo;
+package com.interswitchng.interswitchposifiz;
 
 import android.app.Activity;
 import android.content.Context;

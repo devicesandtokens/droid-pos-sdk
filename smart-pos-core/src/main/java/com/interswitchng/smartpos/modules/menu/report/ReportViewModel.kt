@@ -235,12 +235,14 @@ internal class ReportViewModel(
 
 
         list.add(PrintObject.Data("Total Transactions: $transactionSum\n", PrintStringConfiguration(isBold = true)))
+        val transactionApprovedAmountTo2dp = String.format("%.2f", transactionApprovedAmount)
+        val transactionFailedAmountTo2dp = String.format("%.2f", transactionFailedAmount)
 
         val transactionFailed = transactionSum - transactionApproved
         list.add(PrintObject.Data("Total Passed Transaction: $transactionApproved\n", PrintStringConfiguration(isBold = true)))
         list.add(PrintObject.Data("Total Failed Transaction: $transactionFailed\n", PrintStringConfiguration(isBold = true)))
-        list.add(PrintObject.Data("Total Approved Amount: $transactionApprovedAmount\n", PrintStringConfiguration(isBold = true)))
-        list.add(PrintObject.Data("Total Failed Amount: $transactionFailedAmount\n", PrintStringConfiguration(isBold = true)))
+        list.add(PrintObject.Data("Total Approved Amount: $transactionApprovedAmountTo2dp\n", PrintStringConfiguration(isBold = true)))
+        list.add(PrintObject.Data("Total Failed Amount: $transactionFailedAmountTo2dp\n", PrintStringConfiguration(isBold = true)))
         list.add(PrintObject.Line)
 
         return list
@@ -260,7 +262,7 @@ internal class ReportViewModel(
     }
 
     private fun formatAmount(amount: String): String {
-        val spaceCount = 10 - amount.length
+        val spaceCount = 13 - amount.length
         val padding = " ".repeat(spaceCount)
         return amount + padding
     }
