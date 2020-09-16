@@ -605,13 +605,12 @@ internal class IsoServiceImpl(
     }
 
     override fun initiatePaycodePurchase(terminalInfo: TerminalInfo, code: String, paymentInfo: PaymentInfo): TransactionResponse? {
-
+        val now = Date()
         try {
             val pan = generatePan(code)
             val amount = String.format(Locale.getDefault(), "%012d", paymentInfo.amount)
             logger.log("i: ${paymentInfo.amount} in IsoServiceImpl")
             logger.log("i: $amount in IsoServiceImpl")
-            val now = Date()
             val message = NibssIsoMessage(messageFactory.newMessage(0x200))
             val processCode = "001000"
             val stan = paymentInfo.getStan()
@@ -680,7 +679,7 @@ internal class IsoServiceImpl(
 
             // open connection
             val isConnected = socket.open()
-            if (!isConnected) return TransactionResponse(TIMEOUT_CODE, authCode = "", stan = "", scripts = "")
+            if (!isConnected) return TransactionResponse(TIMEOUT_CODE, authCode = "", stan = "", scripts = "",date = now )
 
             val request = message.message.writeData()
             val response = socket.sendReceive(request)
@@ -695,13 +694,13 @@ internal class IsoServiceImpl(
             return responseMsg.message.let {
                 val empty = ""
                 val responseCode = it.getObjectValue<String>(39)
-                return@let TransactionResponse(responseCode, authCode = empty, stan = stan, scripts = empty)
+                return@let TransactionResponse(responseCode, authCode = empty, stan = stan, scripts = empty,date = now)
             }
 
         } catch (e: Exception) {
             // logger.log(e.localizedMessage)
             e.printStackTrace()
-            return TransactionResponse(TIMEOUT_CODE, authCode = "", stan = "", scripts = "")
+            return TransactionResponse(TIMEOUT_CODE, authCode = "", stan = "", scripts = "",date =now)
         }
     }
 

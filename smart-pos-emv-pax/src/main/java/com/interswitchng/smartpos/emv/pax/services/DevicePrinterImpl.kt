@@ -9,6 +9,7 @@ import android.graphics.Matrix
 import android.graphics.drawable.BitmapDrawable
 import androidx.core.content.ContextCompat
 import com.interswitchng.smartpos.emv.pax.R
+import com.interswitchng.smartpos.emv.pax.utilities.StringAlignUtils
 import com.interswitchng.smartpos.emv.pax.utilities.StringUtils
 import com.interswitchng.smartpos.shared.interfaces.device.DevicePrinter
 import com.interswitchng.smartpos.shared.models.core.UserType
@@ -118,7 +119,8 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
                         else -> Companion.SCREEN_NORMAL_LENGTH
                     }
 
-                    val formattedString = StringUtils.center(item.value, screenLength, newLine = true)
+                    val util = StringAlignUtils(screenLength,StringAlignUtils.Alignment.CENTER)
+                    val formattedString = util.format(item.value)
 
                     paxPrinter.printStr(formattedString, null)
                 } else {

@@ -167,6 +167,7 @@
     <string name="isw_refund_completed">Refund Completed</string>
     <string name="isw_reversal_completed">Reversal Completed</string>
     <string name="isw_cash_out_completed">Cash Out Completed</string>
+    <string name="isw_pay_code_completed">Pay Code Completed</string>
     <string name="isw_purchase_completed">Purchase Completed</string>
     <string name="isw_transaction_type">Transaction Type: %s</string>
 

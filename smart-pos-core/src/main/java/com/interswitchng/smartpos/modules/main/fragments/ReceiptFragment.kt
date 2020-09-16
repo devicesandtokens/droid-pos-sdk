@@ -60,7 +60,7 @@ class ReceiptFragment : BaseFragment(TAG) {
         Logger.with("Reciept Fragment").logErr(result?.responseCode.toString())
         when (result?.responseCode) {
             IsoUtils.TIMEOUT_CODE -> {
-                if (result?.type == TransactionType.Purchase && result?.paymentType == PaymentType.Card ) {
+                if (result?.type == TransactionType.Purchase) {
                     if (!isFromActivityDetail) {
                         initiateReversal()
                     }
@@ -74,20 +74,22 @@ class ReceiptFragment : BaseFragment(TAG) {
                 transactionResponseIcon.setImageResource(R.drawable.isw_round_done_padded)
                 isw_transaction_msg.text = "Your transaction was successful"
                 when (transactionResponseModel.transactionType) {
-                    PaymentModel.TransactionType.CARD_PURCHASE -> isw_receipt_text.text =
+                    TransactionType.Purchase-> isw_receipt_text.text =
                             getString(R.string.isw_purchase_completed)
-                    PaymentModel.TransactionType.PRE_AUTHORIZATION -> isw_receipt_text.text =
+                    TransactionType.PreAuth-> isw_receipt_text.text =
                             getString(R.string.isw_pre_authorization_completed)
-                    PaymentModel.TransactionType.CARD_NOT_PRESENT -> isw_receipt_text.text =
+                    TransactionType.CardNotPresent-> isw_receipt_text.text =
                             getString(R.string.isw_card_not_present_completed)
-                    PaymentModel.TransactionType.COMPLETION -> isw_receipt_text.text =
+                    TransactionType.Completion-> isw_receipt_text.text =
                             getString(R.string.isw_completion_completed)
-                    PaymentModel.TransactionType.REFUND -> isw_receipt_text.text =
+                    TransactionType.Refund-> isw_receipt_text.text =
                             getString(R.string.isw_refund_completed)
-                    PaymentModel.TransactionType.REVERSAL -> isw_receipt_text.text =
+                    TransactionType.Reversal -> isw_receipt_text.text =
                             getString(R.string.isw_reversal_completed)
-                    PaymentModel.TransactionType.CASH_OUT -> isw_receipt_text.text =
+                    TransactionType.CashOut -> isw_receipt_text.text =
                             getString(R.string.isw_cash_out_completed)
+                    TransactionType.PayCode -> isw_receipt_text.text =
+                            getString(R.string.isw_pay_code_completed)
                 }
             }
 

@@ -141,7 +141,7 @@ class PayCodeFragment : BaseFragment(TAG) {
                                 paymentModel,
                                 TransactionResponseModel(
                                         transactionResult = transactionResult,
-                                        transactionType = paymentModel.type!!
+                                        transactionType = TransactionType.PayCode
                                 ),
                         false
                         )

@@ -374,7 +374,8 @@ internal class KimonoHttpServiceImpl(private val context: Context,
                         authCode = "",
                         stan = "",
                         scripts = "",
-                        responseDescription = responseBody.message()
+                        responseDescription = responseBody.message(),
+                        date = now
                 )
             } else {
                 TransactionResponse(
@@ -383,7 +384,8 @@ internal class KimonoHttpServiceImpl(private val context: Context,
                         authCode =  purchaseResponse.authCode,// data.authCode,
                         scripts =  purchaseResponse.stan,
                         responseDescription = purchaseResponse.description,//data.description
-                        rrn = purchaseResponse.referenceNumber
+                        rrn = purchaseResponse.referenceNumber,
+                        date = now
                 )
             }
 
@@ -392,7 +394,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
             //logger.logErr(e.localizedMessage)
             e.printStackTrace()
             //initiateReversal(terminalInfo, transaction)
-            return TransactionResponse(IsoUtils.TIMEOUT_CODE, authCode = "", stan = "", scripts = "")
+            return TransactionResponse(IsoUtils.TIMEOUT_CODE, authCode = "", stan = "", scripts = "",date = now)
         }
     }
 

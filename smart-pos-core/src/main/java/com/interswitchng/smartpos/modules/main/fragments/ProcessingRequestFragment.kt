@@ -226,7 +226,7 @@ class ProcessingRequestFragment : BaseFragment(TAG) {
                                 paymentModel,
                                 TransactionResponseModel(
                                         transactionResult = transactionResult,
-                                        transactionType = paymentModel.type!!
+                                        transactionType = transactionType
                                 ), false
                         )
                 navigate(direction)

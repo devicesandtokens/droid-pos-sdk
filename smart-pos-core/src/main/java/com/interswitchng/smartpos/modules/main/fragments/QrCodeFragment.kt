@@ -120,7 +120,7 @@ class QrCodeFragment : BaseFragment(TAG) {
                                 paymentModel,
                                 TransactionResponseModel(
                                         transactionResult = getTransactionResult(it.transaction),
-                                        transactionType = paymentModel.type!!
+                                        transactionType = TransactionType.Purchase
                                 ),
                                 false
                         )

@@ -37,6 +37,7 @@ class ActivityAdapter : PagedListAdapter<TransactionLog, RecyclerView.ViewHolder
             TransactionType.Reversal.ordinal -> holder.itemView.context.getString(R.string.isw_reversal)
             TransactionType.CashOut.ordinal -> holder.itemView.context.getString(R.string.isw_cash_out)
             TransactionType.CardNotPresent.ordinal -> holder.itemView.context.getString(R.string.isw_card_not_present)
+            TransactionType.PayCode.ordinal -> holder.itemView.context.getString(R.string.isw_pay_code)
             else -> EMPTY_STRING
         }
 
@@ -64,15 +65,7 @@ class ActivityAdapter : PagedListAdapter<TransactionLog, RecyclerView.ViewHolder
             itemClickListener.navigateToActivityDetailFragment(item!!,
                     TransactionResponseModel(
                             transactionResult = item.toResult(),
-                            transactionType = when (item.transactionType) {
-                                0 -> PaymentModel.TransactionType.CARD_PURCHASE
-                                1 -> PaymentModel.TransactionType.PRE_AUTHORIZATION
-                                2 -> PaymentModel.TransactionType.COMPLETION
-                                3 -> PaymentModel.TransactionType.REFUND
-                                4 -> PaymentModel.TransactionType.REVERSAL
-                                5 -> PaymentModel.TransactionType.CARD_NOT_PRESENT
-                                else -> PaymentModel.TransactionType.CASH_OUT
-                            }
+                            transactionType = TransactionType.getByValue(item.transactionType)!!
                     ))
         }
     }
