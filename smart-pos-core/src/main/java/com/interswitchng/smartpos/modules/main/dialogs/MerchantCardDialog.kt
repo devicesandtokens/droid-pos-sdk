@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import com.interswitchng.smartpos.IswPos
 import com.interswitchng.smartpos.R
 import com.interswitchng.smartpos.modules.card.CardViewModel
+import com.interswitchng.smartpos.modules.main.models.PaymentModel
 import com.interswitchng.smartpos.shared.activities.BaseBottomSheetDialog
 import com.interswitchng.smartpos.shared.interfaces.library.KeyValueStore
 import com.interswitchng.smartpos.shared.models.core.TerminalInfo
@@ -20,6 +21,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class MerchantCardDialog constructor(
         private val isAuthorization: Boolean = false,
+        private var transactionType: PaymentModel.TransactionType = PaymentModel.TransactionType.CARD_PURCHASE,
         private val clickListener: SingleArgsClickListener<Int>
 ) : BaseBottomSheetDialog() {
 

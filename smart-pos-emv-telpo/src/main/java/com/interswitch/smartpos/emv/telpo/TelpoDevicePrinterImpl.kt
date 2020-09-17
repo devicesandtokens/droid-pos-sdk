@@ -88,10 +88,10 @@ class TelpoDevicePrinterImpl constructor(private val context: Context) : DeviceP
                 when {
                     printConfig.isTitle -> {
                         printer.setGray(7)
-                        printer.setTextSize(30)
+                        printer.setTextSize(25)
                     }
                     else -> {
-                        printer.setTextSize(24)
+                        printer.setTextSize(19)
                     }
                 }
 

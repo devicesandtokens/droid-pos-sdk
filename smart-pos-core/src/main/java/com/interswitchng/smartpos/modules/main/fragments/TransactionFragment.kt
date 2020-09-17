@@ -43,7 +43,7 @@ class TransactionFragment: BaseFragment(TAG) {
                                 navigateUp()
                             }
                         }
-                        val dialog = MerchantCardDialog { type ->
+                        val dialog = MerchantCardDialog(transactionType = PaymentModel.TransactionType.PRE_AUTHORIZATION) { type ->
                             when (type) {
                                 MerchantCardDialog.AUTHORIZED -> {
                                     val payment = payment {
@@ -119,7 +119,7 @@ class TransactionFragment: BaseFragment(TAG) {
                                 navigateUp()
                             }
                         }
-                        val dialog = MerchantCardDialog { type ->
+                        val dialog = MerchantCardDialog(transactionType = PaymentModel.TransactionType.REFUND) { type ->
                             when (type) {
                                 MerchantCardDialog.AUTHORIZED -> {
                                     val payment = payment {
