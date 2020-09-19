@@ -184,7 +184,7 @@ internal class ReportViewModel(
 
 
         //add terminalIdTitle
-        val terminalIdTitle = PrintObject.Data("TerminalId\n", PrintStringConfiguration(isBold = true))
+        val terminalIdTitle = PrintObject.Data("TerminalID\n", PrintStringConfiguration(isBold = true))
         //add terminalIdTitle
         list.add(terminalIdTitle)
         //create the terminalId for printout
