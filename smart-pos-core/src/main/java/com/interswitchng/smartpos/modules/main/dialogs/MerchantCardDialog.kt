@@ -32,6 +32,7 @@ class MerchantCardDialog constructor(
     private val cardViewModel by viewModel<CardViewModel>()
     private val store by inject<KeyValueStore>()
     val terminalInfo by lazy { TerminalInfo.get(store)!! }
+    private val deviceName = IswPos.getInstance().device.name
 
     override val layoutId: Int
         get() = R.layout.isw_sheet_layout_admin_merchant_card
@@ -156,13 +157,17 @@ class MerchantCardDialog constructor(
 
             // when transaction is processing
             is EmvMessage.ProcessingTransaction -> {
-                val savedPan = store.getString("M3RCHANT_PAN", "")
-                if (savedPan == cardViewModel.getCardPAN()) {
-                    clickListener.invoke(AUTHORIZED)
-                    dismiss()
-                } else {
-                    clickListener.invoke(FAILED)
-                    dismiss()
+                if(deviceName == PAX) {
+                    val savedPan = store.getString("M3RCHANT_PAN", "")
+                    if (savedPan == cardViewModel.getCardPAN()) {
+                        clickListener.invoke(AUTHORIZED)
+                        dismiss()
+                    } else {
+                        clickListener.invoke(FAILED)
+                        dismiss()
+                    }
+                } else{
+
                 }
             }
         }
@@ -173,5 +178,6 @@ class MerchantCardDialog constructor(
         const val FAILED = 1
         const val USE_FINGERPRINT = 2
         const val TAG = "Merchant Card Dialog"
+        const val PAX ="PAX"
     }
 }

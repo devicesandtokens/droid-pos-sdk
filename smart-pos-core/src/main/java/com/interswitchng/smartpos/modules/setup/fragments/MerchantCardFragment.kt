@@ -26,6 +26,7 @@ class MerchantCardFragment : BaseFragment(TAG) {
     private val setupViewModel by viewModel<SetupFragmentViewModel>()
 
     private val store by inject<KeyValueStore>()
+    private val deviceName = IswPos.getInstance().device.name
 
     override val layoutId: Int
         get() = R.layout.isw_fragment_merchant_card_setup
@@ -175,11 +176,15 @@ class MerchantCardFragment : BaseFragment(TAG) {
 
             // when transaction is processing
             is EmvMessage.ProcessingTransaction -> {
-                isw_insert_card_layout.visibility = View.GONE
-                isw_card_detected_layout.visibility = View.GONE
-                isw_enter_pin_layout.visibility = View.VISIBLE
-                //isw_card_pan.text = cardViewModel.getCardPAN()
-                toast("Pin OK")
+                if(deviceName == PAX) {
+                    isw_insert_card_layout.visibility = View.GONE
+                    isw_card_detected_layout.visibility = View.GONE
+                    isw_enter_pin_layout.visibility = View.VISIBLE
+                    //isw_card_pan.text = cardViewModel.getCardPAN()
+                    toast("Pin OK")
+                } else{
+
+                }
             }
             EmvMessage.EmptyPin -> {
 
@@ -189,5 +194,6 @@ class MerchantCardFragment : BaseFragment(TAG) {
 
     companion object {
         const val TAG = "Merchant Card Fragment"
+        const val PAX ="PAX"
     }
 }
