@@ -35,6 +35,7 @@ class TransactionFragment: BaseFragment(TAG) {
                         val payment = payment {
                             type = PaymentModel.TransactionType.PRE_AUTHORIZATION
                         }
+                        navigate(TransactionFragmentDirections.iswActionGotoFragmentAmount(payment))
 
                     }
 //                    2 -> {

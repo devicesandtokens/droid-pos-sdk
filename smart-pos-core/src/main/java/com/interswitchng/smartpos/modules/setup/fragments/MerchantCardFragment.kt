@@ -170,12 +170,16 @@ class MerchantCardFragment : BaseFragment(TAG) {
 
             // when user cancels transaction
             is EmvMessage.TransactionCancelled -> {
-
+                store.saveBoolean("SETUP", true)
             }
 
             // when transaction is processing
             is EmvMessage.ProcessingTransaction -> {
-
+                isw_insert_card_layout.visibility = View.GONE
+                isw_card_detected_layout.visibility = View.GONE
+                isw_enter_pin_layout.visibility = View.VISIBLE
+                //isw_card_pan.text = cardViewModel.getCardPAN()
+                toast("Pin OK")
             }
             EmvMessage.EmptyPin -> {
 

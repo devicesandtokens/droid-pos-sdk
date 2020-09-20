@@ -156,7 +156,14 @@ class MerchantCardDialog constructor(
 
             // when transaction is processing
             is EmvMessage.ProcessingTransaction -> {
-
+                val savedPan = store.getString("M3RCHANT_PAN", "")
+                if (savedPan == cardViewModel.getCardPAN()) {
+                    clickListener.invoke(AUTHORIZED)
+                    dismiss()
+                } else {
+                    clickListener.invoke(FAILED)
+                    dismiss()
+                }
             }
         }
     }
