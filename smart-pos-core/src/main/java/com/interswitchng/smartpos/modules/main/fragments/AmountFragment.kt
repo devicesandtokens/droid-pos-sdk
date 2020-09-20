@@ -5,10 +5,14 @@ import android.view.View
 import androidx.navigation.fragment.navArgs
 import com.interswitchng.smartpos.R
 import com.interswitchng.smartpos.modules.main.MainActivity
+import com.interswitchng.smartpos.modules.main.dialogs.FingerprintBottomDialog
+import com.interswitchng.smartpos.modules.main.dialogs.MerchantCardDialog
 import com.interswitchng.smartpos.modules.main.dialogs.PaymentTypeDialog
 import com.interswitchng.smartpos.modules.main.models.PaymentModel
+import com.interswitchng.smartpos.modules.main.models.payment
 import com.interswitchng.smartpos.shared.Constants.EMPTY_STRING
 import com.interswitchng.smartpos.shared.activities.BaseFragment
+import com.interswitchng.smartpos.shared.utilities.DialogUtils
 import com.interswitchng.smartpos.shared.utilities.DisplayUtils
 import com.interswitchng.smartpos.shared.utilities.Logger
 import kotlinx.android.synthetic.main.isw_fragment_amount.*
@@ -113,18 +117,42 @@ class AmountFragment : BaseFragment(TAG) {
                             payment.newPayment {
                                 paymentType = it
                             }
-
                             val direction = AmountFragmentDirections.iswActionGotoFragmentCardTransactions(payment)
                             navigate(direction)
                         }
 
                         PaymentModel.PaymentType.CARD_NOT_PRESENT -> {
-                            payment.newPayment {
-                                paymentType = it
-                            }
 
-                            val direction = AmountFragmentDirections.iswActionGotoFragmentCardDetails(payment)
-                            navigate(direction)
+                            val fingerprintDialog = FingerprintBottomDialog(isAuthorization = true) { isValidated ->
+                                if (isValidated) {
+                                    payment.newPayment {
+                                        paymentType = it
+                                    }
+                                    val direction = AmountFragmentDirections.iswActionGotoFragmentCardDetails(payment)
+                                    navigate(direction)
+                                } else {
+                                    toast("Fingerprint Verification Failed!!")
+                                    navigateUp()
+                                }
+                            }
+                            val dialog = MerchantCardDialog(isUseCard = true) { type ->
+                                when (type) {
+                                    MerchantCardDialog.AUTHORIZED -> {payment.newPayment {
+                                        paymentType = it
+                                    }
+                                        val direction = AmountFragmentDirections.iswActionGotoFragmentCardDetails(payment)
+                                        navigate(direction)
+                                    }
+                                    MerchantCardDialog.FAILED -> {
+                                        toast("Merchant Card Verification Failed!!")
+                                        navigateUp()
+                                    }
+                                    MerchantCardDialog.USE_FINGERPRINT -> {
+                                        fingerprintDialog.show(childFragmentManager, FingerprintBottomDialog.TAG)
+                                    }
+                                }
+                            }
+                            dialog.show(childFragmentManager, MerchantCardDialog.TAG)
                         }
                     }
                 }

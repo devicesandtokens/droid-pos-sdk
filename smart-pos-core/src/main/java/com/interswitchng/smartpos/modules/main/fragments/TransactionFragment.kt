@@ -32,35 +32,9 @@ class TransactionFragment: BaseFragment(TAG) {
                         navigate(TransactionFragmentDirections.iswActionGotoFragmentAmount(payment))
                     }
                     1 -> {
-                        val fingerprintDialog = FingerprintBottomDialog(isAuthorization = true) { isValidated ->
-                            if (isValidated) {
-                                val payment = payment {
-                                    type = PaymentModel.TransactionType.PRE_AUTHORIZATION
-                                }
-                                navigate(TransactionFragmentDirections.iswActionGotoFragmentAmount(payment))
-                            } else {
-                                toast("Fingerprint Verification Failed!!")
-                                navigateUp()
-                            }
+                        val payment = payment {
+                            type = PaymentModel.TransactionType.PRE_AUTHORIZATION
                         }
-                        val dialog = MerchantCardDialog(transactionType = PaymentModel.TransactionType.PRE_AUTHORIZATION) { type ->
-                            when (type) {
-                                MerchantCardDialog.AUTHORIZED -> {
-                                    val payment = payment {
-                                        this.type = PaymentModel.TransactionType.PRE_AUTHORIZATION
-                                    }
-                                    navigate(TransactionFragmentDirections.iswActionGotoFragmentAmount(payment))
-                                }
-                                MerchantCardDialog.FAILED -> {
-                                    toast("Merchant Card Verification Failed!!")
-                                    navigateUp()
-                                }
-                                MerchantCardDialog.USE_FINGERPRINT -> {
-                                    fingerprintDialog.show(childFragmentManager, FingerprintBottomDialog.TAG)
-                                }
-                            }
-                        }
-                        dialog.show(childFragmentManager, MerchantCardDialog.TAG)
 
                     }
 //                    2 -> {
@@ -119,7 +93,7 @@ class TransactionFragment: BaseFragment(TAG) {
                                 navigateUp()
                             }
                         }
-                        val dialog = MerchantCardDialog(transactionType = PaymentModel.TransactionType.REFUND) { type ->
+                        val dialog = MerchantCardDialog(isUseCard = true) { type ->
                             when (type) {
                                 MerchantCardDialog.AUTHORIZED -> {
                                     val payment = payment {

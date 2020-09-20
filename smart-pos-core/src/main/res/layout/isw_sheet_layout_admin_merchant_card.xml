@@ -25,13 +25,28 @@
         layout="@layout/isw_layout_insert_supervisors_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="150dp"
         android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/isw_use_fingerprint"
         app:layout_constraintEnd_toStartOf="@+id/isw_guideline3"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/isw_guideline2"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.078"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <include
+        android:id="@+id/isw_enroll_pin"
+        layout="@layout/isw_layout_enroll_pin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/isw_use_fingerprint"
+        app:layout_constraintEnd_toStartOf="@+id/isw_guideline3"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/isw_guideline2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.064"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <com.google.android.material.button.MaterialButton
@@ -39,14 +54,12 @@
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="0dp"
         android:layout_height="?android:attr/actionBarSize"
-        android:layout_marginTop="16dp"
         android:layout_marginBottom="150dp"
         android:text="@string/isw_use_fingerprint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/isw_guideline3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/isw_guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/isw_insert_card_layout"
         app:strokeColor="@color/iswColorPrimary" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

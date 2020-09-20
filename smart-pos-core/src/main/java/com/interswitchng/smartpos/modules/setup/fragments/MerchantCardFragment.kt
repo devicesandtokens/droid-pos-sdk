@@ -9,13 +9,14 @@ import com.interswitchng.smartpos.modules.card.CardViewModel
 import com.interswitchng.smartpos.modules.setup.SetupFragmentViewModel
 import com.interswitchng.smartpos.shared.activities.BaseFragment
 import com.interswitchng.smartpos.shared.interfaces.library.KeyValueStore
-import com.interswitchng.smartpos.shared.models.posconfig.PosType
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.EmvMessage
 import com.interswitchng.smartpos.shared.utilities.SecurityUtils
 import com.interswitchng.smartpos.shared.utilities.toast
 import kotlinx.android.synthetic.main.isw_fragment_merchant_card_setup.*
-import kotlinx.android.synthetic.main.isw_layout_insert_supervisors_card.*
+import kotlinx.android.synthetic.main.isw_layout_enroll_pin.*
 import kotlinx.android.synthetic.main.isw_layout_supervisors_card_pin.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -34,10 +35,10 @@ class MerchantCardFragment : BaseFragment(TAG) {
         /*if (store.getBoolean("SETUP")) {
             proceedToMainActivity()
         }*/
-        /*cardViewModel.emvMessage.observe(this, Observer {
+        cardViewModel.emvMessage.observe(this, Observer {
             it?.let(::processMessage)
-        })*/
-        //cardViewModel.setupTransaction(0, terminalInfo)
+        })
+        cardViewModel.setupTransaction(0, terminalInfo)
 
         // ensure device supports finger  print
         val supportsFingerPrint = IswPos.getInstance().device.hasFingerPrintReader
@@ -52,26 +53,40 @@ class MerchantCardFragment : BaseFragment(TAG) {
         }
 
         isw_skip_fingerprint.setOnClickListener {
+            val cardPAN = cardViewModel.getCardPAN()!!
+            setupViewModel.saveMerchantPAN(cardPAN)
             store.saveBoolean("SETUP", true)
             val direction = MerchantCardFragmentDirections.iswActionGotoFragmentSetupComplete()
             navigate(direction)
         }
 
-        isw_button_pin_proceed.setOnClickListener {
-            val enteredPin = isw_pin_edit_text.text.toString()
+        isw_link_fingerprint.setOnClickListener {
+            val cardPAN = cardViewModel.getCardPAN()!!
+            logger.logErr(cardPAN)
+            setupViewModel.saveMerchantPAN(cardPAN)
+            val direction = MerchantCardFragmentDirections.iswActionGotoFragmentPhoneNumber()
+            navigate(direction)
+        }
+
+        isw_button_proceed.setOnClickListener {
+            val enteredPin = isw_et_merchant_pin.text.toString()
             val hashedPin = SecurityUtils.getHash(enteredPin)
+           // val cardPAN = cardViewModel.getCardPAN()!!
+
             if (enteredPin == "") {
                 context?.toast("Pin Field is empty. Please enter your pin")
             } else {
                 setupViewModel.saveMerchantPIN(hashedPin)
-                isw_imageview.visibility = View.INVISIBLE
+                //setupViewModel.saveMerchantPAN(cardPAN)
+                isw_imageview.visibility = View.VISIBLE
                 isw_insert_card_layout.visibility = View.GONE
                 isw_card_detected_layout.visibility = View.GONE
-                isw_enter_pin_layout.visibility = View.VISIBLE
-                isw_card_pan.text = "Pin Set"
-                isw_text_card_pan.visibility = View.GONE
+                isw_enter_pin_layout.visibility = View.GONE
+                isw_card_and_pin_set_layout.visibility = View.VISIBLE
             }
-        }
+
+    }
+
     }
 
     private fun proceedToMainActivity() {
@@ -86,24 +101,36 @@ class MerchantCardFragment : BaseFragment(TAG) {
 
             // when card is detected
             is EmvMessage.CardDetected -> {
-
+                isw_insert_card_layout.visibility = View.GONE
+                isw_card_detected_layout.visibility = View.VISIBLE
+                isw_enter_pin_layout.visibility = View.GONE
             }
 
             is EmvMessage.EmptyPin -> {
             }
 
             is EmvMessage.CardDetails -> {
-
+                isw_imageview.visibility = View.INVISIBLE
+                isw_insert_card_layout.visibility = View.GONE
+                isw_card_detected_layout.visibility = View.GONE
+                isw_enter_pin_layout.visibility = View.VISIBLE
+                val cardPAN = cardViewModel.getCardPAN()
+                setupViewModel.saveMerchantPAN(cardPAN!!)
             }
 
             // when card should be inserted
             is EmvMessage.InsertCard -> {
-
+                isw_insert_card_layout.visibility = View.VISIBLE
+                isw_card_detected_layout.visibility = View.GONE
+                isw_enter_pin_layout.visibility = View.GONE
             }
 
             // when card has been read
             is EmvMessage.CardRead -> {
-                //cardViewModel.readCard()
+                //runBlocking { delay(1000) }
+
+                //TODO: Uncomment this, was commented out during conflict resolution
+                cardViewModel.startTransaction(requireContext())
 
             }
 
@@ -124,7 +151,11 @@ class MerchantCardFragment : BaseFragment(TAG) {
 
             // when pin has been validated
             is EmvMessage.PinOk -> {
-
+                isw_insert_card_layout.visibility = View.GONE
+                isw_card_detected_layout.visibility = View.GONE
+                isw_enter_pin_layout.visibility = View.VISIBLE
+                //isw_card_pan.text = cardViewModel.getCardPAN()
+                toast("Pin OK")
             }
 
             // when the user enters an incomplete pin

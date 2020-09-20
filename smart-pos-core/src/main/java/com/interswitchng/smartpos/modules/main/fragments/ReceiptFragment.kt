@@ -320,7 +320,7 @@ class ReceiptFragment : BaseFragment(TAG) {
                         dialog.dismiss()
                     }
         }
-        dialog = MerchantCardDialog {
+        dialog = MerchantCardDialog (isUseCard =  true){
             when (it) {
                 MerchantCardDialog.AUTHORIZED -> action.invoke()
                 MerchantCardDialog.FAILED -> toast("Unauthorized Access!!")

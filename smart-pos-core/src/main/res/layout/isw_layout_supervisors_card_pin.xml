@@ -49,29 +49,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center"
+        android:text="Card and Pin Set"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/isw_text_card_pan"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/isw_imageview7"
-        tools:text="9876567" />
-
-    <TextView
-        android:id="@+id/isw_text_card_pan"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="@string/isw_card_pan"
-        android:textColor="#1AC10B"
-        app:layout_constraintBottom_toTopOf="@+id/isw_skip_fingerprint"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/isw_card_pan" />
+        app:layout_constraintTop_toBottomOf="@+id/isw_imageview7" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/isw_skip_fingerprint"
@@ -80,14 +65,14 @@
         android:layout_height="?android:attr/actionBarSize"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:text="@string/isw_skip_fingerprint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/isw_text_card_pan" />
+        app:layout_constraintTop_toBottomOf="@+id/isw_textview22" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/isw_link_fingerprint"
