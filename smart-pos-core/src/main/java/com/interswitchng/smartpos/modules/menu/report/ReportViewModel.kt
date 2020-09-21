@@ -209,7 +209,7 @@ internal class ReportViewModel(
 
         // table title
         val amountTitle = "Amt".padEnd(15,'-')
-        val tableTitle = PrintObject.Data("Time---$amountTitle Card--Status")
+        val tableTitle = PrintObject.Data("Time---$amountTitle Card--Status\n")
         list.add(tableTitle)
         list.add(PrintObject.Line)
 
@@ -264,9 +264,8 @@ internal class ReportViewModel(
         val card = this.cardPan.takeLast(4).padEnd(6,'-')
         val status = if (code == IsoUtils.OK) "PASS" else "FAIL"
 
-        val config = PrintStringConfiguration(displayCenter = true)
 
-        return PrintObject.Data("$dateStr $amount $card $status")
+        return PrintObject.Data("$dateStr $amount $card $status\n")
     }
 
     private fun formatAmount(amount: String): String {

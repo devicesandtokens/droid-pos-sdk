@@ -119,8 +119,7 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
                         else -> Companion.SCREEN_NORMAL_LENGTH
                     }
 
-                    val util = StringAlignUtils(screenLength,StringAlignUtils.Alignment.CENTER)
-                    val formattedString = util.format(item.value)
+                    val formattedString = StringUtils.center(item.value, screenLength, newLine = true)
 
                     paxPrinter.printStr(formattedString, null)
                 } else {
@@ -157,7 +156,7 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
             val canvas = Canvas(outputBitmap)
             // draw logo in output bitmap
             canvas.drawColor(Color.WHITE)
-            canvas.drawBitmap(smallScale, paddingLeft.toFloat(), 0f, null)
+            canvas.drawBitmap(smallScale, paddingLeft.toFloat() - 90.toFloat(), 0f, null)
 
             // print bitmap
             printer.printBitmap(outputBitmap)
@@ -229,7 +228,7 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
 
     companion object {
         // screen caharacter length
-        private const val SCREEN_LARGE_LENGTH = 24
-        private const val SCREEN_NORMAL_LENGTH = 32
+        private const val SCREEN_LARGE_LENGTH = 40
+        private const val SCREEN_NORMAL_LENGTH = 48
     }
 }

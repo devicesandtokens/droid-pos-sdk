@@ -42,6 +42,8 @@ class MerchantCardDialog constructor(
 
         cardViewModel.setupTransaction(0, terminalInfo)
 
+        isw_enrollmentLabel.text = getString(R.string.isw_insert_supervisor_s_card)
+
         // ensure device supports finger  print
         val supportsFingerPrint = IswPos.getInstance().device.hasFingerPrintReader
         if (!supportsFingerPrint) {
@@ -52,9 +54,9 @@ class MerchantCardDialog constructor(
                 dismiss()
             }
         }
-        if (isAuthorization) {
-            //isw_textview17.text = getString(R.string.isw_insert_supervisor_s_card)
-        }
+
+
+
 
         if(isUseCard){
             isw_insert_card_layout.visibility = View.VISIBLE
