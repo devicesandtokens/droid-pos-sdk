@@ -1,4 +1,4 @@
-package com.interswitchng.interswitchpossdkdemo
+package com.interswitchng.interswitchpossdkv2
 
 import org.junit.Test
 
