@@ -60,7 +60,7 @@ class ReceiptFragment : BaseFragment(TAG) {
         Logger.with("Reciept Fragment").logErr(result?.responseCode.toString())
         when (result?.responseCode) {
             IsoUtils.TIMEOUT_CODE -> {
-                if (result?.type == TransactionType.Purchase) {
+                if (result?.type == TransactionType.Purchase && result?.paymentType == PaymentType.Card) {
                     if (!isFromActivityDetail) {
                         initiateReversal()
                     }
