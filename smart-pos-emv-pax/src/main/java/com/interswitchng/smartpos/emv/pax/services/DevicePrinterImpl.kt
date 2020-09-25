@@ -68,11 +68,11 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
         printItem(printer, posVersion)
 
         // print phone number at end of slip
-        val phoneNumber = PrintObject.Data("Tel: 016283888", PrintStringConfiguration(displayCenter = true))
+        val phoneNumber = PrintObject.Data("Tel: 01700434", PrintStringConfiguration(displayCenter = true))
         printItem(printer, phoneNumber)
 
         // print email at end of slip
-        val email = PrintObject.Data("Email: support@Interswitchng.com", PrintStringConfiguration(displayCenter = true))
+        val email = PrintObject.Data("Email: ifiscustomercare@interswitchgroup.com", PrintStringConfiguration(displayCenter = true))
         printItem(printer, email)
 
         // print users copy
@@ -177,7 +177,7 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
 
         if (width > height && width > threshold) {
             newWidth = threshold
-            newHeight = (height * newWidth.toFloat() / width).toInt()
+            newHeight = (height * newWidth.toFloat() / width).toInt() + 50
         }
 
         if (width in (height + 1)..threshold) {

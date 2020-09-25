@@ -33,6 +33,9 @@ class TelpoDevicePrinterImpl constructor(private val context: Context) : DeviceP
         //Print the company's logo
         printCompanyLogo()
 
+        val payPoint = PrintObject.Data("PayPoint", PrintStringConfiguration(displayCenter = true))
+        printItem(payPoint)
+
         for (item in slip) printItem(item)
 
         // print thank you message at end of slip
@@ -44,11 +47,11 @@ class TelpoDevicePrinterImpl constructor(private val context: Context) : DeviceP
         printItem(posVersion)
 
         // print phone number at end of slip
-        val phoneNumber = PrintObject.Data("Tel: 016283888", PrintStringConfiguration(displayCenter = true))
+        val phoneNumber = PrintObject.Data("Tel: 01700434", PrintStringConfiguration(displayCenter = true))
         printItem(phoneNumber)
 
         // print email at end of slip
-        val email = PrintObject.Data("Email: support@Interswitchng.com", PrintStringConfiguration(displayCenter = true))
+        val email = PrintObject.Data("Email: ifiscustomercare@interswitchgroup.com", PrintStringConfiguration(displayCenter = true))
         printItem(email)
 
         // print users copy
@@ -156,7 +159,7 @@ class TelpoDevicePrinterImpl constructor(private val context: Context) : DeviceP
 
         if (width > height && width > threshold) {
             newWidth = threshold
-            newHeight = (height * newWidth.toFloat() / width).toInt()
+            newHeight = (height * newWidth.toFloat() / width).toInt() + 50
         }
 
         if (width in (height + 1)..threshold) {

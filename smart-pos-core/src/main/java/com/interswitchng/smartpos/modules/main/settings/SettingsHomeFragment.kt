@@ -34,9 +34,9 @@ class SettingsHomeFragment : BaseFragment(TAG) {
     }
 
     private fun handleClicks() {
-        isw_account_container.setOnClickListener {
-            authorizeAndPerformAction { it.findNavController().navigate(R.id.isw_goto_account_fragment_action) }
-        }
+       /* isw_account_container.setOnClickListener {
+            //authorizeAndPerformAction { it.findNavController().navigate(R.id.isw_goto_account_fragment_action) }
+        }*/
 
         isw_settings_toolbar_label.setOnClickListener {
             navigateUp()

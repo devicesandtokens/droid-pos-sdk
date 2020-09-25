@@ -251,11 +251,12 @@ class TelpoEmvCardReaderImpl (private val context: Context) : EmvCardReader, Tel
             val iccFull=telpoEmvImplementation.getIccFullData()
 
             val aid = telpoEmvImplementation.getTLVString(0x9F06)!!
+            //val bankIdentifierName = telpoEmvImplementation.getTLVString(0x5F54)!!
             // get the card sequence number
             val csnStr = telpoEmvImplementation.getTLVString(ICCData.APP_PAN_SEQUENCE_NUMBER.tag)!!
             val csn = "0$csnStr"
 
-            EmvData(cardPAN = pan, cardExpiry = expiry, cardPIN = cardPin, cardTrack2 = track2data, icc = iccFull, AID = aid, src = src, csn = csn, pinKsn = pinKsn)
+            EmvData(cardPAN = pan, cardExpiry = expiry, cardPIN = cardPin, cardTrack2 = track2data, icc = iccFull, AID = aid, src = src, csn = csn, pinKsn = pinKsn,BIC = "")
         }
     }
 

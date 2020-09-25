@@ -67,6 +67,14 @@ object IsoUtils {
         return getIsoResult(code)?.second
     }
 
+    private fun getBankNameResult(code: String): Pair<String, String>? {
+        return bankCodeMap[code]?.let { Pair(code, it) }
+    }
+
+    fun getBankName(code: String): String? {
+        return getBankNameResult(code)?.second
+    }
+
 
 
     internal fun generatePan(code: String): String {
@@ -194,5 +202,42 @@ object IsoUtils {
             "D1" to "MAC Error",
             "E1" to "Prepay error",
             TIMEOUT_CODE to "Read Timeout Error"
+    )
+
+    private val bankCodeMap = mapOf(
+            "ABNG" to "ACCESS BANK PLC",
+            "AFXM" to "AFRICAN EXPORT-IMPORT BANK",
+            "AMNG" to "ASSET MANAGEMENT CORPORATION OF NIGERIA",
+            "BOIY" to "BANK OF INDUSTRY FINANCIAL DEPARTMENT",
+            "CBNI" to "CENTRAL BANK OF NIGERIA",
+            "CSCY" to "CENTRAL SECURITIES CLEARING SYSTEM PLC",
+            "CITI" to "CITIBANK NIGERIA LIMITED",
+            "ADHL" to "CORONATION MERCHANT BANK LIMITED",
+            "DBLN" to "DIAMOND BANK PLC",
+            "ECOC" to "ECOBANK NIGERIA LIMITED",
+            "KDHL" to "FBN MERCHANT BANK LIMITED",
+            "FIDT" to "FIDELITY BANK PLC",
+            "FBNI" to "FIRST BANK OF NIGERIA LTD",
+            "FCMB" to "FIRST CITY MONUMENT BANK LIMITED",
+            "FSDH" to "FSDH MERCHANT BANK LTD",
+            "GTBI" to "GUARANTY TRUST BANK PLC",
+            "HBCL" to "HERITAGE BANKING COMPANY LIMITED",
+            "JAIZ" to "JAIZ BANK PLC",
+            "PLNI" to "KEYSTONE BANK LIMITED",
+            "NEXM" to "NIGERIAN EXPORT IMPORT BANK",
+            "UMPL" to "NIGERIAN EXPORT IMPORT BANK",
+            "UMPL" to "PROVIDUSBANK PLC",
+            "FIRN" to "RAND MERCHANT BANK NIGERIA LIMITED",
+            "PRDT" to "SKYE BANK PLC",
+            "SBIC" to "STANBIC IBTC BANK PLC",
+            "SCBL" to "STANDARD CHARTERED BANK NIGERIA LIMITED",
+            "NAME" to "STERLING BANK PLC",
+            "SUTG" to "SUNTRUST BANK NIGERIA LIMITED",
+            "UBNI" to "UNION BANK OF NIGERIA PLC",
+            "UNAF" to "UNITED BANK FOR AFRICA PLC",
+            "ICIT" to "UNITY BANK PLC",
+            "WEMA" to "WEMA BANK PLC",
+            "ZEIB" to "ZENITH BANK PLC",
+            "ZEPC" to "ZENITH PENSIONS CUSTODIAN LIMITED"
     )
 }

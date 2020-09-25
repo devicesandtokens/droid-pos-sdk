@@ -14,4 +14,6 @@ data class EmvData(
         val csn: String, // card sequence number
         val AID: String,
         val icc: IccData,
-        val pinKsn: String)
+        val pinKsn: String,
+        var BIC: String //bank identifier code
+)

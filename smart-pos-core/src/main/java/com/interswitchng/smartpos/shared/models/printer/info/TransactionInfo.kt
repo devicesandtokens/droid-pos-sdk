@@ -19,5 +19,6 @@ data class TransactionInfo(
         val pinStatus: String,
         val originalDateTime: String,
         val responseCode: String,
-        val rrn: String
+        val rrn: String,
+        val bankIdentifierCode: String
 )

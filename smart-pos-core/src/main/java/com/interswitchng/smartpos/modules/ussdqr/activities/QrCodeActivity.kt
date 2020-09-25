@@ -213,7 +213,7 @@ class QrCodeActivity : BaseActivity() {
                 authorizationCode = transaction.responseCode,
                 responseMessage = responseMsg,
                 responseCode = transaction.responseCode,
-                cardPan = "", cardExpiry = "", cardType = CardType.None,
+                cardPan = "", cardExpiry = "", cardType = CardType.None, bankIdentifierCode = "",
                 stan = paymentInfo.getStan(), pinStatus = "", AID = "",
                 code = qrData!!, telephone = iswPos.config.merchantTelephone,
                 cardTrack2 = "", csn = "", cardPin = "", icc = "", src = "", time = -1L

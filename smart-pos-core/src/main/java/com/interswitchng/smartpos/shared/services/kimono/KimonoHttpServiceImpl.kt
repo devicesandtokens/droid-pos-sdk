@@ -345,7 +345,8 @@ internal class KimonoHttpServiceImpl(private val context: Context,
                 stan = stan,
                 purchaseType = PurchaseType.PayCode,
                 accountType = AccountType.Default,
-                pinKsn = ""
+                pinKsn = "",
+                bankIdentifierCode = ""
         )
 
         val requestBody: String = PurchaseRequest.toCardPurchaseString(device,terminalInfo,transaction)

@@ -6,6 +6,7 @@ import com.interswitchng.smartpos.shared.models.posconfig.PrintStringConfigurati
 import com.interswitchng.smartpos.shared.models.printer.info.TransactionInfo
 import com.interswitchng.smartpos.shared.models.printer.info.TransactionStatus
 import com.interswitchng.smartpos.shared.models.printer.info.TransactionType
+import com.interswitchng.smartpos.shared.services.iso8583.utils.IsoUtils
 import com.interswitchng.smartpos.shared.utilities.DisplayUtils
 
 
@@ -27,12 +28,7 @@ internal class CardSlip(terminal: TerminalInfo, status: TransactionStatus, priva
 
 
         val typeConfig = PrintStringConfiguration(isTitle = true, isBold = true, displayCenter = true)
-        val quickTellerConfig = PrintStringConfiguration(isBold = true, displayCenter = true)
-        var quickTellerText = pairString("", "")
 
-        if (info.type == TransactionType.CashOut) {
-            quickTellerText = pairString("", "Quickteller Paypoint", stringConfig = quickTellerConfig)
-        }
 
         val txnType = pairString("", info.type.toString(), stringConfig = typeConfig)
         val paymentType = pairString("channel", info.paymentType.toString())
@@ -43,7 +39,7 @@ internal class CardSlip(terminal: TerminalInfo, status: TransactionStatus, priva
 
         val amount = pairString("amount", DisplayUtils.getAmountWithCurrency(info.amount))
         val authCode = pairString("authentication code", info.authorizationCode)
-        val list = mutableListOf(quickTellerText, txnType, paymentType, date, time, line, amount, line)
+        val list = mutableListOf( txnType, paymentType, date, time, line, amount, line)
 
         // check if its card transaction
         if (info.cardPan.isNotEmpty()) {
@@ -60,6 +56,7 @@ internal class CardSlip(terminal: TerminalInfo, status: TransactionStatus, priva
             val cardPan = pairString("card pan", pan, stringConfig = panConfig)
             val cardExpiry = pairString("expiry date", info.cardExpiry)
             val pinStatus = pairString("", info.pinStatus)
+            val bankIdentifierName = pairString("bank name", IsoUtils.getBankName(info.bankIdentifierCode.take(4)) ?: "")
 
             list.addAll(listOf(cardType, cardPan, cardExpiry, stan, authCode, pinStatus, line))
 
@@ -67,6 +64,9 @@ internal class CardSlip(terminal: TerminalInfo, status: TransactionStatus, priva
                 list.remove(cardExpiry)
                 list.remove(authCode)
                 list.remove(pinStatus)
+            }
+            if (info.bankIdentifierCode.isEmpty()){
+                list.remove(bankIdentifierName)
             }
         }
 
