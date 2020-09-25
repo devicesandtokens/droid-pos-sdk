@@ -56,8 +56,6 @@ class MerchantCardDialog constructor(
         }
 
 
-
-
         if(isUseCard){
             isw_insert_card_layout.visibility = View.VISIBLE
             isw_enroll_pin.visibility = View.GONE
@@ -117,7 +115,7 @@ class MerchantCardDialog constructor(
 
             // when card gets removed
             is EmvMessage.CardRemoved -> {
-
+                dismiss()
             }
 
             // when user should enter pin
@@ -134,8 +132,10 @@ class MerchantCardDialog constructor(
             is EmvMessage.PinOk -> {
                 val savedPan = store.getString("M3RCHANT_PAN", "")
                 if (savedPan == cardViewModel.getCardPAN()) {
-                    clickListener.invoke(AUTHORIZED)
-                    dismiss()
+                     isw_insert_card_layout.visibility = View.GONE
+                     isw_enroll_pin.visibility = View.VISIBLE
+                    /*clickListener.invoke(AUTHORIZED)
+                    dismiss()*/
                 } else {
                     clickListener.invoke(FAILED)
                     dismiss()
@@ -154,7 +154,7 @@ class MerchantCardDialog constructor(
 
             // when user cancels transaction
             is EmvMessage.TransactionCancelled -> {
-
+                dismiss()
             }
 
             // when transaction is processing
@@ -162,12 +162,16 @@ class MerchantCardDialog constructor(
                 if(deviceName == PAX) {
                     val savedPan = store.getString("M3RCHANT_PAN", "")
                     if (savedPan == cardViewModel.getCardPAN()) {
-                        clickListener.invoke(AUTHORIZED)
-                        dismiss()
+                        isw_insert_card_layout.visibility = View.GONE
+                        isw_enroll_pin.visibility = View.VISIBLE
+                       /* clickListener.invoke(AUTHORIZED)
+                        dismiss()*/
                     } else {
                         clickListener.invoke(FAILED)
                         dismiss()
                     }
+
+
                 } else{
 
                 }

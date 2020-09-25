@@ -90,8 +90,8 @@ class MerchantCardFragment : BaseFragment(TAG) {
 
     }
 
-    private fun proceedToMainActivity() {
-        IswPos.showMainActivity()
+    private fun proceedToTerminalSettingsActivity() {
+        IswPos.showSettingsUpdateScreen()
         requireActivity().finish()
     }
 
@@ -128,16 +128,13 @@ class MerchantCardFragment : BaseFragment(TAG) {
 
             // when card has been read
             is EmvMessage.CardRead -> {
-                //runBlocking { delay(1000) }
-
-                //TODO: Uncomment this, was commented out during conflict resolution
                 cardViewModel.startTransaction(requireContext())
-
             }
 
             // when card gets removed
             is EmvMessage.CardRemoved -> {
-
+                store.saveBoolean("SETUP", false)
+                proceedToTerminalSettingsActivity()
             }
 
             // when user should enter pin
@@ -171,7 +168,8 @@ class MerchantCardFragment : BaseFragment(TAG) {
 
             // when user cancels transaction
             is EmvMessage.TransactionCancelled -> {
-                store.saveBoolean("SETUP", true)
+                store.saveBoolean("SETUP", false)
+                proceedToTerminalSettingsActivity()
             }
 
             // when transaction is processing

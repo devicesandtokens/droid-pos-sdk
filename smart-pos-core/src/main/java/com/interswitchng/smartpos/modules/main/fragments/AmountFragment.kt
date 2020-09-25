@@ -144,7 +144,7 @@ class AmountFragment : BaseFragment(TAG) {
                                         navigate(direction)
                                     }
                                     MerchantCardDialog.FAILED -> {
-                                        toast("Merchant Card Verification Failed!!")
+                                        toast("Unauthorized Access!!")
                                         navigateUp()
                                     }
                                     MerchantCardDialog.USE_FINGERPRINT -> {
