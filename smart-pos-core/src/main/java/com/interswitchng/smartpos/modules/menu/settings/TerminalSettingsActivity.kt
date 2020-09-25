@@ -645,8 +645,8 @@ class TerminalSettingsActivity : MenuActivity() {
     private fun fetchSupervisorDetails() {
         val savedPin = store.getString("MERCHANT_PIN", "")
         if (savedPin == "") {
-            supervisorStatusHeader.text = "Merchant's Pin and Card not set"
-            btnChangePassword.text = "Enter merchant's pin and set card"
+            supervisorStatusHeader.text = "Merchant's Card Pin and Passcode not set"
+            btnChangePassword.text = "Set Card Pin and Enter Passcode"
             supervisorCardIsEnrolled = false
         } else {
             supervisorStatusHeader.text = ""
