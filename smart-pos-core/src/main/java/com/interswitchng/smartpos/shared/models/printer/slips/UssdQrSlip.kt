@@ -5,6 +5,7 @@ import com.interswitchng.smartpos.shared.models.posconfig.PrintObject
 import com.interswitchng.smartpos.shared.models.posconfig.PrintStringConfiguration
 import com.interswitchng.smartpos.shared.models.printer.info.TransactionInfo
 import com.interswitchng.smartpos.shared.models.printer.info.TransactionStatus
+import com.interswitchng.smartpos.shared.utilities.DisplayUtils
 import java.text.NumberFormat
 
 
@@ -30,7 +31,7 @@ internal class UssdQrSlip(terminal: TerminalInfo, status: TransactionStatus, pri
         val paymentType = pairString("channel", info.paymentType.toString())
         val stan = pairString("stan", info.stan)
         val date = pairString("date", info.dateTime)
-        val amount = pairString("amount", info.amount)
+        val amount = pairString("amount", DisplayUtils.getAmountWithCurrency(info.amount))
 
         val typeConfig = PrintStringConfiguration(isTitle = true, isBold = true, displayCenter = true)
         val txnType = pairString("", info.type.toString(), stringConfig = typeConfig)
