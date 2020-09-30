@@ -29,6 +29,7 @@ class MerchantCardFragment : BaseFragment(TAG) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        store.saveBoolean("SETUP", false)
         /*if (store.getBoolean("SETUP")) {
             proceedToMainActivity()
         }*/
@@ -66,6 +67,7 @@ class MerchantCardFragment : BaseFragment(TAG) {
                 context?.toast("Pin Field is empty. Please enter your pin")
             } else {
                 setupViewModel.saveMerchantPIN(enteredPin)
+                store.saveBoolean("SETUP", true)
                 isw_imageview.visibility = View.INVISIBLE
                 isw_insert_card_layout.visibility = View.GONE
                 isw_card_detected_layout.visibility = View.GONE
