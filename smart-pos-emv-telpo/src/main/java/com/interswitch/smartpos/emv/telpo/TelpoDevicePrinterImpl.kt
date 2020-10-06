@@ -28,13 +28,10 @@ class TelpoDevicePrinterImpl constructor(private val context: Context) : DeviceP
         }
 
         printer.setLineSpace(1)
-        printer.walkPaper(12)
+        printer.walkPaper(8)
 
         //Print the company's logo
         printCompanyLogo()
-
-        val payPoint = PrintObject.Data("PayPoint", PrintStringConfiguration(displayCenter = true))
-        printItem(payPoint)
 
         for (item in slip) printItem(item)
 
@@ -47,7 +44,7 @@ class TelpoDevicePrinterImpl constructor(private val context: Context) : DeviceP
         printItem(posVersion)
 
         // print phone number at end of slip
-        val phoneNumber = PrintObject.Data("Tel: 01700434", PrintStringConfiguration(displayCenter = true))
+        val phoneNumber = PrintObject.Data("Tel: 07009065000", PrintStringConfiguration(displayCenter = true))
         printItem(phoneNumber)
 
         // print email at end of slip
@@ -61,7 +58,7 @@ class TelpoDevicePrinterImpl constructor(private val context: Context) : DeviceP
         return try {
             printer.printString()
             // set step distance
-            printer.walkPaper(12)
+            printer.walkPaper(8)
             PrintStatus.Ok("Printed")
         } catch (exception: TelpoException) {
             PrintStatus.Ok("Failed to print: ${exception.localizedMessage}")

@@ -47,7 +47,7 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
         printer.spaceSet(0, 10)
 
         // set step distance
-        printer.step(60)
+        printer.step(20)
 
         // print logo
         printCompanyLogo(printer)
@@ -68,7 +68,7 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
         printItem(printer, posVersion)
 
         // print phone number at end of slip
-        val phoneNumber = PrintObject.Data("Tel: 01700434", PrintStringConfiguration(displayCenter = true))
+        val phoneNumber = PrintObject.Data("Tel: 07009065000", PrintStringConfiguration(displayCenter = true))
         printItem(printer, phoneNumber)
 
         // print email at end of slip
@@ -80,7 +80,7 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
         printItem(printer, userCopy)
 
         // set step distance
-        printer.step(80)
+        printer.step(20)
 
         // start printing
         val result = printer.start()
