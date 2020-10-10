@@ -65,12 +65,13 @@ abstract class TransactionSlip(private val terminal: TerminalInfo, private val s
      * @return  a list of configured printable objects representing the terminal info
      */
     internal fun getTerminalInfo(): List<PrintObject> {
-        val merchantName = pairString("Agent name", terminal.merchantNameAndLocation)
+        val merchantName = pairString("Agent name", status.name)
+        val merchantAddress= pairString("Agent Address", terminal.merchantNameAndLocation)
         val terminalId = pairString("Terminal Id", terminal.terminalId)
         val merchantId = pairString("Merchant Id", terminal.merchantId)
         val tel = pairString("Agent ID/Tel", terminal.agentId)
 
-        return listOf(merchantName, terminalId, merchantId, tel, line)
+        return listOf(merchantName, merchantAddress, terminalId, merchantId, tel, line)
     }
 
 
