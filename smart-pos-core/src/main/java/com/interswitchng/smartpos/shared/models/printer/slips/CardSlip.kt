@@ -56,7 +56,7 @@ internal class CardSlip(terminal: TerminalInfo, status: TransactionStatus, priva
             val cardPan = pairString("card pan", pan, stringConfig = panConfig)
             val cardExpiry = pairString("expiry date", info.cardExpiry)
             val pinStatus = pairString("", info.pinStatus)
-            val bankIdentifierName = pairString("bank name", IsoUtils.getBankName(info.bankIdentifierCode.take(4)) ?: "")
+
 
             list.addAll(listOf(cardType, cardPan, cardExpiry, stan, authCode, pinStatus, line))
 
@@ -64,9 +64,6 @@ internal class CardSlip(terminal: TerminalInfo, status: TransactionStatus, priva
                 list.remove(cardExpiry)
                 list.remove(authCode)
                 list.remove(pinStatus)
-            }
-            if (info.bankIdentifierCode.isEmpty()){
-                list.remove(bankIdentifierName)
             }
         }
 

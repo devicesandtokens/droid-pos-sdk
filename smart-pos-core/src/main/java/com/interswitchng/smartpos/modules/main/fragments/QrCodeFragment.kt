@@ -224,7 +224,7 @@ class QrCodeFragment : BaseFragment(TAG) {
                 responseMessage = responseMsg,
                 responseCode = transaction.responseCode,
                 cardPan = "", cardExpiry = "", cardType = CardType.None,
-                stan = paymentInfo.getStan(), pinStatus = "", AID = "", bankIdentifierCode = "",
+                stan = paymentInfo.getStan(), pinStatus = "", AID = "",
                 code = qrData!!, telephone = iswPos.config.merchantTelephone, csn = "", icc = "", cardTrack2 = "", cardPin = "",
                 src = "",
                 time = -1L

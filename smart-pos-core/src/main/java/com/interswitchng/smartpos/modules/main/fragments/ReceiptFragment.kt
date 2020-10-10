@@ -171,7 +171,6 @@ class ReceiptFragment : BaseFragment(TAG) {
                                 cardPan = txnInfo.cardPAN,
                                 cardExpiry = txnInfo.cardExpiry,
                                 cardType = result!!.cardType,
-                                bankIdentifierCode = result!!.bankIdentifierCode,
                                 stan = it.stan,
                                 pinStatus = result!!.pinStatus,
                                 AID = result!!.AID,

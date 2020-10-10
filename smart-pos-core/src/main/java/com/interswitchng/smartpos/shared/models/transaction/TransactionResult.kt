@@ -39,7 +39,6 @@ data class TransactionResult(
         val csn: String,
         val cardPin: String,
         val cardTrack2: String,
-        val bankIdentifierCode: String,
         var time: Long,
         var month: String = EMPTY_STRING,
         var originalTransmissionDateTime: String = EMPTY_STRING,
@@ -59,7 +58,6 @@ data class TransactionResult(
             getTransactionType(parcel.readInt()),
             parcel.readString()!!,
             getCardType(parcel.readInt()),
-            parcel.readString()!!,
             parcel.readString()!!,
             parcel.readString()!!,
             parcel.readString()!!,
@@ -107,8 +105,7 @@ data class TransactionResult(
                     pinStatus,
                     originalTransmissionDateTime,
                     responseCode,
-                    rrn,
-                    bankIdentifierCode)
+                    rrn)
 
 
     /// function to extract
@@ -145,7 +142,6 @@ data class TransactionResult(
         parcel.writeString(cardPin)
         parcel.writeString(cardTrack2)
         parcel.writeString(month)
-        parcel.writeString(bankIdentifierCode)
         parcel.writeLong(time)
         parcel.writeString(originalTransmissionDateTime)
         parcel.writeString(name)

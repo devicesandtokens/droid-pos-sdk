@@ -24,7 +24,6 @@ internal data class TransactionInfo(
         val stan: String,
         val purchaseType: PurchaseType,
         val accountType: AccountType,
-        var bankIdentifierCode: String,
         var originalTransactionInfoData: OriginalTransactionInfoData? = null,
         val pinKsn: String
 ) {
@@ -45,7 +44,6 @@ internal data class TransactionInfo(
                 iccData = emv.icc,
                 src = emv.src,
                 csn = emv.csn,
-                bankIdentifierCode = emv.BIC,
                 amount = paymentInfo.amount,
                 stan = paymentInfo.getTransactionStan(),
                 purchaseType = purchaseType,
@@ -72,7 +70,6 @@ internal data class TransactionInfo(
                 purchaseType = PurchaseType.Card,
                 accountType = AccountType.Default,
                 iccData = IccData(),
-                bankIdentifierCode = txnResult.bankIdentifierCode,
                 pinKsn = "",
 
                 originalTransactionInfoData = OriginalTransactionInfoData(

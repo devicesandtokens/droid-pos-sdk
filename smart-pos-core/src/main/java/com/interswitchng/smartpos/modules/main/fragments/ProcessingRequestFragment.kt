@@ -207,7 +207,6 @@ class ProcessingRequestFragment : BaseFragment(TAG) {
                         csn = txnInfo.csn,
                         cardPin = txnInfo.cardPIN,
                         cardTrack2 = txnInfo.cardTrack2,
-                        bankIdentifierCode = txnInfo.bankIdentifierCode,
                         month = response.month,
                         time = now.time,
                         originalTransmissionDateTime = response.transmissionDateTime,

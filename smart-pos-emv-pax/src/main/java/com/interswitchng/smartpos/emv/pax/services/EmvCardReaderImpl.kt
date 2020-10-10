@@ -133,11 +133,10 @@ class EmvCardReaderImpl(context: Context) : EmvCardReader, PinCallback, IPed.IPe
 
             val icc = emvImpl.getIccData()
             val aid = EmvUtils.bcd2Str(emvImpl.getTlv(0x9F06)!!)
-            //val bankIdentifierCode = EmvUtils.bcd2Str(emvImpl.getTlv(0x5F54)!!)
             // get the card sequence number
             val csnStr = EmvUtils.bcd2Str(emvImpl.getTlv(ICCData.APP_PAN_SEQUENCE_NUMBER.tag)!!)
             val csn = "0$csnStr"
-            EmvData(cardPAN = pan, cardExpiry = expiry, cardPIN = carPin, cardTrack2 = track2data, icc = icc, AID = aid, src = src, csn = csn, pinKsn = pinKsn,BIC = "")
+            EmvData(cardPAN = pan, cardExpiry = expiry, cardPIN = carPin, cardTrack2 = track2data, icc = icc, AID = aid, src = src, csn = csn, pinKsn = pinKsn)
         }
     }
 
