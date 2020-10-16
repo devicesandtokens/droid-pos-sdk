@@ -1,6 +1,7 @@
 package com.interswitch.smartpos.emv.telpo.emv
 
 import android.content.Context
+import android.os.SystemClock
 import com.interswitch.smartpos.emv.telpo.TelpoPOSDeviceImpl.Companion.INDEX_TPK
 import com.interswitch.smartpos.emv.telpo.TelpoPinCallback
 import com.interswitchng.smartpos.shared.interfaces.device.EmvCardReader
@@ -17,7 +18,9 @@ import com.telpo.pinpad.PinpadService
 import com.telpo.tps550.api.util.StringUtil
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.sendBlocking
 import kotlin.coroutines.coroutineContext
+import kotlin.properties.Delegates
 
 class TelpoEmvCardReaderImpl (private val context: Context) : EmvCardReader, TelpoPinCallback {
 

@@ -18,8 +18,10 @@ import java.util.Vector;
  * 单位:广东天波信息技术股份有限公司 创建人:luyq 功能：字符串处理组件 日期:2014-1-21
  */
 public class StringUtil {
-    public static void Log(String str){
-        Log.w("tpemvservice" ,str);
+    private static long starttime = 0;
+
+    public static void Log(String str) {
+        Log.w("tpemvservice", str);
     }
 
     /**
@@ -285,7 +287,7 @@ public class StringUtil {
      * @return 转换后的字符串
      */
     public static String convertArrToStr(String[] arr) {
-        StringBuffer buf = new StringBuffer("");
+        StringBuffer buf = new StringBuffer();
         for (int i = 0; i < arr.length; i++) {
             buf.append(arr[i]).append(",");
         }
@@ -301,7 +303,7 @@ public class StringUtil {
      * @return 转换后的字符串
      */
     public static String convertArrToStrs(String[] arr) {
-        StringBuffer buf = new StringBuffer("");
+        StringBuffer buf = new StringBuffer();
         for (int i = 0; i < arr.length; i++) {
             buf.append("'").append(arr[i]).append("',");
         }
@@ -436,19 +438,6 @@ public class StringUtil {
     }
 
     /**
-     * 判断num是否为0，如果为0则返回“”，否则返回原值
-     *
-     * @param num 数字型字符串
-     * @return 转换后的字符串
-     */
-    public String ZeroToemptyString(String num) {
-        if ("0".equals(num) || "0.00".equals(num) || "0.0".equals(num)) {
-            return "";
-        }
-        return num;
-    }
-
-    /**
      * 格式化日期字符串，如果是20060226，则输出2006.02.26
      *
      * @param datestr 日期格式字符串 格式为YYYMMDD
@@ -476,7 +465,7 @@ public class StringUtil {
     public static String replaceSpace(String s) {
         if (s == null)
             return "";
-        StringBuffer t = new StringBuffer("");
+        StringBuffer t = new StringBuffer();
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             if (c != 57344 && c != ' ') {
@@ -590,21 +579,21 @@ public class StringUtil {
      * @return
      */
     public static void printHashMapContent(HashMap map) {
-        List<Entry<String,Object>> list = new ArrayList<Entry<String,Object>>(map.entrySet());
-        Collections.sort(list,new Comparator<Entry<String,Object>>() {
+        List<Entry<String, Object>> list = new ArrayList<Entry<String, Object>>(map.entrySet());
+        Collections.sort(list, new Comparator<Entry<String, Object>>() {
             //升序排序
             public int compare(Entry<String, Object> o1,
                                Entry<String, Object> o2) {
                 try {
                     return Double.parseDouble(o1.getKey()) > Double.parseDouble(o2.getKey()) ? 1 : -1;
-                }catch (Exception e){//如果 outMap的key都是域(数字),就没问题,但是解到 resultCode,就有问题
+                } catch (Exception e) {//如果 outMap的key都是域(数字),就没问题,但是解到 resultCode,就有问题
                     Log(e.toString());
-                    return (o1.getKey()).toString().compareTo(o2.getKey());
+                    return (o1.getKey()).compareTo(o2.getKey());
                 }
             }
         });
 
-        for(Entry<String,Object> entry : list){
+        for (Entry<String, Object> entry : list) {
             String key = entry.getKey();
 
 //            if(key.equals("64")){//64域是byte[]数组
@@ -617,15 +606,16 @@ public class StringUtil {
     }
 
 
-
     //字符序列转换为16进制字符串
+
     /**
      * 例子 {0x31,0x32,0xab,0xcd}  >  “3132ABCD”
+     *
      * @param
      * @return
      */
     public static String bytesToHexString(byte[] src) {
-        StringBuilder stringBuilder = new StringBuilder("");
+        StringBuilder stringBuilder = new StringBuilder();
         if (src == null || src.length <= 0) {
             return "";
         }
@@ -639,13 +629,15 @@ public class StringUtil {
     }
 
     //字符序列转换为16进制字符串,大写
+
     /**
      * 例子 {0x31,0x32,0xab,0xcd}  >  “31 32 AB CD”
+     *
      * @param
      * @return
      */
     public static String bytesToHexString_upcase(byte[] src) {
-        StringBuilder stringBuilder = new StringBuilder("");
+        StringBuilder stringBuilder = new StringBuilder();
 
         if (src == null || src.length <= 0) {
             return "";
@@ -661,16 +653,18 @@ public class StringUtil {
         return stringBuilder.toString().toUpperCase();
     }
 
-    public static String Byte2HexString_upcase(int a){
+    public static String Byte2HexString_upcase(int a) {
 
-        String result = String.format("%02X",a);
-        if(result.length() == 8){
-            result = result.substring(6,8);
+        String result = String.format("%02X", a);
+        if (result.length() == 8) {
+            result = result.substring(6, 8);
         }
         return result;
     }
+
     /**
      * 例子 “3132ABCD” > {0x30,0x31 ,0x30,0x32,0x41,0x42,0x43,0x44}
+     *
      * @param
      * @return
      */
@@ -679,9 +673,9 @@ public class StringUtil {
         byte[] result = new byte[len];
         String indata = hex.toUpperCase();
 
-        for (int i=0;i<len;i++){
-            char c=indata.charAt(i);
-            result[i]= (byte) c;
+        for (int i = 0; i < len; i++) {
+            char c = indata.charAt(i);
+            result[i] = (byte) c;
         }
         return result;
     }
@@ -689,11 +683,12 @@ public class StringUtil {
 
     /**
      * 例子：“3132ABCD”》{0x31,0x32,0xab,0xcd}
+     *
      * @param hex
      * @return
      */
     public static byte[] hexStringToByte(String hex) {
-        if(hex == null || hex.length()==0){
+        if (hex == null || hex.length() == 0) {
             return null;
         }
         int len = (hex.length() / 2);
@@ -708,15 +703,16 @@ public class StringUtil {
 
     /**
      * 例子：“3132ABCD”》{0x31,0x32,0xab,0xcd}
+     *
      * @param hex0
      * @return
      */
     public static byte[] hexStringToByte0(String hex0) {
-        StringBuffer temp ;
-        if (hex0.length() % 2 == 1){
+        StringBuffer temp;
+        if (hex0.length() % 2 == 1) {
             temp = new StringBuffer(hex0);
             temp.append('0');
-        }else {
+        } else {
             temp = new StringBuffer(hex0);
         }
         String hex = temp.toString();
@@ -731,11 +727,11 @@ public class StringUtil {
         return result;
     }
 
-    public static String Int2HexString_upcase(int a){
+    public static String Int2HexString_upcase(int a) {
         StringBuffer result = new StringBuffer();
         result.append(Integer.toHexString(a));
-        if (result.length()%2 == 1){
-            result.insert(0,'0');
+        if (result.length() % 2 == 1) {
+            result.insert(0, '0');
         }
         return result.toString().toUpperCase();
     }
@@ -745,11 +741,11 @@ public class StringUtil {
         return b;
     }
 
-    public static String Int2HexString(int a){
+    public static String Int2HexString(int a) {
         StringBuffer result = new StringBuffer();
         result.append(Integer.toHexString(a));
-        if (result.length()%2 == 1){
-            result.insert(0,'0');
+        if (result.length() % 2 == 1) {
+            result.insert(0, '0');
         }
         return result.toString();
     }
@@ -761,10 +757,10 @@ public class StringUtil {
      * @param sAmount
      * @return
      */
-    public static int sAmount2Int(String sAmount){
-        if(sAmount == null){
+    public static int sAmount2Int(String sAmount) {
+        if (sAmount == null) {
             return -1;
-        }else if(sAmount.length()==0){
+        } else if (sAmount.length() == 0) {
             return 0;
         }
         BigDecimal a = new BigDecimal(sAmount);
@@ -773,14 +769,15 @@ public class StringUtil {
 
     /**
      * 去掉字符串最后那个‘F’
+     *
      * @param inStr
      * @return
      */
-    public static String deleteLastF(String inStr){
+    public static String deleteLastF(String inStr) {
         int length = inStr.length();
         String ret = "";
-        if(inStr.charAt(length-1) == 'F'){
-            ret = inStr.substring(0,length-1);
+        if (inStr.charAt(length - 1) == 'F') {
+            ret = inStr.substring(0, length - 1);
         }
 
         return ret;
@@ -792,40 +789,52 @@ public class StringUtil {
      * 如：
      * 输入Long amt = 2;
      * 输出String sAmt = "0.02"
+     *
      * @param amout
      * @return
      */
-    public static String formatAmount(long amout){
+    public static String formatAmount(long amout) {
         String sAmount = Long.toString(amout);
-        while (sAmount.length()<3){
+        while (sAmount.length() < 3) {
             sAmount = "0" + sAmount;
         }
 
         StringBuffer stringBuffer = new StringBuffer(sAmount);
-        stringBuffer.insert(sAmount.length()-2,'.');
+        stringBuffer.insert(sAmount.length() - 2, '.');
         return stringBuffer.toString();
     }
 
-    private static long starttime = 0;
-    public static void TimerStart(){
+    public static void TimerStart() {
         starttime = System.currentTimeMillis();
     }
 
-    public static long nowTime(){
-        return System.currentTimeMillis()-starttime;
+    public static long nowTime() {
+        return System.currentTimeMillis() - starttime;
     }
 
-
-    public static int bytes2int(byte[] data){
+    public static int bytes2int(byte[] data) {
         int number = 0;
         int len = data.length;
-        byte[] b =new byte[4];
-        Log.d("fan", "bytes2int: "+ StringUtil.bytesToHexString(data));
-        System.arraycopy(data,0, b,len>4?0:4-len, len>4?4:len);
-        Log.d("fan", "bytes2int: "+ StringUtil.bytesToHexString(b));
-        return   b[3] & 0xFF |
+        byte[] b = new byte[4];
+        Log.d("fan", "bytes2int: " + StringUtil.bytesToHexString(data));
+        System.arraycopy(data, 0, b, len > 4 ? 0 : 4 - len, len > 4 ? 4 : len);
+        Log.d("fan", "bytes2int: " + StringUtil.bytesToHexString(b));
+        return b[3] & 0xFF |
                 (b[2] & 0xFF) << 8 |
                 (b[1] & 0xFF) << 16 |
                 (b[0] & 0xFF) << 24;
+    }
+
+    /**
+     * 判断num是否为0，如果为0则返回“”，否则返回原值
+     *
+     * @param num 数字型字符串
+     * @return 转换后的字符串
+     */
+    public String ZeroToemptyString(String num) {
+        if ("0".equals(num) || "0.00".equals(num) || "0.0".equals(num)) {
+            return "";
+        }
+        return num;
     }
 }
