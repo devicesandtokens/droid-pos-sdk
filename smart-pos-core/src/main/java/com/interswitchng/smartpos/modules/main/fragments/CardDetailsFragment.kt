@@ -89,10 +89,10 @@ class CardDetailsFragment : BaseFragment(TAG) {
         }
     }
 
-    override fun onResume() {
+    /*override fun onResume() {
         activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         super.onResume()
-    }
+    }*/
 
 
 /*    private fun processResponse(transactionResponse: Optional<Pair<TransactionResponse, EmvData>>) {

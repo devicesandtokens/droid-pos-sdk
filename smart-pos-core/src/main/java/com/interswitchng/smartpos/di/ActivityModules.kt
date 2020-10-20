@@ -15,6 +15,7 @@ import com.interswitchng.smartpos.shared.interfaces.library.KeyValueStore
 import com.interswitchng.smartpos.shared.models.core.TerminalInfo
 import com.interswitchng.smartpos.shared.services.kimono.KimonoHttpServiceImpl
 import com.interswitchng.smartpos.shared.viewmodel.TransactionResultViewModel
+import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module.module
@@ -42,7 +43,7 @@ internal val viewModels = module {
         val isKimono = terminalInfo?.isKimono ?: false
 
         val isoService: IsoService = get { parametersOf(isKimono)}
-        val kimonoHttpServiceImpl: KimonoHttpServiceImpl = get { parametersOf(isKimono)}
+        val kimonoHttpServiceImpl = KimonoHttpServiceImpl(androidContext(), get(), get(), get(), get())
 
         CardViewModel(get(), isoService, kimonoHttpServiceImpl)
     }
