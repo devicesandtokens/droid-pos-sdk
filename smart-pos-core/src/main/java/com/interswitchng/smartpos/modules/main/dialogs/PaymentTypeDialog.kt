@@ -23,11 +23,11 @@ class PaymentTypeDialog constructor(
         get() = R.layout.isw_sheet_layout_payment_type_options
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        if(!terminalInfo.isKimono){
+       /* if(!terminalInfo.isKimono){
             isw_card_not_present.visibility = View.GONE
-            isw_qr_code.visibility =View.GONE
-            isw_ussd.visibility = View.GONE
-        }
+            *//*isw_qr_code.visibility =View.GONE
+            isw_ussd.visibility = View.GONE*//*
+        }*/
         currentlySelected?.let {
             when (it) {
                 PaymentModel.PaymentType.CARD -> isw_card_payment.setBackgroundResource(R.drawable.isw_selected_background)

@@ -324,13 +324,13 @@ class TerminalSettingsActivity : MenuActivity() {
             agentEmail.visibility =
                     if (button.isChecked) View.VISIBLE else View.GONE
 
-            // set the merchantCode container based on kimono flag
+            /*// set the merchantCode container based on kimono flag
             merchantCode.visibility =
                     if (button.isChecked) View.VISIBLE else View.GONE
 
             // set the merchantAlias container based on kimono flag
             merchantAlias.visibility =
-                    if (button.isChecked) View.VISIBLE else View.GONE
+                    if (button.isChecked) View.VISIBLE else View.GONE*/
 
             // set the EPMS container based on kimono flag
             iswEpmsContainer.visibility =

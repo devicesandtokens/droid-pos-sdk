@@ -16,6 +16,7 @@ import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.EmvResul
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.*
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.TransactionResponse
 import com.interswitchng.smartpos.shared.services.iso8583.utils.IsoUtils
+import com.interswitchng.smartpos.shared.services.kimono.KimonoHttpServiceImpl
 import com.interswitchng.smartpos.shared.utilities.toast
 import com.interswitchng.smartpos.shared.viewmodel.RootViewModel
 import kotlinx.coroutines.channels.Channel
@@ -23,7 +24,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 
-internal class CardViewModel(private val posDevice: POSDevice, private val isoService: IsoService) :
+internal class CardViewModel(private val posDevice: POSDevice, private val isoService: IsoService, private val kimonohttpServiceImpl: KimonoHttpServiceImpl) :
         RootViewModel() {
 
     // communication channel with cardreader
@@ -336,7 +337,7 @@ internal class CardViewModel(private val posDevice: POSDevice, private val isoSe
 
     private fun initiateTransactionBillPayment(transactionType: TransactionType, terminalInfo: TerminalInfo, txnInfo: TransactionInfo): TransactionResponse? {
 
-        return isoService.initiateBillPayment(terminalInfo, txnInfo)
+        return kimonohttpServiceImpl.initiateBillPayment(terminalInfo, txnInfo)
     }
 
     private fun initiateCNPTransaction(
@@ -344,7 +345,7 @@ internal class CardViewModel(private val posDevice: POSDevice, private val isoSe
             terminalInfo: TerminalInfo,
             txnInfo: TransactionInfo
     ): TransactionResponse? {
-        return isoService.initiateCNPPurchase(terminalInfo, txnInfo)
+        return kimonohttpServiceImpl.initiateCNPPurchase(terminalInfo, txnInfo)
     }
 
     override fun onCleared() {
