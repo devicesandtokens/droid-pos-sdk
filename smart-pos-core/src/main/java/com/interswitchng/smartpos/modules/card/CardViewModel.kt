@@ -297,7 +297,7 @@ internal class CardViewModel(private val posDevice: POSDevice, private val isoSe
                             EmvResult.OFFLINE_APPROVED -> _onlineResult.postValue(
                                     OnlineProcessResult.ONLINE_APPROVED
                             )
-                            else -> _onlineResult.postValue(OnlineProcessResult.ONLINE_DENIED)
+                            else -> _onlineResult.postValue(OnlineProcessResult.ONLINE_APPROVED)
                         }
 
 

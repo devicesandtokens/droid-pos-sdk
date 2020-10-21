@@ -619,13 +619,13 @@ internal class TerminalInformation {
         val merchantCode = InputValidator(merchantCode).isNotEmpty()
 
         //assign error message for field
-        if (isKimono && merchantCode.hasError) error.merchantCode = merchantCode.message
+        if (merchantCode.hasError) error.merchantCode = merchantCode.message
 
         // validate merchantAlias value
         val merchantAlias = InputValidator(merchantAlias).isNotEmpty().isNumber()
 
         //assign error message for field
-        if (isKimono && merchantAlias.hasError) error.merchantAlias = merchantAlias.message
+        if (merchantAlias.hasError) error.merchantAlias = merchantAlias.message
 
 
         // validate terminal capabilities value

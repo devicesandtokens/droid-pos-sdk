@@ -108,8 +108,10 @@ internal object TerminalInfoParser {
                         isKimono = false,
                         agentId = "",
                         agentEmail = "",
-                        merchantAlias = "",
-                        merchantCode = ""
+                        merchantAlias = TerminalInfo.get(store)?.merchantAlias ?: "",
+                        merchantCode = TerminalInfo.get(store)?.merchantCode ?: "",
+                        isEPMS = TerminalInfo.get(store)?.isEPMS ?: false,
+                        isNibbsTest = TerminalInfo.get(store)?.isNibbsTest ?: false
 
                 )
 

@@ -300,11 +300,6 @@ class TerminalSettingsActivity : MenuActivity() {
                 etAgentId.isEnabled = false
                 etAgentEmail.isEnabled = false
 
-                //merchantAlias not required if not kimono
-                etMerchantAlias.isEnabled = false
-                //merchantCode is not required if not kimono
-                etMerchantCode.isEnabled = false
-
                 // show server and port fields
                 etServerPort.isEnabled = true
                 etServerIP.isEnabled = true
@@ -322,14 +317,6 @@ class TerminalSettingsActivity : MenuActivity() {
 
             // set the agentEmail container based on kimono flag
             agentEmail.visibility =
-                    if (button.isChecked) View.VISIBLE else View.GONE
-
-            // set the merchantCode container based on kimono flag
-            merchantCode.visibility =
-                    if (button.isChecked) View.VISIBLE else View.GONE
-
-            // set the merchantAlias container based on kimono flag
-            merchantAlias.visibility =
                     if (button.isChecked) View.VISIBLE else View.GONE
 
             // set the EPMS container based on kimono flag
@@ -485,6 +472,8 @@ class TerminalSettingsActivity : MenuActivity() {
                     btnDownloadTerminalConfig,
                     ColorStateList.valueOf(color)
             )
+            // save configuration
+            saveConfig()
         } else {
             val message = "No terminal configuration"
             tvTerminalInfoDate.text = getString(R.string.isw_title_date, message)
