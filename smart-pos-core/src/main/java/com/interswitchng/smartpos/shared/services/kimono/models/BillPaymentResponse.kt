@@ -21,7 +21,7 @@ data class BillPaymentResponse(
         @field:Element(name = "referenceNumber", required = false)
         var referenceNumber: String = "",
 
-        @field:Element(name = "authId", required = false)
+        @field:Element(name = "stan", required = false)
         var stan: String = "",
 
         @field:Element(name = "wasReceive", required = false)
