@@ -136,11 +136,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
 
         try {
             val responseBody = httpService.makePurchase(kimonoServiceUrl, body).run()
-            var responseXml= responseBody.body()?.bytes()?.let { String(it) }
-
-
-            val inputStream = ByteArrayInputStream(responseXml?.toByteArray(Charsets.UTF_8))
-            var purchaseResponse=     XmlPullParserHandler().parse( inputStream)
+            var purchaseResponse = responseBody.body()
 
             return if (!responseBody.isSuccessful || purchaseResponse == null) {
                 TransactionResponse(
@@ -154,7 +150,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
                 TransactionResponse(
                         responseCode =purchaseResponse.responseCode,//data.responseCode,
                         stan = purchaseResponse.stan,
-                        authCode =  purchaseResponse.authCode,// data.authCode,
+                        authCode =  purchaseResponse.authId,// data.authCode,
                         scripts =  purchaseResponse.stan,
                         responseDescription = purchaseResponse.description,//data.description
                         rrn = purchaseResponse.referenceNumber
@@ -176,11 +172,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
 
         try {
             val responseBody = httpService.makePurchase(kimonoServiceUrl, body).run()
-            var responseXml = responseBody.body()?.bytes()?.let { String(it) }
-
-
-            val inputStream = ByteArrayInputStream(responseXml?.toByteArray(Charsets.UTF_8))
-            var purchaseResponse = XmlPullParserHandler().parse(inputStream)
+            var purchaseResponse = responseBody.body()
 
             return if (!responseBody.isSuccessful || purchaseResponse == null) {
                 TransactionResponse(
@@ -194,7 +186,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
                 TransactionResponse(
                         responseCode = purchaseResponse.responseCode,//data.responseCode,
                         stan = purchaseResponse.stan,
-                        authCode = purchaseResponse.authCode,// data.authCode,
+                        authCode = purchaseResponse.authId,// data.authCode,
                         scripts = purchaseResponse.stan,
                         responseDescription = purchaseResponse.description,//data.description
                         rrn = purchaseResponse.referenceNumber
@@ -216,11 +208,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
 
         try {
             val responseBody = httpService.makePurchase(kimonoServiceUrl, body).run()
-            var responseXml = responseBody.body()?.bytes()?.let { String(it) }
-
-
-            val inputStream = ByteArrayInputStream(responseXml?.toByteArray(Charsets.UTF_8))
-            var purchaseResponse = XmlPullParserHandlerBP().parse(inputStream)
+            var purchaseResponse = responseBody.body()
 
             return if (!responseBody.isSuccessful || purchaseResponse == null) {
                 TransactionResponse(
@@ -233,7 +221,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
             } else {
                 TransactionResponse(
                         responseCode = purchaseResponse.responseCode,//data.responseCode,
-                        stan = purchaseResponse.stan,
+                        stan = txnInfo.stan,
                         authCode = purchaseResponse.authId,//purchaseResponse.authCode,// data.authCode,
                         scripts = purchaseResponse.stan,
                         responseDescription = purchaseResponse.description,//data.description
@@ -355,11 +343,12 @@ internal class KimonoHttpServiceImpl(private val context: Context,
 
         try {
             val responseBody = httpService.makePurchase(kimonoServiceUrl, body).run()
-            var responseXml= responseBody.body()?.bytes()?.let { String(it) }
+            var purchaseResponse = responseBody.body()
+            //?.bytes()?.let { String(it) }
 
 
-            val inputStream = ByteArrayInputStream(responseXml?.toByteArray(Charsets.UTF_8))
-            var purchaseResponse=     XmlPullParserHandler().parse( inputStream)
+            /*val inputStream = ByteArrayInputStream(responseXml?.toByteArray(Charsets.UTF_8))
+            var purchaseResponse = XmlPullParserHandlerBP().parse(inputStream)*/
 
             return if (!responseBody.isSuccessful || purchaseResponse == null) {
                 TransactionResponse(
@@ -373,7 +362,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
                 TransactionResponse(
                         responseCode =purchaseResponse.responseCode,//data.responseCode,
                         stan = purchaseResponse.stan,
-                        authCode =  purchaseResponse.authCode,// data.authCode,
+                        authCode =  purchaseResponse.authId,// data.authCode,
                         scripts =  purchaseResponse.stan,
                         responseDescription = purchaseResponse.description,//data.description
                         rrn = purchaseResponse.referenceNumber

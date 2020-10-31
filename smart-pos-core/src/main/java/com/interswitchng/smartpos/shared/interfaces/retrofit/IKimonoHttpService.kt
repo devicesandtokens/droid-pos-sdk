@@ -2,6 +2,7 @@ package com.interswitchng.smartpos.shared.interfaces.retrofit
 
 import com.igweze.ebi.simplecalladapter.Simple
 import com.interswitchng.smartpos.shared.Constants
+import com.interswitchng.smartpos.shared.services.kimono.models.BillPaymentResponse
 import com.interswitchng.smartpos.shared.services.kimono.models.CallHomeRequest
 import com.interswitchng.smartpos.shared.services.kimono.models.KimonoKeyRequest
 import okhttp3.RequestBody
@@ -36,7 +37,7 @@ internal interface IKimonoHttpService {
 
     @Headers("Content-Type: text/xml", "Accept: application/xml", "Accept-Charset: utf-8")
     @POST
-    fun makePurchase(@Url url: String, @Body purchaseRequest: RequestBody): Simple<ResponseBody>
+    fun makePurchase(@Url url: String, @Body purchaseRequest: RequestBody): Simple<BillPaymentResponse>
 //    fun makePurchase(@Body purchaseRequest: PurchaseRequest): Simple<ResponseBody>
 
 
