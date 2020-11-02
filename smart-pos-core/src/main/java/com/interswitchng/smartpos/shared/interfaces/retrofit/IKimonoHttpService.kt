@@ -2,8 +2,10 @@ package com.interswitchng.smartpos.shared.interfaces.retrofit
 
 import com.igweze.ebi.simplecalladapter.Simple
 import com.interswitchng.smartpos.shared.Constants
+import com.interswitchng.smartpos.shared.services.kimono.models.BillPaymentResponse
 import com.interswitchng.smartpos.shared.services.kimono.models.CallHomeRequest
 import com.interswitchng.smartpos.shared.services.kimono.models.KimonoKeyRequest
+import com.interswitchng.smartpos.shared.services.kimono.models.PurchaseResponse
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.http.*
@@ -18,29 +20,33 @@ internal interface IKimonoHttpService {
 
     @Headers("Content-Type: text/xml", "Accept: application/xml", "Accept-Charset: utf-8")
     @POST
-    fun completion(@Url url: String, @Body data: RequestBody): Simple<ResponseBody>
+    fun completion(@Url url: String, @Body data: RequestBody): Simple<PurchaseResponse>
 
 
     @Headers("Content-Type: text/xml", "Accept: application/xml", "Accept-Charset: utf-8")
     @POST
-    fun reversePurchase(@Url url: String, @Body reverseRequest: RequestBody): Simple<ResponseBody>
+    fun reversePurchase(@Url url: String, @Body reverseRequest: RequestBody): Simple<PurchaseResponse>
 //    fun reversePurchase(@Body reverseRequest: ReversalRequest): Simple<PurchaseResponse>
 
 
     @POST
-    fun reservation(@Url url: String, @Body data: RequestBody): Simple<ResponseBody>
+    fun reservation(@Url url: String, @Body data: RequestBody): Simple<PurchaseResponse>
 //    fun reservation(@Body data: ReservationRequest): Simple<ReservationResponse>
 
 
     @Headers("Content-Type: text/xml", "Accept: application/xml", "Accept-Charset: utf-8")
     @POST
-    fun makePurchase(@Url url: String, @Body purchaseRequest: RequestBody): Simple<ResponseBody>
+    fun makePurchase(@Url url: String, @Body purchaseRequest: RequestBody): Simple<PurchaseResponse>
 //    fun makePurchase(@Body purchaseRequest: PurchaseRequest): Simple<ResponseBody>
+
+    @Headers("Content-Type: text/xml", "Accept: application/xml", "Accept-Charset: utf-8")
+    @POST
+    fun makeBillPayment(@Url url: String, @Body purchaseRequest: RequestBody): Simple<BillPaymentResponse>
 
 
     @Headers("Content-Type: text/xml", "Accept: application/xml", "Accept-Charset: utf-8")
     @POST
-    fun refund(@Url url: String, @Body refundRequest: RequestBody): Simple<ResponseBody>
+    fun refund(@Url url: String, @Body refundRequest: RequestBody): Simple<PurchaseResponse>
 
 
     @Headers("Content-Type: text/xml", "Accept: application/xml", "Accept-Charset: utf-8")
