@@ -106,22 +106,46 @@ class TelpoEmvCardReaderImpl (private val context: Context) : EmvCardReader, Tel
 
                 if (isKimono) {
 
-                    PinpadService.TP_PinpadDukptSessionStart(0)
+                   /* if (PinpadService.TP_PinpadCheckKey(PinpadService.KEY_TYPE_DUKPT, 0) == -9) {
+                        cardPinResult = EmvService.ERR_USERCANCEL
+                        return cardPinResult
+                    }*/
 
-                    cardPinResult = when (PinpadService.TP_PinpadDukptGetPin(pinParameter)) {
-                        PinpadService.PIN_ERROR_CANCEL -> EmvService.ERR_USERCANCEL
-                        PinpadService.PIN_ERROR_TIMEOUT -> EmvService.ERR_TIMEOUT
-                        PinpadService.PIN_OK -> {
-                            StoreData.pinBlock = StringUtil.toHexString(pinParameter.Pin_Block)
-                            StoreData.ksnData = StringUtil.toHexString(pinParameter.Curr_KSN)
-                            if (StoreData.pinBlock!!.contains("00000000")) {
-                                EmvService.ERR_NOPIN
-                            } else EmvService.EMV_TRUE
+                    if (PinpadService.TP_PinpadDukptSessionStart(0) == -9) {
+                        /*cardPinResult = when (PinpadService.TP_PinpadDukptGetPin(pinParameter)) {
+                            PinpadService.PIN_ERROR_CANCEL -> EmvService.ERR_USERCANCEL
+                            PinpadService.PIN_ERROR_TIMEOUT -> EmvService.ERR_TIMEOUT
+                            PinpadService.PIN_OK -> {
+                                StoreData.pinBlock = StringUtil.toHexString(pinParameter.Pin_Block)
+                                StoreData.ksnData = StringUtil.toHexString(pinParameter.Curr_KSN)
+                                if (StoreData.pinBlock!!.contains("00000000")) {
+                                    EmvService.ERR_NOPIN
+                                } else EmvService.EMV_TRUE
+                            }
+                            else -> EmvService.EMV_FALSE
                         }
-                        else -> EmvService.EMV_FALSE
+
+                        PinpadService.TP_PinpadDukptSessionEnd()*/
+                        cardPinResult = EmvService.ERR_USERCANCEL
+                        return cardPinResult
+
                     }
+                    else{
+                        cardPinResult = when (PinpadService.TP_PinpadDukptGetPin(pinParameter)) {
+                            PinpadService.PIN_ERROR_CANCEL -> EmvService.ERR_USERCANCEL
+                            PinpadService.PIN_ERROR_TIMEOUT -> EmvService.ERR_TIMEOUT
+                            PinpadService.PIN_OK -> {
+                                StoreData.pinBlock = StringUtil.toHexString(pinParameter.Pin_Block)
+                                StoreData.ksnData = StringUtil.toHexString(pinParameter.Curr_KSN)
+                                if (StoreData.pinBlock!!.contains("00000000")) {
+                                    EmvService.ERR_NOPIN
+                                } else EmvService.EMV_TRUE
+                            }
+                            else -> EmvService.EMV_FALSE
+                        }
 
                     PinpadService.TP_PinpadDukptSessionEnd()
+                }
 
                 } else {
                     cardPinResult = when (PinpadService.TP_PinpadGetPin(pinParameter)) {
