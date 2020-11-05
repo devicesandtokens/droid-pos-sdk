@@ -57,6 +57,11 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
         printer.fontSet(NORMAL_FONT.first, NORMAL_FONT.second)
         printer.printStr("\n", null)
 
+        // print users copy
+        val userCopy = PrintObject.Data("*** $user copy ***".toUpperCase(), PrintStringConfiguration(displayCenter = true,isBold = true, isTitle = true))
+
+        printItem(printer, userCopy)
+
         // extract slip items and print it
         for (item in slip) printItem(printer, item)
 
@@ -76,8 +81,7 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
         val email = PrintObject.Data("Email: touchpoint-support@interswitchng.com", PrintStringConfiguration(displayCenter = true))
         printItem(printer, email)
 
-        // print users copy
-        val userCopy = PrintObject.Data("*** $user copy ***".toUpperCase(), PrintStringConfiguration(displayCenter = true))
+
         printItem(printer, userCopy)
 
         // set step distance
