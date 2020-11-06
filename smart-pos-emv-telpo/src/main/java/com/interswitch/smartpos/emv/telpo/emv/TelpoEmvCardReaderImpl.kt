@@ -109,6 +109,10 @@ class TelpoEmvCardReaderImpl (private val context: Context) : EmvCardReader, Tel
 
                 if (isKimono) {
 
+                    if(PinpadService.TP_PinpadCheckKey(PinpadService.KEY_TYPE_DUKPT,0) == -9){
+                        callTransactionCancelled(EmvService.ERR_KEYEXP, "Please Go To Settings and Re-Download keys")
+                    }
+
                     PinpadService.TP_PinpadDukptSessionStart(0)
 
                     cardPinResult = when (PinpadService.TP_PinpadDukptGetPin(pinParameter)) {
