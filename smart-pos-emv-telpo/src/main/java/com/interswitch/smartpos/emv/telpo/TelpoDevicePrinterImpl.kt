@@ -33,10 +33,8 @@ class TelpoDevicePrinterImpl constructor(private val context: Context) : DeviceP
         //Print the company's logo
         printCompanyLogo()
 
-        // print users copy
-        val userCopy = PrintObject.Data("*** $user copy ***".toUpperCase(), PrintStringConfiguration(displayCenter = true,isBold = true,isTitle = true))
 
-        printItem(userCopy)
+        //printItem(userCopy)
 
         for (item in slip) printItem(item)
 
@@ -56,6 +54,8 @@ class TelpoDevicePrinterImpl constructor(private val context: Context) : DeviceP
         val email = PrintObject.Data("Email: touchpoint-support@interswitchng.com", PrintStringConfiguration(displayCenter = true))
         printItem(email)
 
+        // print users copy
+        val userCopy = PrintObject.Data("*** $user copy ***".toUpperCase(), PrintStringConfiguration(displayCenter = true,isBold = true,isTitle = true))
         printItem(userCopy)
 
         return try {

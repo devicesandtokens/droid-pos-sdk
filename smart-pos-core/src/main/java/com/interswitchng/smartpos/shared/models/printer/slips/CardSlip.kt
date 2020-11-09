@@ -39,9 +39,10 @@ internal class CardSlip(terminal: TerminalInfo, status: TransactionStatus, priva
         val stan = pairString("stan", info.stan.padStart(6, '0'))
         val date = pairString("date", info.dateTime.take(10))
         val time = pairString("time", info.dateTime.substring(11, 19))
+        val dateTime = pairString("Date Time", info.originalDateTime)
         val amount = pairString("amount", DisplayUtils.getAmountWithCurrency(info.amount))
         val authCode = pairString("authentication code", info.authorizationCode)
-        val list = mutableListOf(quickTellerText, txnType, paymentType, date, time, line, amount, line)
+        val list = mutableListOf(quickTellerText, txnType, paymentType, date, time, dateTime, line, amount, line)
 
         // check if its card transaction
         if (info.cardPan.isNotEmpty()) {
@@ -71,7 +72,10 @@ internal class CardSlip(terminal: TerminalInfo, status: TransactionStatus, priva
             if(info.cardPan.isEmpty()){
                 list.remove(cardPan)
             }
-            
+
+            if(info.originalDateTime.isEmpty()){
+                list.remove(dateTime)
+            }
 
             if (info.type == TransactionType.CashOut) {
                 list.remove(cardExpiry)
