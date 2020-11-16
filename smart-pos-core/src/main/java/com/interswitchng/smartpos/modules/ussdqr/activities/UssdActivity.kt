@@ -149,7 +149,7 @@ class UssdActivity : BaseActivity() {
                                 "Pending")
 
                         val result = getTransactionResult(transaction)
-                        printSlip = result?.getSlip(terminalInfo)?.getSlipItems() ?: printSlip
+                        printSlip = result?.getSlip(terminalInfo)?.getSlipItems(reprint = false) ?: printSlip
                     }
 
                     handlePaymentStatus(status)
