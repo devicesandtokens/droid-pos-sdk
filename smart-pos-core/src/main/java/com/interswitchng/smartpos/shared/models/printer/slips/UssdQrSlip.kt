@@ -39,10 +39,10 @@ internal class UssdQrSlip(terminal: TerminalInfo, status: TransactionStatus, pri
         val reprintConfig = PrintStringConfiguration(displayCenter = true, isBold = true, isTitle = true)
         val rePrintFlag = pairString("","*** Re-Print ***",stringConfig = reprintConfig )
 
-        val list = listOf(txnType, paymentType, stan, date, line,rePrintFlag ,amount,rePrintFlag, line)
+        val list = mutableListOf(txnType, paymentType, stan, date, line,rePrintFlag ,amount,rePrintFlag, line)
         //remove reprint tag if not a reprint
         if(!reprint) {
-            list.toMutableList().removeAll(listOf(rePrintFlag))
+            list.removeAll(listOf(rePrintFlag))
         }
 
         // return transaction info of slip
