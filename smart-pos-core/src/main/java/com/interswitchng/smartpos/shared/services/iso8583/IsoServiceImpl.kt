@@ -693,8 +693,9 @@ internal class IsoServiceImpl(
             // return response
             return responseMsg.message.let {
                 val empty = ""
+                val authCode = it.getObjectValue<String?>(38) ?: ""
                 val responseCode = it.getObjectValue<String>(39)
-                return@let TransactionResponse(responseCode, authCode = empty, stan = stan, scripts = empty,date = now)
+                return@let TransactionResponse(responseCode, authCode = authCode, stan = stan, scripts = empty,date = now)
             }
 
         } catch (e: Exception) {
