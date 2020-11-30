@@ -64,7 +64,7 @@ internal  class SettingsViewModel : RootViewModel(), KoinComponent {
                 terminalId = info.terminalInfoBySerials?.terminalCode.toString(),
                 merchantId = info.terminalInfoBySerials?.merchantId.toString(),
                 merchantNameAndLocation = info.terminalInfoBySerials?.cardAcceptorNameLocation.toString().padEnd(40,' '),
-                merchantCategoryCode = info.terminalInfoBySerials?.terminalCode.toString(),
+                merchantCategoryCode = info.terminalInfoBySerials?.merchantCategoryCode.toString(),
                 countryCode = Constants.ISW_COUNTRY_CODE,
                 currencyCode = Constants.ISW_CURRENCY_CODE,
                 callHomeTimeInMin = Constants.ISW_CALL_HOME_TIME_IN_MIN.toIntOrNull() ?: -1,
