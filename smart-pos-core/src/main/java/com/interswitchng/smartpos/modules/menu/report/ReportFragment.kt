@@ -74,7 +74,7 @@ class ReportFragment : BaseFragment(TAG), DatePickerDialog.OnDateSetListener, Ad
         // set click listener date selector
         btnSelectDate.setOnClickListener {
             val dialog = DialogUtils.createDateDialog(requireContext(), this, selectedDate)
-            dialog.datePicker.maxDate = System.currentTimeMillis()
+            dialog.datePicker.maxDate = System.currentTimeMillis() + (1000 * 60 * 60)
             dialog.show()
         }
 
