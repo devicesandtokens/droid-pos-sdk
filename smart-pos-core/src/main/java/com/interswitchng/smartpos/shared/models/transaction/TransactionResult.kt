@@ -2,6 +2,7 @@ package com.interswitchng.smartpos.shared.models.transaction
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.interswitchng.smartpos.modules.main.models.PaymentModel
 import com.interswitchng.smartpos.shared.Constants.EMPTY_STRING
 import com.interswitchng.smartpos.shared.models.core.TerminalInfo
 import com.interswitchng.smartpos.shared.models.printer.info.TransactionInfo
@@ -52,7 +53,8 @@ data class TransactionResult(
         var rrn: String = EMPTY_STRING,
         var reversed: Int = 0,
         var hasPrintedCustomerCopy: Int = 0,
-        var hasPrintedMerchantCopy: Int = 0
+        var hasPrintedMerchantCopy: Int = 0,
+        val currencyType: PaymentModel.CurrencyType 
 ) : Parcelable {
 
 
@@ -88,7 +90,8 @@ data class TransactionResult(
             parcel.readString()!!,
             parcel.readInt(),
             parcel.readInt(),
-            parcel.readInt()
+            parcel.readInt(),
+            getCurrencyType(parcel.readInt())
     )
 
 
@@ -164,6 +167,7 @@ data class TransactionResult(
         parcel.writeInt(reversed)
         parcel.writeInt(hasPrintedCustomerCopy)
         parcel.writeInt(hasPrintedMerchantCopy)
+        parcel.writeInt(currencyType.ordinal)
     }
 
     override fun describeContents(): Int {
@@ -185,6 +189,13 @@ data class TransactionResult(
                 PaymentType.QR.ordinal -> PaymentType.QR
                 PaymentType.USSD.ordinal -> PaymentType.USSD
                 else -> PaymentType.PayCode
+            }
+        }
+
+        private fun getCurrencyType(ordinal: Int): PaymentModel.CurrencyType {
+            return when (ordinal) {
+                PaymentModel.CurrencyType.NAIRA.ordinal -> PaymentModel.CurrencyType.NAIRA
+                else -> PaymentModel.CurrencyType.DOLLAR
             }
         }
 

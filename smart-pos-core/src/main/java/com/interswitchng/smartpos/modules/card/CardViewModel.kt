@@ -271,7 +271,8 @@ internal class CardViewModel(private val posDevice: POSDevice, private val isoSe
                             AccountType.Default,
                             OriginalTransactionInfoData(time = -1),
                             "",
-                            cardCvv!!
+                            cardCvv!!,
+                            paymentModel.currencyType!!
                     )
 
                     initiateCNPTransaction(paymentModel.type!!, terminalInfo, txnInfo)

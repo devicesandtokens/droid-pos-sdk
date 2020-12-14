@@ -1,6 +1,7 @@
 package com.interswitchng.smartpos.shared.models.transaction
 
 import android.os.Parcelable
+import com.interswitchng.smartpos.modules.main.models.PaymentModel
 import com.interswitchng.smartpos.shared.models.printer.info.TransactionType
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.CardType
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.AccountType
@@ -48,7 +49,8 @@ open class TransactionLog(
         var rrn: String = "",
         var reversed: Int = 0,
         var hasPrintedCustomerCopy: Int = 0,
-        var hasPrintedMerchantCopy: Int = 0
+        var hasPrintedMerchantCopy: Int = 0,
+        var currencyType: Int = PaymentModel.CurrencyType.NAIRA.ordinal
 ) : RealmObject(), Parcelable {
 
 
@@ -79,6 +81,7 @@ open class TransactionLog(
 
         val type = TransactionType.values().first { it.ordinal == this.transactionType }
         val accountType = AccountType.values().first { it.ordinal == this.accountType }
+        val currencyType = PaymentModel.CurrencyType.values().first { it.ordinal ==this.currencyType }
 
         return TransactionResult(
                 paymentType,
@@ -112,7 +115,8 @@ open class TransactionLog(
                 rrn,
                 reversed,
                 hasPrintedCustomerCopy,
-                hasPrintedMerchantCopy
+                hasPrintedMerchantCopy,
+                currencyType
         )
     }
 
@@ -156,7 +160,9 @@ open class TransactionLog(
                 rrn = result.rrn,
                 reversed = result.reversed,
                 hasPrintedCustomerCopy = result.hasPrintedCustomerCopy,
-                hasPrintedMerchantCopy = result.hasPrintedMerchantCopy
+                hasPrintedMerchantCopy = result.hasPrintedMerchantCopy,
+                currencyType = result.currencyType.ordinal
+
         )
 
 

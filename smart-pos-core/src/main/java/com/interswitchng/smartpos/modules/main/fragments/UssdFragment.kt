@@ -277,7 +277,7 @@ class UssdFragment : BaseFragment(TAG) {
             //terminalInfo.merchantAlias
             // create payment info with bank code
             val info = PaymentInfo(paymentInfo.amount, selectedBank.code)
-            val request = CodeRequest.from(terminalInfo.merchantAlias, terminalInfo, info,
+            val request = CodeRequest.from(terminalInfo.merchantAlias, terminalInfo, info, paymentModel,
                 CodeRequest.TRANSACTION_USSD
             )
 
@@ -413,7 +413,7 @@ class UssdFragment : BaseFragment(TAG) {
             cardPan = "", cardExpiry = "", cardType = CardType.None,
             stan = paymentInfo.getStan(), pinStatus = "", AID = "", code = ussdCode!!,
             telephone = iswPos.config.merchantTelephone, csn = "", icc = "", cardTrack2 = "", cardPin = "",
-                src = "", time = now.time
+                src = "", time = now.time, currencyType = paymentModel.currencyType!!
         )
     }
     override fun onCheckStopped() {

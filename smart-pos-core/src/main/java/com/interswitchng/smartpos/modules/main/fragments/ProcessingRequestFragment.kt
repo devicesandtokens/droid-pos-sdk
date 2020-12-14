@@ -195,6 +195,7 @@ class ProcessingRequestFragment : BaseFragment(TAG) {
                         amount = paymentModel.amount.toString(),
                         type = transactionType,
                         accountType = accountType,
+                        currencyType = txnInfo.currencyType,
                         authorizationCode = response.authCode,
                         responseMessage = responseMsg,
                         responseCode = response.responseCode,

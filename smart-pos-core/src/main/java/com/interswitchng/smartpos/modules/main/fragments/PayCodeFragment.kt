@@ -154,7 +154,7 @@ class PayCodeFragment : BaseFragment(TAG) {
         // get the paycode
         val code = payCodeEdt.text.toString()
         // initiate paycode purchase
-        payCodeViewModel.processOnline(terminalInfo, code, paymentInfo)
+        payCodeViewModel.processOnline(terminalInfo, code, paymentModel)
     }
 
     override fun onDestroy() {

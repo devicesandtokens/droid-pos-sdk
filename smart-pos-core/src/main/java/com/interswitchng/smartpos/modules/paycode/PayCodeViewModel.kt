@@ -6,6 +6,7 @@ import com.gojuno.koptional.None
 import com.gojuno.koptional.Optional
 import com.gojuno.koptional.Some
 import com.interswitchng.smartpos.IswPos
+import com.interswitchng.smartpos.modules.main.models.PaymentModel
 import com.interswitchng.smartpos.shared.interfaces.library.IsoService
 import com.interswitchng.smartpos.shared.models.core.TerminalInfo
 import com.interswitchng.smartpos.shared.models.printer.info.TransactionType
@@ -29,7 +30,7 @@ internal class PayCodeViewModel(private val isoService: IsoService, private val 
     val transactionResult: LiveData<Optional<TransactionResult>> get() = _transactionResult
 
 
-    fun processOnline(terminalInfo: TerminalInfo, code: String, paymentInfo: PaymentInfo) {
+    fun processOnline(terminalInfo: TerminalInfo, code: String, paymentInfo: PaymentModel) {
         uiScope.launch {
 
             val result = withContext(ioScope) {
@@ -69,7 +70,7 @@ internal class PayCodeViewModel(private val isoService: IsoService, private val 
                                 stan = response.stan, pinStatus = "", AID = "", code = code,
                                 cardPan = pan, cardExpiry = expiry, cardType = CardType.None,
                                 telephone = iswPos.config.merchantTelephone, cardTrack2 = track2,
-                                cardPin = "", icc = "", csn = "", src = "", time = Date().time))
+                                cardPin = "", icc = "", csn = "", src = "", time = Date().time,currencyType = paymentInfo.currencyType!!))
                     }
                 }
             }

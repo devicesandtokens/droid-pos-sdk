@@ -3,6 +3,7 @@ package com.interswitchng.smartpos.shared.services.iso8583
 import android.content.Context
 import com.interswitchng.smartpos.IswPos.Companion.getNextStan
 import com.interswitchng.smartpos.modules.main.fragments.CardTransactionsFragment
+import com.interswitchng.smartpos.modules.main.models.PaymentModel
 import com.interswitchng.smartpos.shared.Constants
 import com.interswitchng.smartpos.shared.Constants.KEY_MASTER_KEY
 import com.interswitchng.smartpos.shared.Constants.KEY_PIN_KEY
@@ -609,7 +610,7 @@ internal class IsoServiceImpl(
         }
     }
 
-    override fun initiatePaycodePurchase(terminalInfo: TerminalInfo, code: String, paymentInfo: PaymentInfo): TransactionResponse? {
+    override fun initiatePaycodePurchase(terminalInfo: TerminalInfo, code: String, paymentInfo: PaymentModel): TransactionResponse? {
         val now = Date()
         try {
             val pan = generatePan(code)
@@ -618,7 +619,7 @@ internal class IsoServiceImpl(
             logger.log("i: $amount in IsoServiceImpl")
             val message = NibssIsoMessage(messageFactory.newMessage(0x200))
             val processCode = "001000"
-            val stan = paymentInfo.getStan()
+            val stan = paymentInfo.getTransactionStan()
             val randomReference = "000000$stan"
             val date = dateFormatter.format(now)
             val src = "501"

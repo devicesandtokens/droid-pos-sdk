@@ -3,6 +3,7 @@ package com.interswitchng.smartpos.shared.services.kimono
 import android.content.Context
 import android.util.Base64
 import com.igweze.ebi.simplecalladapter.Simple
+import com.interswitchng.smartpos.modules.main.models.PaymentModel
 import com.interswitchng.smartpos.shared.Constants
 import com.interswitchng.smartpos.shared.interfaces.device.POSDevice
 import com.interswitchng.smartpos.shared.interfaces.library.IsoService
@@ -313,12 +314,12 @@ internal class KimonoHttpServiceImpl(private val context: Context,
 
 
 
-    override fun initiatePaycodePurchase(terminalInfo: TerminalInfo, code: String, paymentInfo: PaymentInfo): TransactionResponse? {
+    override fun initiatePaycodePurchase(terminalInfo: TerminalInfo, code: String, paymentInfo: PaymentModel): TransactionResponse? {
 
         val now = Date()
         val pan = IsoUtils.generatePan(code)
        /// val amount = String.format(Locale.getDefault(), "%012d", paymentInfo.amount)
-        val stan = paymentInfo.getStan()
+        val stan = paymentInfo.getTransactionStan()
 //        val now = Date()
        // val date = DateUtils.dateFormatter.format(now)
         val src = "501"
@@ -349,7 +350,8 @@ internal class KimonoHttpServiceImpl(private val context: Context,
                 stan = stan,
                 purchaseType = PurchaseType.PayCode,
                 accountType = AccountType.Default,
-                pinKsn = ""
+                pinKsn = "",
+                currencyType = paymentInfo.currencyType!!
         )
 
         logger.log("i: ${paymentInfo.amount} in kimonoHttpServiceImpl")

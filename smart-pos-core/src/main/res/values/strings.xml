@@ -57,6 +57,8 @@
     <string name="isw_select_bank">Select Bank</string>
     <string name="isw_receiving_payment">Receiving Payment</string>
     <string name="isw_currency_naira">₦</string>
+    <string name="isw_naira">Naira</string>
+    <string name="isw_dollar">Dollar</string>
     <string name="isw_dummy_price">678,910.99</string>
     <string name="isw_dummy_ussd">*888*765*98#</string>
     <string name="isw_pay_ussd_instruction">Dial the USSD code on your Mobile phone to pay</string>

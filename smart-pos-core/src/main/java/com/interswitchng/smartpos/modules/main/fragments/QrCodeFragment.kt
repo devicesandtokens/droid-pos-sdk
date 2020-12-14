@@ -153,7 +153,7 @@ class QrCodeFragment : BaseFragment(TAG) {
 
             // create and request code
             val request = CodeRequest.from(terminalInfo.merchantAlias, terminalInfo,
-                    paymentInfo, CodeRequest.TRANSACTION_QR, CodeRequest.QR_FORMAT_RAW
+                    paymentInfo, paymentModel, CodeRequest.TRANSACTION_QR, CodeRequest.QR_FORMAT_RAW
             )
 
             qrViewModel.getQrCode(request, context!!)
@@ -246,7 +246,7 @@ class QrCodeFragment : BaseFragment(TAG) {
                 stan = paymentInfo.getStan(), pinStatus = "", AID = "",
                 code = qrData!!, telephone = iswPos.config.merchantTelephone, csn = "", icc = "", cardTrack2 = "", cardPin = "",
                 src = "",
-                time = now.time
+                time = now.time, currencyType = paymentModel.currencyType!!
         )
     }
 

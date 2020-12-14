@@ -1,5 +1,6 @@
 package com.interswitchng.smartpos.shared.models.transaction.ussdqr.request
 
+import com.interswitchng.smartpos.modules.main.models.PaymentModel
 import com.interswitchng.smartpos.shared.models.transaction.PaymentInfo
 import com.interswitchng.smartpos.shared.models.core.TerminalInfo
 
@@ -18,13 +19,16 @@ internal data class TransactionInfo(
 
     companion object {
 
-        internal fun from(terminalInfo: TerminalInfo, paymentInfo: PaymentInfo) = TransactionInfo (
-                currencyCode = terminalInfo.currencyCode,
-                merchantId = terminalInfo.merchantId,
-                merchantLocation = terminalInfo.merchantNameAndLocation,
-                posGeoCode = terminalInfo.countryCode,
-                terminalType = "Android",
-                uniqueId =  paymentInfo.currentStan
-        )
+        internal fun from(terminalInfo: TerminalInfo, paymentInfo: PaymentInfo,paymentModel: PaymentModel) : TransactionInfo{
+
+            return TransactionInfo (
+                    currencyCode = terminalInfo.currencyCode,
+                    merchantId = terminalInfo.merchantId,
+                    merchantLocation = terminalInfo.merchantNameAndLocation,
+                    posGeoCode = terminalInfo.countryCode,
+                    terminalType = "Android",
+                    uniqueId =  paymentInfo.currentStan
+            )
+        }
     }
 }

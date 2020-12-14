@@ -26,7 +26,8 @@ internal data class TransactionInfo(
         val accountType: AccountType,
         var originalTransactionInfoData: OriginalTransactionInfoData? = null,
         val pinKsn: String,
-        val cvv: String = ""
+        val cvv: String = "",
+        val currencyType: PaymentModel.CurrencyType
 ) {
 
 
@@ -55,7 +56,8 @@ internal data class TransactionInfo(
                         paymentInfo.authorizationId,
                         "",
                         time = -1L),
-                pinKsn = emv.pinKsn
+                pinKsn = emv.pinKsn,
+                currencyType = paymentInfo.currencyType!!
         )
 
         fun fromTxnResult(txnResult: TransactionResult) = TransactionInfo(
@@ -72,6 +74,7 @@ internal data class TransactionInfo(
                 accountType = txnResult.accountType,
                 iccData = txnResult.iccData,
                 pinKsn = txnResult.pinKsn,
+                currencyType = txnResult.currencyType,
 
                 originalTransactionInfoData = OriginalTransactionInfoData(
                         originalStan = txnResult.stan.padStart(6,'0'),

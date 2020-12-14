@@ -16,13 +16,18 @@ data class PaymentModel (
         var authorizationId: String? = null,
         var stan: String? = null,
         var originalStan: String? = null,
-        var originalDateAndTime: String? = null
+        var originalDateAndTime: String? = null,
+        var currencyType: CurrencyType? = null
 ): Parcelable {
 
     fun getTransactionStan() = IswPos.getNextStan().also { stan = it }
 
     enum class Type {
         MAKE_PAYMENT, TRANSFER_MONEY, BILL_PAYMENT, CASH_OUT
+    }
+
+    enum class CurrencyType{
+        NAIRA, DOLLAR
     }
 
     enum class TransactionType {
