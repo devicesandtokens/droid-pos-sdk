@@ -115,6 +115,27 @@ internal const val KIMONO_END_POINT = "kmw/kimonoservice"
         get() {
             return Production.ISW_KEY_DOWNLOAD_URL
         }
+    val ISW_TERMINAL_CONFIG_URL: String
+        get() {
+            return Production.ISW_TERMINAL_CONFIG_DOWNLOAD_URL
+        }
+
+    val ISW_URL_SETTINGS: String
+        get() {
+            return Production.ISW_URL_SETTINGS
+        }
+
+    val ISW_EPMS_PORT = "5043"
+    val ISW_CTMS_PORT = "5008"
+    val ISW_TERMINAL_IP_EPMS = "196.6.103.73"
+    val ISW_TERMINAL_IP_CTMS = "196.6.103.18"
+    val ISW_TERMINAL_CAPABILITIES = "E0F0C8"
+    val ISW_SERVER_TIMEOUT_IN_SEC = "60"
+    val ISW_CALL_HOME_TIME_IN_MIN ="60"
+    val ISW_COUNTRY_CODE = "566"
+    val ISW_CURRENCY_CODE = "566"
+    val ISW_MERCHANT_CODE = "MX1065"
+    val ISW_MERCHANT_ALIAS = "000001"
 
     private object Production {
 
@@ -122,9 +143,11 @@ internal const val KIMONO_END_POINT = "kmw/kimonoservice"
         const val ISW_TOKEN_BASE_URL = "https://passport.interswitchng.com/passport/"
         const val ISW_IMAGE_BASE_URL = "https://mufasa.interswitchng.com/p/paymentgateway/"
         const val ISW_KIMONO_URL = "https://kimono.interswitchng.com/kmw/v2/kimonoservice"
+        const val ISW_URL_SETTINGS = "https://kimono.interswitchng.com/kmw/kimonoservice"
         const val ISW_KIMONO_BASE_URL = "https://kimono.interswitchng.com/"
         const val ISW_TERMINAL_IP = "196.6.103.73"
         const val ISW_KEY_DOWNLOAD_URL = "http://kimono.interswitchng.com/kmw/keydownloadservice"
+        const val ISW_TERMINAL_CONFIG_DOWNLOAD_URL = "http://kimono.interswitchng.com/kmw/serialid/"
     }
 
     private object Test {
