@@ -291,7 +291,8 @@ class ReceiptFragment : BaseFragment(TAG) {
                     cardTrack2 = txnInfo.cardTrack2,
                     month = it.month,
                     time = now.time,
-                    originalTransmissionDateTime = it.transmissionDateTime
+                    originalTransmissionDateTime = it.transmissionDateTime,
+                    currencyType = txnInfo.currencyType
             )
             resultViewModel.logTransaction(reversalResult)
             Toast.makeText(context, reversalResult.responseMessage, Toast.LENGTH_SHORT).show()

@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.gojuno.koptional.None
 import com.gojuno.koptional.Some
 import com.interswitchng.smartpos.R
+import com.interswitchng.smartpos.modules.main.models.PaymentModel
 import com.interswitchng.smartpos.shared.activities.BaseActivity
 import com.interswitchng.smartpos.shared.models.transaction.TransactionResult
 import com.interswitchng.smartpos.shared.models.transaction.ussdqr.response.Transaction
@@ -102,7 +103,8 @@ class PayCodeActivity : BaseActivity(), ScanBottomSheet.ScanResultCallback {
         // get the paycode
         val code = payCode.text.toString()
         // initiate paycode purchase
-        payCodeViewModel.processOnline(terminalInfo, code, paymentInfo)
+        val paymentModel = PaymentModel()
+        payCodeViewModel.processOnline(terminalInfo, code, paymentModel)
     }
 
     override fun getTransactionResult(transaction: Transaction) = transactionResult

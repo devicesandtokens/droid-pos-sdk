@@ -5,6 +5,7 @@ import android.view.View
 import com.gojuno.koptional.None
 import com.gojuno.koptional.Some
 import com.interswitchng.smartpos.R
+import com.interswitchng.smartpos.modules.main.models.PaymentModel
 import com.interswitchng.smartpos.modules.ussdqr.viewModels.QrViewModel
 import com.interswitchng.smartpos.shared.activities.BaseActivity
 import com.interswitchng.smartpos.shared.models.core.UserType
@@ -128,9 +129,10 @@ class QrCodeActivity : BaseActivity() {
             // show loading dialog
             dialog.show()
 
+            val paymentModel = PaymentModel()
             // create and request code
             val request = CodeRequest.from(iswPos.config.alias, terminalInfo,
-                    paymentInfo, TRANSACTION_QR, QR_FORMAT_RAW)
+                    paymentInfo, paymentModel,TRANSACTION_QR, QR_FORMAT_RAW)
 
             qrViewModel.getQrCode(request, this)
         } else runWithInternet {
@@ -218,7 +220,7 @@ class QrCodeActivity : BaseActivity() {
                 cardPan = "", cardExpiry = "", cardType = CardType.None,
                 stan = paymentInfo.getStan(), pinStatus = "", AID = "",
                 code = qrData!!, telephone = iswPos.config.merchantTelephone,
-                cardTrack2 = "", csn = "", cardPin = "", icc = "", src = "", time = -1L
+                cardTrack2 = "", csn = "", cardPin = "", icc = "", src = "", time = -1L,currencyType = PaymentModel.CurrencyType.NAIRA
         )
     }
 
