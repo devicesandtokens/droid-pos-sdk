@@ -24,7 +24,8 @@ class AmountFragment : BaseFragment(TAG) {
 
     private val cancelDialog by lazy {
         DialogUtils.getAlertDialog(context!!)
-                .setMessage("Are you sure you want to")
+                .setTitle("Continue")
+                .setMessage("Are you sure you want to continue?")
                 .setCancelable(false)
                 .setNegativeButton(R.string.isw_no) { dialog, _ ->
                     showCurrencyDialog()
@@ -72,8 +73,12 @@ class AmountFragment : BaseFragment(TAG) {
                 displayLimitAmountToast()
             } else {
 
-                showCurrencyDialog()
-                //proceedWithPayment()
+                if(terminalInfo.isKimono) {
+                    showCurrencyDialog()
+                } else {
+                    proceedWithPayment()
+                }
+
             }
         }
     }

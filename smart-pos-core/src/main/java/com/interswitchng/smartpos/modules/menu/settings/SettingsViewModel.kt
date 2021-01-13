@@ -62,11 +62,14 @@ internal  class SettingsViewModel : RootViewModel(), KoinComponent {
     fun getTerminalInfoFromResponse(info : AllTerminalInfo): TerminalInfo{
         return TerminalInfo(
                 terminalId = info.terminalInfoBySerials?.terminalCode.toString(),
+                terminalId2 = "",
                 merchantId = info.terminalInfoBySerials?.merchantId.toString(),
+                merchantId2 = "",
                 merchantNameAndLocation = info.terminalInfoBySerials?.cardAcceptorNameLocation.toString().padEnd(40,' '),
                 merchantCategoryCode = info.terminalInfoBySerials?.merchantCategoryCode.toString(),
                 countryCode = Constants.ISW_COUNTRY_CODE,
-                currencyCode = Constants.ISW_CURRENCY_CODE,
+                currencyCode = Constants.ISW_CURRENCY_CODE_NAIRA,
+                currencyCode2 = Constants.ISW_CURRENCY_CODE_DOLLAR,
                 callHomeTimeInMin = Constants.ISW_CALL_HOME_TIME_IN_MIN.toIntOrNull() ?: -1,
                 serverTimeoutInSec = Constants.ISW_SERVER_TIMEOUT_IN_SEC.toIntOrNull() ?: -1,
                 isKimono = true,

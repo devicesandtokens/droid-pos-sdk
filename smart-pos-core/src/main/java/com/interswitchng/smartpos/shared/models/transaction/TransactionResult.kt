@@ -119,7 +119,9 @@ data class TransactionResult(
                     pinStatus,
                     originalTransmissionDateTime,
                     responseCode,
-                    rrn)
+                    rrn,
+                    currencyType
+            )
 
 
     /// function to extract

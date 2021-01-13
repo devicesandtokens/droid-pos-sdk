@@ -318,6 +318,14 @@ class TerminalSettingsActivity : MenuActivity() {
                 etAgentId.isEnabled = false
                 etAgentEmail.isEnabled = false
 
+                etTerminalId2.isEnabled = false
+                etMerchantId2.isEnabled = false
+                etCurrencyCode2.isEnabled = false
+
+                etTerminalId2.error= null
+                etMerchantId2.error= null
+                etCurrencyCode2.error= null
+
                 // show server and port fields
                 etServerPort.isEnabled = true
                 etServerIP.isEnabled = true
@@ -335,6 +343,13 @@ class TerminalSettingsActivity : MenuActivity() {
 
             // set the agentEmail container based on kimono flag
             agentEmail.visibility =
+                    if (button.isChecked) View.VISIBLE else View.GONE
+
+            terminalId2Container.visibility =
+                    if (button.isChecked) View.VISIBLE else View.GONE
+            merchantId2Container.visibility =
+                    if (button.isChecked) View.VISIBLE else View.GONE
+            currencyCode2Container.visibility =
                     if (button.isChecked) View.VISIBLE else View.GONE
 
             // set the EPMS container based on kimono flag
@@ -411,10 +426,13 @@ class TerminalSettingsActivity : MenuActivity() {
             // terminal config
             etTerminalId.setText(terminalId)
             etMerchantId.setText(merchantId)
+            etTerminalId2.setText(terminalId2)
+            etMerchantId2.setText(merchantId2)
             etMerchantCategoryCode.setText(merchantCategoryCode)
             etMerchantNameAndLocation.setText(merchantNameAndLocation)
             etCountryCode.setText(countryCode)
             etCurrencyCode.setText(currencyCode)
+            etCurrencyCode2.setText(currencyCode2)
             etCallHomeTime.setText(callHomeTimeInMin.toString())
             etServerTimeout.setText(serverTimeoutInSec.toString())
             etCapabilities.setText(capabilities)
@@ -592,10 +610,13 @@ class TerminalSettingsActivity : MenuActivity() {
         return TerminalInformation().apply {
             terminalId = etTerminalId.getString()
             merchantId = etMerchantId.getString()
+            terminalId2 = etTerminalId2.getString()
+            merchantId2 = etMerchantId2.getString()
             merchantCategoryCode = etMerchantCategoryCode.getString()
             merchantNameAndLocation = etMerchantNameAndLocation.getString()
             countryCode = etCountryCode.getString()
             currencyCode = etCurrencyCode.getString()
+            currencyCode2 = etCurrencyCode2.getString()
             callHomeTimeInMin = etCallHomeTime.getString()
             serverTimeoutInSec = etServerTimeout.getString()
             serverIp = etServerIP.getString()
@@ -621,12 +642,15 @@ class TerminalSettingsActivity : MenuActivity() {
         errorInfo.apply {
             if (terminalId.isNotEmpty()) tiTerminalId.error = terminalId
             if (merchantId.isNotEmpty()) tiMerchantId.error = merchantId
+            if (terminalId2.isNotEmpty()) tiTerminalId2.error = terminalId2
+            if (merchantId2.isNotEmpty()) tiMerchantId2.error = merchantId2
             if (merchantCategoryCode.isNotEmpty()) tiMerchantCategoryCode.error =
                     merchantCategoryCode
             if (merchantNameAndLocation.isNotEmpty()) tiMerchantNameAndLocation.error =
                     merchantNameAndLocation
             if (countryCode.isNotEmpty()) tiCountryCode.error = countryCode
             if (currencyCode.isNotEmpty()) tiCurrencyCode.error = currencyCode
+            if (currencyCode2.isNotEmpty()) tiCurrencyCode2.error = currencyCode2
             if (callHomeTimeInMin.isNotEmpty()) tiCallHomeTime.error = callHomeTimeInMin
             if (serverTimeoutInSec.isNotEmpty()) tiServerTimeout.error = serverTimeoutInSec
             if (serverIp.isNotEmpty()) tiServerIP.error = serverIp

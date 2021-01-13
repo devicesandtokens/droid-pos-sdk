@@ -1,5 +1,6 @@
 package com.interswitchng.smartpos.shared.models.printer.info
 
+import com.interswitchng.smartpos.modules.main.models.PaymentModel
 import com.interswitchng.smartpos.shared.models.transaction.PaymentType
 
 /**
@@ -19,5 +20,6 @@ data class TransactionInfo(
         val pinStatus: String,
         val originalDateTime: String,
         val responseCode: String,
-        val rrn: String
+        val rrn: String,
+        val currencyType: PaymentModel.CurrencyType
 )

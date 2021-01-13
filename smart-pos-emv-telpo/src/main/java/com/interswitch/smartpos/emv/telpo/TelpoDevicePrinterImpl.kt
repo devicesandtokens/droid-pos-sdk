@@ -41,7 +41,7 @@ class TelpoDevicePrinterImpl constructor(private val context: Context) : DeviceP
         for (item in slip) printItem(item)
 
         // print thank you message at end of slip
-        val thankYouMsg = PrintObject.Data("Powered By InterSwitch", PrintStringConfiguration(displayCenter = true))
+        val thankYouMsg = PrintObject.Data("Powered By Interswitch", PrintStringConfiguration(displayCenter = true))
         printItem(thankYouMsg)
 
         // print pos version at end of slip

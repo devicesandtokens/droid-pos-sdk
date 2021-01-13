@@ -17,7 +17,7 @@ data class PaymentModel (
         var stan: String? = null,
         var originalStan: String? = null,
         var originalDateAndTime: String? = null,
-        var currencyType: CurrencyType? = null
+        var currencyType: CurrencyType? = CurrencyType.NAIRA
 ): Parcelable {
 
     fun getTransactionStan() = IswPos.getNextStan().also { stan = it }

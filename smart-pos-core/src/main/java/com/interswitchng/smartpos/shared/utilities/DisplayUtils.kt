@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.interswitchng.smartpos.modules.main.models.PaymentModel
 import com.interswitchng.smartpos.shared.interfaces.library.KeyValueStore
 import com.interswitchng.smartpos.shared.models.core.IswLocal
 import com.interswitchng.smartpos.shared.models.core.TerminalInfo
@@ -104,18 +105,12 @@ internal object DisplayUtils: KoinComponent {
         }
     }
 
-    fun getAmountWithCurrency(amount: String): String {
-        val store: KeyValueStore  = get()
+    fun getAmountWithCurrency(amount: String, currencyType: PaymentModel.CurrencyType): String {
 
         // get the currency based on the terminal's configured currency code
-        val currency = when (val config = TerminalInfo.get(store)) {
-            null -> ""
-            else -> when(config.currencyCode) {
-                IswLocal.NIGERIA.code -> IswLocal.NIGERIA.currency
-                IswLocal.GHANA.code -> IswLocal.GHANA.currency
-                IswLocal.USA.code -> IswLocal.USA.currency
-                else -> ""
-            }
+        val currency =  when(currencyType) {
+                PaymentModel.CurrencyType.NAIRA -> IswLocal.NIGERIA.currency
+                PaymentModel.CurrencyType.DOLLAR -> IswLocal.USA.currency
         }
         Logger.with("Display Utils").logErr( amount)
         var formattedAmount = getAmountString(amount.toInt())

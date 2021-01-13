@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import com.gojuno.koptional.None
 import com.gojuno.koptional.Some
 import com.interswitchng.smartpos.R
+import com.interswitchng.smartpos.modules.main.models.PaymentModel
 import com.interswitchng.smartpos.modules.ussdqr.viewModels.UssdViewModel
 import com.interswitchng.smartpos.modules.ussdqr.views.SelectBankBottomSheet
 import com.interswitchng.smartpos.shared.activities.BaseActivity
@@ -188,9 +189,10 @@ class UssdActivity : BaseActivity() {
             // show loading dialog
             dialog.show()
 
+            val paymentModel = PaymentModel()
             // create payment info with bank code
             val info = PaymentInfo(paymentInfo.amount, selectedBank.code)
-            val request = CodeRequest.from(iswPos.config.alias, terminalInfo, info, TRANSACTION_USSD)
+            val request = CodeRequest.from(iswPos.config.alias, terminalInfo, info, paymentModel, TRANSACTION_USSD)
 
             // get ussd code
             ussdViewModel.getBankCode(request)
@@ -302,7 +304,7 @@ class UssdActivity : BaseActivity() {
                 responseCode = transaction.responseCode,
                 cardPan = "", cardExpiry = "", cardType = CardType.None,
                 stan = paymentInfo.getStan(), pinStatus = "", AID = "", code = ussdCode!!,
-                telephone = iswPos.config.merchantTelephone, src = "", icc = "", cardPin = "", cardTrack2 = "", csn = "", time = -1L
+                telephone = iswPos.config.merchantTelephone, src = "", icc = "", cardPin = "", cardTrack2 = "", csn = "", time = -1L, currencyType = PaymentModel.CurrencyType.NAIRA
         )
     }
 

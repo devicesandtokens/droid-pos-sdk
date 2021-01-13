@@ -104,14 +104,18 @@ class ReceiptFragment : BaseFragment(TAG) {
 
     private fun displayTransactionDetails() {
         isw_date_text.text = getString(R.string.isw_receipt_date, result?.dateTime)
-        val amountWithCurrency = result?.amount.let { DisplayUtils.getAmountWithCurrency(it.toString()) }
+        val amountWithCurrency = result?.amount.let { DisplayUtils.getAmountWithCurrency(it.toString(),result!!.currencyType) }
         Logger.with("Reciept fragment").logErr(amountWithCurrency)
         //Logger.with("Recipet fragment amount").logErr(result!!.amount)
         isw_amount_paid.text = getString(R.string.isw_receipt_amount, amountWithCurrency)
 
         isw_stan.text = result?.stan?.padStart(6, '0')
         isw_aid.text = result?.AID
-        isw_terminal_id.text = terminalInfo.terminalId
+        var terminalId = terminalInfo.terminalId
+        if(result!!.currencyType == PaymentModel.CurrencyType.DOLLAR){
+            terminalId = terminalInfo.terminalId2
+        }
+        isw_terminal_id.text = terminalId
         val expiryYear = result?.cardExpiry?.take(2).toString()
         val expiryMonth = result?.cardExpiry?.takeLast(2).toString()
         var expiryDate = "${expiryMonth}/${expiryYear}"

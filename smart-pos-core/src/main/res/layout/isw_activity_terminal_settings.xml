@@ -148,7 +148,8 @@
                 android:layout_marginEnd="@dimen/isw_content_margin"
                 android:id="@+id/iswEpmsContainer"
                 android:orientation="horizontal"
-                android:padding="2dp">
+                android:padding="2dp"
+                android:visibility="gone">
 
 
                 <TextView
@@ -183,7 +184,8 @@
                 android:layout_marginTop="@dimen/isw_content_margin"
                 android:layout_marginEnd="@dimen/isw_content_margin"
                 android:orientation="horizontal"
-                android:padding="2dp">
+                android:padding="2dp"
+                android:visibility="gone">
 
 
                 <TextView
@@ -314,6 +316,44 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/isw_title_terminal_id"
+                        android:inputType="textCapCharacters"
+                        android:maxLength="8"
+                        android:textSize="18sp"
+                        tools:text="" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/terminalId2Container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/isw_content_margin"
+                    android:layout_marginEnd="@dimen/isw_content_margin"
+                    android:text="@string/isw_title_terminal_id_2"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tiTerminalId2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/isw_content_margin"
+                    android:layout_marginEnd="@dimen/isw_content_margin"
+                    android:textColor="@color/iswTextColorDark"
+                    app:hintEnabled="false">
+
+
+                    <EditText
+                        android:id="@+id/etTerminalId2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/isw_title_terminal_id_2"
                         android:inputType="textCapCharacters"
                         android:maxLength="8"
                         android:textSize="18sp"
@@ -499,6 +539,47 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/merchantId2Container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/isw_content_margin"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/isw_content_margin"
+                    android:layout_marginEnd="@dimen/isw_content_margin"
+                    android:text="@string/isw_title_merchant_id_2"
+                    android:textColor="@color/iswTextColorDark"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tiMerchantId2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/isw_content_margin"
+                    android:layout_marginEnd="@dimen/isw_content_margin"
+                    android:textColor="@color/iswTextColorDark"
+                    app:hintEnabled="false">
+
+                    <EditText
+                        android:id="@+id/etMerchantId2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/isw_title_merchant_id_2"
+                        android:inputType="textCapCharacters"
+                        android:maxLength="15"
+                        android:textSize="18sp"
+                        tools:text="" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -655,6 +736,47 @@
 
                     <EditText
                         android:id="@+id/etCurrencyCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="566"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:textSize="18sp"
+                        tools:text="" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/currencyCode2Container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/isw_content_margin"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/isw_content_margin"
+                    android:layout_marginEnd="@dimen/isw_content_margin"
+                    android:text="@string/isw_title_currency_code_2"
+                    android:textColor="@color/iswTextColorDark"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tiCurrencyCode2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/isw_content_margin"
+                    android:layout_marginEnd="@dimen/isw_content_margin"
+                    android:textColor="@color/iswTextColorDark"
+                    app:hintEnabled="false">
+
+                    <EditText
+                        android:id="@+id/etCurrencyCode2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="566"

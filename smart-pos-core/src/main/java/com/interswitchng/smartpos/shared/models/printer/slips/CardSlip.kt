@@ -40,7 +40,7 @@ internal class CardSlip(terminal: TerminalInfo, status: TransactionStatus, priva
         val date = pairString("date", info.dateTime.take(10))
         val time = pairString("time", info.dateTime.substring(11, 19))
         val dateTime = pairString("Date Time", info.originalDateTime)
-        val amount = pairString("amount", DisplayUtils.getAmountWithCurrency(info.amount))
+        val amount = pairString("amount", DisplayUtils.getAmountWithCurrency(info.amount,info.currencyType))
         val authCode = pairString("authentication code", info.authorizationCode)
 
         val reprintConfig = PrintStringConfiguration(displayCenter = true, isBold = true, isTitle = true)

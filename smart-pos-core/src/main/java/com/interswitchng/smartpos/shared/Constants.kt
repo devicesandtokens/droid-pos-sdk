@@ -7,6 +7,7 @@ import com.interswitchng.smartpos.shared.utilities.KeysUtils
 object Constants {
 
     internal const val PAYMENT_CODE = "04358001"
+    internal const val POS_GEO_CODE_PREFIX = "00234000000000"
 
     // URL END POINTS
     internal const val CODE_END_POINT = "till.json"
@@ -148,7 +149,8 @@ object Constants {
     val ISW_SERVER_TIMEOUT_IN_SEC = "60"
     val ISW_CALL_HOME_TIME_IN_MIN ="60"
     val ISW_COUNTRY_CODE = "566"
-    val ISW_CURRENCY_CODE = "566"
+    val ISW_CURRENCY_CODE_NAIRA = "566"
+    val ISW_CURRENCY_CODE_DOLLAR = "840"
     val ISW_MERCHANT_CODE = "MX1065"
     val ISW_MERCHANT_ALIAS = "000001"
 
