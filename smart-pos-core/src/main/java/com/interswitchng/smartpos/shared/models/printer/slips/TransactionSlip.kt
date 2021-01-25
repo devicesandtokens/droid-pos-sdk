@@ -17,7 +17,7 @@ import com.interswitchng.smartpos.shared.services.iso8583.utils.IsoUtils
  * @param terminal  the terminal information used to configure the current terminal
  * @param status  the response status for the current transaction
  */
-abstract class TransactionSlip(private val terminal: TerminalInfo, private val status: TransactionStatus) {
+abstract class TransactionSlip(private val terminal: TerminalInfo, private val status: TransactionStatus,private val info: TransactionInfo) {
     protected val line = PrintObject.Line
 
 
@@ -68,8 +68,15 @@ abstract class TransactionSlip(private val terminal: TerminalInfo, private val s
      */
     internal fun getTerminalInfo(): List<PrintObject> {
         val merchantName = pairString("merchant", terminal.merchantNameAndLocation)
-        val terminalId = pairString("Terminal Id", terminal.terminalId)
-        val merchantId = pairString("Merchant Id", terminal.merchantId)
+        var terminalId = pairString("Terminal Id", terminal.terminalId)
+        var merchantId = pairString("Merchant Id", terminal.merchantId)
+
+        if(info.currencyType == PaymentModel.CurrencyType.DOLLAR){
+            terminalId = pairString("Terminal Id", terminal.terminalId2)
+            merchantId = pairString("Merchant Id", terminal.merchantId2)
+        }
+
+
 
         return listOf(merchantName, terminalId, merchantId, line)
     }

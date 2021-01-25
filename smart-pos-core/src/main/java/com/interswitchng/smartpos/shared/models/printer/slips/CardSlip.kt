@@ -17,7 +17,7 @@ import com.interswitchng.smartpos.shared.utilities.DisplayUtils
  *
  * @param info the information concerning the current transaction
  */
-internal class CardSlip(terminal: TerminalInfo, status: TransactionStatus, private val info: TransactionInfo) : TransactionSlip(terminal, status) {
+internal class CardSlip(terminal: TerminalInfo, status: TransactionStatus, private val info: TransactionInfo) : TransactionSlip(terminal, status,info) {
 
 
     /**

@@ -15,7 +15,7 @@ import java.text.NumberFormat
  *
  * @param info the information concerning the current transaction
  */
-internal class UssdQrSlip(terminal: TerminalInfo, status: TransactionStatus, private val info: TransactionInfo): TransactionSlip(terminal, status) {
+internal class UssdQrSlip(terminal: TerminalInfo, status: TransactionStatus, private val info: TransactionInfo): TransactionSlip(terminal, status,info) {
 
 
     /**
