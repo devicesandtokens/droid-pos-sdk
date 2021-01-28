@@ -295,6 +295,10 @@ class TerminalSettingsActivity : MenuActivity() {
                 etAgentId.isEnabled = true
                 etAgentEmail.isEnabled = true
 
+                etTerminalId2.isEnabled = true
+                etMerchantId2.isEnabled = true
+                etCurrencyCode2.isEnabled = true
+
                 //merchantAlias not required if not kimono
                 etMerchantAlias.isEnabled = true
                 //merchantCode is not required if not kimono
