@@ -206,7 +206,7 @@ class ProcessingRequestFragment : BaseFragment(TAG) {
                         pinStatus = pinStatus,
                         AID = emvData.AID,
                         code = "",
-                        telephone = iswPos.config.merchantTelephone,
+                        telephone = terminalInfo.agentId,
                         icc = txnInfo.iccString,
                         iccData = emvData.icc,
                         pinKsn = pinksn,
