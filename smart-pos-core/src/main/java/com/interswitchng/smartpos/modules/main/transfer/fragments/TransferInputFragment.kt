@@ -1,9 +1,11 @@
 package com.interswitchng.smartpos.modules.main.transfer.fragments
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.ContextThemeWrapper
 import android.view.View
 import android.widget.Button
 import android.widget.CompoundButton
@@ -119,6 +121,25 @@ class TransferInputFragment : BaseFragment(TAG), CallbackListener {
             if(isChecked) {
                 isValid = false
                 validateBeneficiary()
+            } else {
+                //  show alert
+                val builder = AlertDialog.Builder(ContextThemeWrapper(context, R.style.ISWCustomAlertDialog))
+
+                builder.setTitle("Confirmation")
+
+                builder.setMessage("Are you sure you want to disable name enquiry?")
+
+                builder.setPositiveButton("Yes"){dialogInterface, which ->
+                }
+
+                builder.setNegativeButton("No"){dialogInterface , which ->
+                    isw_name_enquiry_switch.isChecked = true
+                }
+
+                val alertDialog: AlertDialog = builder.create()
+
+                alertDialog.setCancelable(false)
+                alertDialog.show()
             }
         }
 

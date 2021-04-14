@@ -209,8 +209,7 @@ object Constants {
             BankModel("636092", "076", "Polaris"),
             BankModel("627480", "033", "UBA"),
             BankModel("627629", "057", "Zenith Bank"),
-            BankModel("50613602009", "342", "Finca Mfb")
-
+            BankModel("50613602009", "342", "FINCA MFB")
     )
 
     const val SETTLEMENT_ACCOUNT_NUMBER = "SETTLEMENT_ACCOUNT_NUMBER"
