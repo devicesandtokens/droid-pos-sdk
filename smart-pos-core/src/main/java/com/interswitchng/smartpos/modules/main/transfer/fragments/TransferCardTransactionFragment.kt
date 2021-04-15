@@ -177,6 +177,7 @@ class TransferCardTransactionFragment : BaseFragment(TAG) {
                 loading.dismiss()
 
                 cardType = message.cardType
+                paymentModel.cardType = cardType
 //                CardTransactionsFragment.CompletionData.cardType = message.cardType
 
                 //Show Card detected view
@@ -185,6 +186,7 @@ class TransferCardTransactionFragment : BaseFragment(TAG) {
 
             is EmvMessage.CardDetails -> {
                 cardType = message.cardType
+                paymentModel.cardType = cardType
 //                CardTransactionsFragment.CompletionData.cardType = message.cardType
             }
 
