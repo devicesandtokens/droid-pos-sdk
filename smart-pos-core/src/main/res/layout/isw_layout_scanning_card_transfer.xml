@@ -15,7 +15,7 @@
         android:gravity="center"
         android:text="Please insert or\nswipe card"
         android:textColor="@color/iswColorPrimary"
-        android:textStyle="normal"
+        android:textStyle="bold"
         android:textAllCaps="true"
         android:fontFamily="@font/roboto_medium"
         android:textSize="30sp"
@@ -41,7 +41,8 @@
         android:layout_marginTop="64dp"
         android:text="Waiting for card"
         android:textColor="@color/iswColorPrimary"
-        android:textSize="20sp"
+        android:textSize="30sp"
+        android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="@+id/isw_imageview2"
         app:layout_constraintStart_toStartOf="@+id/isw_imageview2"
         app:layout_constraintTop_toBottomOf="@+id/isw_imageview2" />
