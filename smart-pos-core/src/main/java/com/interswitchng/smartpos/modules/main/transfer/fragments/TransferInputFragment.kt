@@ -125,9 +125,9 @@ class TransferInputFragment : BaseFragment(TAG), CallbackListener {
                 //  show alert
                 val builder = AlertDialog.Builder(ContextThemeWrapper(context, R.style.ISWCustomAlertDialog))
 
-                builder.setTitle("Confirmation")
+                builder.setTitle(R.string.isw_name_enquiry_confirmation_title)
 
-                builder.setMessage("Are you sure you want to disable name enquiry?")
+                builder.setMessage(R.string.isw_name_enquiry_confirmation_body)
 
                 builder.setPositiveButton("Yes"){dialogInterface, which ->
                 }
