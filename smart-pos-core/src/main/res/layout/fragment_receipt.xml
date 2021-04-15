@@ -18,7 +18,7 @@
             android:id="@+id/transactionstatus_image"
             android:layout_width="270dp"
             android:layout_height="200dp"
-            app:srcCompat="@drawable/finca_logo"
+            app:srcCompat="@drawable/cico_logo"
             android:layout_marginTop="0dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
