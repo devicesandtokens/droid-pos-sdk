@@ -40,7 +40,7 @@
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_marginTop="10dp"
-        app:srcCompat= "@drawable/finca_logo"
+        app:srcCompat= "@drawable/cico_logo"
         app:layout_constraintStart_toStartOf="@+id/isw_guideline2"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -133,7 +133,7 @@
                 android:layout_width="212dp"
                 android:layout_height="160dp"
                 android:layout_gravity="bottom"
-                app:srcCompat="@drawable/ic_finca_transfer_image"
+                app:srcCompat="@drawable/ic_cico_transfer_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 

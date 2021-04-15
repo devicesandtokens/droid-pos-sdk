@@ -8,7 +8,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion targetSdk
     defaultConfig {
-        applicationId "com.interswitchng.interswitchposfinca"
+        applicationId "com.interswitchng.interswitchposcicocashout"
         minSdkVersion minSdk
         targetSdkVersion targetSdk
         multiDexEnabled true
