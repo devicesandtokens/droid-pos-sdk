@@ -28,7 +28,7 @@ class AmountFragment : BaseFragment(TAG) {
                 .setMessage("Are you sure you want to continue?")
                 .setCancelable(false)
                 .setNegativeButton(R.string.isw_no) { dialog, _ ->
-                    showCurrencyDialog()
+                    //showCurrencyDialog()
                     dialog.dismiss()
                 }
                 .setPositiveButton(R.string.isw_yes) { dialog, _ ->
@@ -72,36 +72,36 @@ class AmountFragment : BaseFragment(TAG) {
             } else if(isAmountLimit()){
                 displayLimitAmountToast()
             } else {
-
-                if(terminalInfo.isKimono) {
-                    showCurrencyDialog()
-                } else {
-                    proceedWithPayment()
-                }
+                proceedWithPayment()
+//                if(terminalInfo.isKimono) {
+//                    showCurrencyDialog()
+//                } else {
+//                    proceedWithPayment()
+//                }
 
             }
         }
     }
 
-    private fun showCurrencyDialog() {
-        val currencyDialog = CurrencyDialog {
-            when (it) {
-                0 -> {
-                    payment.newPayment {
-                        currencyType = PaymentModel.CurrencyType.NAIRA
-                    }
-                    cancelDialog.show()
-                }
-                1 -> {
-                    payment.newPayment {
-                        currencyType = PaymentModel.CurrencyType.DOLLAR
-                    }
-                    cancelDialog.show()
-                }
-            }
-        }
-        currencyDialog.show(childFragmentManager, TAG)
-    }
+//    private fun showCurrencyDialog() {
+//        val currencyDialog = CurrencyDialog {
+//            when (it) {
+//                0 -> {
+//                    payment.newPayment {
+//                        currencyType = PaymentModel.CurrencyType.NAIRA
+//                    }
+//                    cancelDialog.show()
+//                }
+//                1 -> {
+//                    payment.newPayment {
+//                        currencyType = PaymentModel.CurrencyType.DOLLAR
+//                    }
+//                    cancelDialog.show()
+//                }
+//            }
+//        }
+//        currencyDialog.show(childFragmentManager, TAG)
+//    }
 
     private fun displayLimitAmountToast() {
         toast("Limit Amount is $AMOUNT_LIMIT")

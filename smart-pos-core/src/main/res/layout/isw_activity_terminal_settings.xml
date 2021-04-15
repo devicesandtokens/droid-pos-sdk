@@ -324,7 +324,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
-            <LinearLayout
+            <!--LinearLayout
                 android:id="@+id/terminalId2Container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -360,7 +360,7 @@
                         tools:text="" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
+            </LinearLayout-->
 
 
             <!-- Load Keys Container (NIBBS config) -->
@@ -539,7 +539,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <!--LinearLayout
                 android:id="@+id/merchantId2Container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -578,7 +578,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-            </LinearLayout>
+            </LinearLayout-->
 
 
             <LinearLayout
@@ -748,7 +748,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <!--LinearLayout
                 android:id="@+id/currencyCode2Container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -787,7 +787,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-            </LinearLayout>
+            </LinearLayout-->
 
             <LinearLayout
                 android:layout_width="match_parent"

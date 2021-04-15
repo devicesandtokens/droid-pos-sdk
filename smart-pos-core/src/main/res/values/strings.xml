@@ -42,8 +42,8 @@
     <string name="isw_title_download_keys">Download Keys</string>
     <string name="isw_title_terminal_config_downloaded">Terminal Config Donwloaded</string>
     <string name="isw_title_keys_downloaded">Keys Downloaded</string>
-    <string name="isw_title_terminal_id">Terminal ID 1</string>
-    <string name="isw_title_terminal_id_2">Terminal ID 2</string>
+    <string name="isw_title_terminal_id">Terminal ID</string>
+<!--    <string name="isw_title_terminal_id_2">Terminal ID 2</string>-->
     <string name="isw_title_error_downloading_terminal_config">Error Downloading Terminal Configuration</string>
     <string name="isw_title_error_downloading_keys">Error downloading keys</string>
     <string name="isw_title_downloading_terminal_config">Downloading Terminal Config</string>
@@ -246,15 +246,15 @@
     <string name="isw_or">Or</string>
 
     <string name="isw_action_save">Save Config</string>
-    <string name="isw_title_merchant_id">Merchant ID 1</string>
-    <string name="isw_title_merchant_id_2">Merchant ID 2</string>
+    <string name="isw_title_merchant_id">Merchant ID</string>
+<!--    <string name="isw_title_merchant_id_2">Merchant ID 2</string>-->
 
     <string name="isw_title_merchant_name_and_location">Merchant Name and Location</string>
     <string name="isw_title_merchant_category_code">Merchant Category Code</string>
     <string name="isw_title_server_config">Server Config:</string>
     <string name="isw_title_country_code">Country Code</string>
-    <string name="isw_title_currency_code">Currency Code 1</string>
-    <string name="isw_title_currency_code_2">Currency Code 2</string>
+    <string name="isw_title_currency_code">Currency Code</string>
+<!--    <string name="isw_title_currency_code_2">Currency Code 2</string>-->
     <string name="isw_title_terminal_capabilities">Terminal Capabilities</string>
 
 

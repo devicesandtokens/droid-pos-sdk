@@ -33,11 +33,11 @@ internal class PurchaseRequest
             var terminalId = terminalInfo.terminalId
             var merchantId = terminalInfo.merchantId
 
-            if(transaction.currencyType == PaymentModel.CurrencyType.DOLLAR){
-                currencyCode = terminalInfo.currencyCode2
-                terminalId = terminalInfo.terminalId2
-                merchantId = terminalInfo.merchantId2
-            }
+//            if(transaction.currencyType == PaymentModel.CurrencyType.DOLLAR){
+//                currencyCode = terminalInfo.currencyCode2
+//                terminalId = terminalInfo.terminalId2
+//                merchantId = terminalInfo.merchantId2
+//            }
             val posGeoCode = Constants.POS_GEO_CODE_PREFIX + currencyCode
 
             val hasPin = transaction.cardPIN.isNotEmpty()
@@ -109,11 +109,11 @@ internal class PurchaseRequest
             var terminalId = terminalInfo.terminalId
             var merchantId = terminalInfo.merchantId
 
-            if(transaction.currencyType == PaymentModel.CurrencyType.DOLLAR){
-                currencyCode = terminalInfo.currencyCode2
-                terminalId = terminalInfo.terminalId2
-                merchantId = terminalInfo.merchantId2
-            }
+//            if(transaction.currencyType == PaymentModel.CurrencyType.DOLLAR){
+//                currencyCode = terminalInfo.currencyCode2
+//                terminalId = terminalInfo.terminalId2
+//                merchantId = terminalInfo.merchantId2
+//            }
             val posGeoCode = Constants.POS_GEO_CODE_PREFIX + currencyCode
 
             var pinData = """<pinData><ksn>${transaction.pinKsn}</ksn><ksnd>N/A</ksnd><pinBlock>${transaction.cardPIN}</pinBlock><pinType>Dukpt</pinType></pinData>"""
@@ -176,11 +176,11 @@ internal class PurchaseRequest
             var terminalId = terminalInfo.terminalId
             var merchantId = terminalInfo.merchantId
 
-            if(transaction.currencyType == PaymentModel.CurrencyType.DOLLAR){
-                currencyCode = terminalInfo.currencyCode2
-                terminalId = terminalInfo.terminalId2
-                merchantId = terminalInfo.merchantId2
-            }
+//            if(transaction.currencyType == PaymentModel.CurrencyType.DOLLAR){
+//                currencyCode = terminalInfo.currencyCode2
+//                terminalId = terminalInfo.terminalId2
+//                merchantId = terminalInfo.merchantId2
+//            }
             val posGeoCode = Constants.POS_GEO_CODE_PREFIX + currencyCode
 
             val hasPin = transaction.cardPIN.isNotEmpty()
@@ -235,11 +235,11 @@ internal class PurchaseRequest
             var terminalId = terminalInfo.terminalId
             var merchantId = terminalInfo.merchantId
 
-            if(transaction.currencyType == PaymentModel.CurrencyType.DOLLAR){
-                currencyCode = terminalInfo.currencyCode2
-                terminalId = terminalInfo.terminalId2
-                merchantId = terminalInfo.merchantId2
-            }
+//            if(transaction.currencyType == PaymentModel.CurrencyType.DOLLAR){
+//                currencyCode = terminalInfo.currencyCode2
+//                terminalId = terminalInfo.terminalId2
+//                merchantId = terminalInfo.merchantId2
+//            }
             val posGeoCode = Constants.POS_GEO_CODE_PREFIX + currencyCode
 
 
@@ -296,11 +296,11 @@ internal class PurchaseRequest
             var terminalId = terminalInfo.terminalId
             var merchantId = terminalInfo.merchantId
 
-            if(transaction.currencyType == PaymentModel.CurrencyType.DOLLAR){
-                currencyCode = terminalInfo.currencyCode2
-                terminalId = terminalInfo.terminalId2
-                merchantId = terminalInfo.merchantId2
-            }
+//            if(transaction.currencyType == PaymentModel.CurrencyType.DOLLAR){
+//                currencyCode = terminalInfo.currencyCode2
+//                terminalId = terminalInfo.terminalId2
+//                merchantId = terminalInfo.merchantId2
+//            }
             val posGeoCode = Constants.POS_GEO_CODE_PREFIX + currencyCode
 
             val hasPin = transaction.cardPIN.isNotEmpty()
@@ -351,11 +351,11 @@ fun toReservation(device:POSDevice,terminalInfo: TerminalInfo, transaction: Tran
     var terminalId = terminalInfo.terminalId
     var merchantId = terminalInfo.merchantId
 
-    if(transaction.currencyType == PaymentModel.CurrencyType.DOLLAR){
-        currencyCode = terminalInfo.currencyCode2
-        terminalId = terminalInfo.terminalId2
-        merchantId = terminalInfo.merchantId2
-    }
+//    if(transaction.currencyType == PaymentModel.CurrencyType.DOLLAR){
+//        currencyCode = terminalInfo.currencyCode2
+//        terminalId = terminalInfo.terminalId2
+//        merchantId = terminalInfo.merchantId2
+//    }
     val posGeoCode = Constants.POS_GEO_CODE_PREFIX + currencyCode
 
     val hasPin = transaction.cardPIN.isNotEmpty()
@@ -427,11 +427,11 @@ fun toReservation(device:POSDevice,terminalInfo: TerminalInfo, transaction: Tran
             var terminalId = terminalInfo.terminalId
             var merchantId = terminalInfo.merchantId
 
-            if(transaction.currencyType == PaymentModel.CurrencyType.DOLLAR){
-                currencyCode = terminalInfo.currencyCode2
-                terminalId = terminalInfo.terminalId2
-                merchantId = terminalInfo.merchantId2
-            }
+//            if(transaction.currencyType == PaymentModel.CurrencyType.DOLLAR){
+//                currencyCode = terminalInfo.currencyCode2
+//                terminalId = terminalInfo.terminalId2
+//                merchantId = terminalInfo.merchantId2
+//            }
             val posGeoCode = Constants.POS_GEO_CODE_PREFIX + currencyCode
 
             val hasPin = transaction.cardPIN.isNotEmpty()
@@ -481,11 +481,11 @@ fun toReservation(device:POSDevice,terminalInfo: TerminalInfo, transaction: Tran
             var terminalId = terminalInfo.terminalId
             var merchantId = terminalInfo.merchantId
 
-            if(transaction.currencyType == PaymentModel.CurrencyType.DOLLAR){
-                currencyCode = terminalInfo.currencyCode2
-                terminalId = terminalInfo.terminalId2
-                merchantId = terminalInfo.merchantId2
-            }
+//            if(transaction.currencyType == PaymentModel.CurrencyType.DOLLAR){
+//                currencyCode = terminalInfo.currencyCode2
+//                terminalId = terminalInfo.terminalId2
+//                merchantId = terminalInfo.merchantId2
+//            }
             val posGeoCode = Constants.POS_GEO_CODE_PREFIX + currencyCode
 
             val hasPin = transaction.cardPIN.isNotEmpty()
@@ -554,10 +554,10 @@ internal class TerminalInformation {
     var terminalId: String = ""
     @field:Element(name = "merchantId", required = false)
     var merchantId: String = ""
-    @field:Element(name = "terminalId2", required = false)
-    var terminalId2: String = ""
-    @field:Element(name = "merchantId2", required = false)
-    var merchantId2: String = ""
+//    @field:Element(name = "terminalId2", required = false)
+//    var terminalId2: String = ""
+//    @field:Element(name = "merchantId2", required = false)
+//    var merchantId2: String = ""
     @field:Element(name = "merchantNameAndLocation", required = false)
     var merchantNameAndLocation: String = ""
     @field:Element(name = "merchantCategoryCode", required = false)
@@ -566,8 +566,8 @@ internal class TerminalInformation {
     var countryCode: String = ""
     @field:Element(name = "currencyCode", required = false)
     var currencyCode: String = ""
-    @field:Element(name = "currencyCode2", required = false)
-    var currencyCode2: String = ""
+//    @field:Element(name = "currencyCode2", required = false)
+//    var currencyCode2: String = ""
     @field:Element(name = "callHomeTimeInMin", required = false)
     var callHomeTimeInMin: String = ""
     @field:Element(name = "serverTimeoutInSec", required = false)
@@ -603,9 +603,9 @@ internal class TerminalInformation {
         get() {
             validateInfo()
 
-            val properties = listOf(error.terminalId, error.merchantId, error.terminalId2, error.merchantId2,error.serverIp, error.capabilities,
+            val properties = listOf(error.terminalId, error.merchantId,error.serverIp, error.capabilities,
                     error.merchantNameAndLocation, error.merchantCategoryCode, error.serverPort, error.serverUrl,
-                    error.countryCode, error.currencyCode, error.currencyCode2, error.callHomeTimeInMin, error.serverTimeoutInSec, error.agentId, error.agentEmail,error.merchantCode,error.merchantAlias)
+                    error.countryCode, error.currencyCode, error.callHomeTimeInMin, error.serverTimeoutInSec, error.agentId, error.agentEmail,error.merchantCode,error.merchantAlias)
 
 
             // validate that all error properties are empty
@@ -616,14 +616,14 @@ internal class TerminalInformation {
         get() {
             return TerminalInfo(
                     terminalId = terminalId,
-                    terminalId2 = terminalId2,
+//                    terminalId2 = terminalId2,
                     merchantId = merchantId,
-                    merchantId2 = merchantId2,
+//                    merchantId2 = merchantId2,
                     merchantNameAndLocation = merchantNameAndLocation,
                     merchantCategoryCode = merchantCategoryCode,
                     countryCode = countryCode,
                     currencyCode = currencyCode,
-                    currencyCode2 = currencyCode2,
+//                    currencyCode2 = currencyCode2,
                     callHomeTimeInMin = callHomeTimeInMin.toIntOrNull() ?: -1,
                     serverTimeoutInSec = serverTimeoutInSec.toIntOrNull() ?: -1,
                     isKimono = isKimono,
@@ -656,18 +656,18 @@ internal class TerminalInformation {
         // assign error message for field
         if (merchantId.hasError) error.merchantId = merchantId.message
 
-        // validate terminalId 1
-        val terminalId2Validator = InputValidator(terminalId2)
-                .isNotEmpty().isAlphaNumeric().isExactLength(8)
-        // assign error message for field
-        if (terminalId2Validator.hasError) error.terminalId2 = terminalId2Validator.message
+        // validate terminalId 2
+//        val terminalId2Validator = InputValidator(terminalId2)
+//                .isNotEmpty().isAlphaNumeric().isExactLength(8)
+//        // assign error message for field
+//        if (terminalId2Validator.hasError) error.terminalId2 = terminalId2Validator.message
 
 
         // validate merchant id 2
-        val merchantId2 = InputValidator(merchantId2)
-                .isNotEmpty().isAlphaNumeric().isExactLength(15)
-        // assign error message for field
-        if (merchantId2.hasError) error.merchantId2 = merchantId2.message
+//        val merchantId2 = InputValidator(merchantId2)
+//                .isNotEmpty().isAlphaNumeric().isExactLength(15)
+//        // assign error message for field
+//        if (merchantId2.hasError) error.merchantId2 = merchantId2.message
 
 
         // validate merchant name and location
@@ -698,10 +698,10 @@ internal class TerminalInformation {
         if (currencyCode.hasError) error.currencyCode = currencyCode.message
 
         // validate country code 2
-        val currencyCode2 = InputValidator(currencyCode2)
-                .isNotEmpty().isNumber().isExactLength(3)
-        // assign error message for field
-        if (currencyCode2.hasError) error.currencyCode2 = currencyCode2.message
+//        val currencyCode2 = InputValidator(currencyCode2)
+//                .isNotEmpty().isNumber().isExactLength(3)
+//        // assign error message for field
+//        if (currencyCode2.hasError) error.currencyCode2 = currencyCode2.message
 
 
         val callHomeTime = InputValidator(callHomeTimeInMin)

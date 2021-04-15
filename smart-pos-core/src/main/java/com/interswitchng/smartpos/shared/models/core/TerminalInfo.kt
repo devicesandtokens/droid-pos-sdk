@@ -19,14 +19,14 @@ import com.interswitchng.smartpos.shared.interfaces.library.KeyValueStore
  */
 data class TerminalInfo(
         val terminalId: String,
-        val terminalId2: String,
+//        val terminalId2: String,
         val merchantId: String,
-        val merchantId2: String,
+//        val merchantId2: String,
         val merchantNameAndLocation: String,
         val merchantCategoryCode: String,
         val countryCode: String,
         val currencyCode: String,
-        val currencyCode2: String,
+//        val currencyCode2: String,
         val callHomeTimeInMin: Int,
         val serverTimeoutInSec: Int,
         var isKimono: Boolean = false,

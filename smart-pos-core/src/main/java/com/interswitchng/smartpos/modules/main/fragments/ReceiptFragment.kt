@@ -112,9 +112,9 @@ class ReceiptFragment : BaseFragment(TAG) {
         isw_stan.text = result?.stan?.padStart(6, '0')
         isw_aid.text = result?.AID
         var terminalId = terminalInfo.terminalId
-        if(result!!.currencyType == PaymentModel.CurrencyType.DOLLAR){
-            terminalId = terminalInfo.terminalId2
-        }
+//        if(result!!.currencyType == PaymentModel.CurrencyType.DOLLAR){
+//            terminalId = terminalInfo.terminalId2
+//        }
         isw_terminal_id.text = terminalId
         val expiryYear = result?.cardExpiry?.take(2).toString()
         val expiryMonth = result?.cardExpiry?.takeLast(2).toString()

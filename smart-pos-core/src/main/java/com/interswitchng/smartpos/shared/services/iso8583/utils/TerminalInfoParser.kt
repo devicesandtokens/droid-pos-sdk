@@ -33,10 +33,10 @@ internal object TerminalInfoParser {
                 agentId = "",
                 agentEmail = "",
                 merchantCode = "",
-                merchantAlias = "",
-                merchantId2 = "",
-                terminalId2 = "",
-                currencyCode2 = ""
+                merchantAlias = ""
+//                merchantId2 = "",
+//                terminalId2 = "",
+//                currencyCode2 = ""
         )
 
         if (terminalInfo.countryCode.length >= 4) {
@@ -98,11 +98,11 @@ internal object TerminalInfoParser {
 
                 var terminalInfo = TerminalInfo(
                         terminalId = terminalId,
-                        terminalId2 = "",
-                        merchantId2 = "",
+//                        terminalId2 = "",
+//                        merchantId2 = "",
                         merchantId = map["03"] as String,
                         currencyCode = map["05"] as String,
-                        currencyCode2 = "",
+//                        currencyCode2 = "",
                         countryCode = map["06"] as String,
                         serverTimeoutInSec = map["04"] as Int,
                         callHomeTimeInMin = map["07"] as Int,

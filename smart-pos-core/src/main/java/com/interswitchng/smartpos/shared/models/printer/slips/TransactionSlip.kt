@@ -71,10 +71,10 @@ abstract class TransactionSlip(private val terminal: TerminalInfo, private val s
         var terminalId = pairString("Terminal Id", terminal.terminalId)
         var merchantId = pairString("Merchant Id", terminal.merchantId)
 
-        if(info.currencyType == PaymentModel.CurrencyType.DOLLAR){
-            terminalId = pairString("Terminal Id", terminal.terminalId2)
-            merchantId = pairString("Merchant Id", terminal.merchantId2)
-        }
+//        if(info.currencyType == PaymentModel.CurrencyType.DOLLAR){
+//            terminalId = pairString("Terminal Id", terminal.terminalId2)
+//            merchantId = pairString("Merchant Id", terminal.merchantId2)
+//        }
 
 
 
