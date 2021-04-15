@@ -197,7 +197,7 @@ data class TransactionResult(
         private fun getCurrencyType(ordinal: Int): PaymentModel.CurrencyType {
             return when (ordinal) {
                 PaymentModel.CurrencyType.NAIRA.ordinal -> PaymentModel.CurrencyType.NAIRA
-                else -> PaymentModel.CurrencyType.DOLLAR
+               else -> PaymentModel.CurrencyType.NAIRA
             }
         }
 

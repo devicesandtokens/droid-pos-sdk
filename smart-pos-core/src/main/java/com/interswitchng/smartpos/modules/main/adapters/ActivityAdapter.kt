@@ -43,9 +43,8 @@ class ActivityAdapter : PagedListAdapter<TransactionLog, RecyclerView.ViewHolder
 
         val currencyType = when(item?.currencyType) {
             PaymentModel.CurrencyType.NAIRA.ordinal -> PaymentModel.CurrencyType.NAIRA
-            else -> PaymentModel.CurrencyType.DOLLAR
+            else -> PaymentModel.CurrencyType.NAIRA
         }
-
 
         item?.apply {
             holder.itemView.isw_txn_type.text = transactionType

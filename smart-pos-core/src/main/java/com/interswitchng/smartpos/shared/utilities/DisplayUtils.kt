@@ -110,7 +110,7 @@ internal object DisplayUtils: KoinComponent {
         // get the currency based on the terminal's configured currency code
         val currency =  when(currencyType) {
                 PaymentModel.CurrencyType.NAIRA -> IswLocal.NIGERIA.currency
-                PaymentModel.CurrencyType.DOLLAR -> IswLocal.USA.currency
+                //PaymentModel.CurrencyType.DOLLAR -> IswLocal.USA.currency
         }
         Logger.with("Display Utils").logErr( amount)
         var formattedAmount = getAmountString(amount.toInt())

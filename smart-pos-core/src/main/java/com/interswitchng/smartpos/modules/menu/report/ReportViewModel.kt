@@ -217,8 +217,8 @@ internal class ReportViewModel(
         var transactionApproved = 0
         var transactionApprovedAmountInNaira = 0.0
         var transactionFailedAmountInNaira = 0.0
-        var transactionApprovedAmountInDollar = 0.0
-        var transactionFailedAmountInDollar = 0.0
+//        var transactionApprovedAmountInDollar = 0.0
+//        var transactionFailedAmountInDollar = 0.0
 
         // add each item into the end of day list
         this.forEach {
@@ -229,14 +229,15 @@ internal class ReportViewModel(
             if (it.responseCode == IsoUtils.OK && it.currencyType == PaymentModel.CurrencyType.NAIRA.ordinal) {
                 transactionApproved += 1
                 transactionApprovedAmountInNaira += DisplayUtils.getAmountString(it.amount)
-            } else if(it.responseCode == IsoUtils.OK && it.currencyType == PaymentModel.CurrencyType.DOLLAR.ordinal) {
-                transactionApproved += 1
-                transactionApprovedAmountInDollar += DisplayUtils.getAmountString(it.amount)
-            } else if(it.responseCode != IsoUtils.OK && it.currencyType == PaymentModel.CurrencyType.NAIRA.ordinal) {
-                transactionFailedAmountInNaira += DisplayUtils.getAmountString(it.amount)
-            } else if(it.responseCode != IsoUtils.OK && it.currencyType == PaymentModel.CurrencyType.DOLLAR.ordinal) {
-                transactionFailedAmountInDollar += DisplayUtils.getAmountString(it.amount)
             }
+//            else if(it.responseCode == IsoUtils.OK && it.currencyType == PaymentModel.CurrencyType.DOLLAR.ordinal) {
+//                transactionApproved += 1
+//                transactionApprovedAmountInDollar += DisplayUtils.getAmountString(it.amount)}
+            else if(it.responseCode != IsoUtils.OK && it.currencyType == PaymentModel.CurrencyType.NAIRA.ordinal) {
+                transactionFailedAmountInNaira += DisplayUtils.getAmountString(it.amount)
+            }
+//            else if(it.responseCode != IsoUtils.OK && it.currencyType == PaymentModel.CurrencyType.DOLLAR.ordinal) {
+//                transactionFailedAmountInDollar += DisplayUtils.getAmountString(it.amount)}
         }
         // add line
         list.add(PrintObject.Line)
@@ -253,16 +254,16 @@ internal class ReportViewModel(
         list.add(PrintObject.Data("Total Transactions: $transactionSum\n", PrintStringConfiguration(isBold = true)))
         val transactionApprovedAmountInNairaTo2dp = String.format("%.2f", transactionApprovedAmountInNaira)
         val transactionFailedAmountInNairaTo2dp = String.format("%.2f", transactionFailedAmountInNaira)
-        val transactionApprovedAmountInDollarTo2dp = String.format("%.2f", transactionApprovedAmountInDollar)
-        val transactionFailedAmountInDollarTo2dp = String.format("%.2f", transactionFailedAmountInDollar)
+//        val transactionApprovedAmountInDollarTo2dp = String.format("%.2f", transactionApprovedAmountInDollar)
+//        val transactionFailedAmountInDollarTo2dp = String.format("%.2f", transactionFailedAmountInDollar)
 
         val transactionFailed = transactionSum - transactionApproved
         list.add(PrintObject.Data("Total Passed Transaction: $transactionApproved\n", PrintStringConfiguration(isBold = true)))
         list.add(PrintObject.Data("Total Failed Transaction: $transactionFailed\n", PrintStringConfiguration(isBold = true)))
         list.add(PrintObject.Data("Total Approved Amount (Naira): $transactionApprovedAmountInNairaTo2dp\n", PrintStringConfiguration(isBold = true)))
         list.add(PrintObject.Data("Total Failed Amount (Naira): $transactionFailedAmountInNairaTo2dp\n", PrintStringConfiguration(isBold = true)))
-        list.add(PrintObject.Data("Total Approved Amount (Dollar): $transactionApprovedAmountInDollarTo2dp\n", PrintStringConfiguration(isBold = true)))
-        list.add(PrintObject.Data("Total Failed Amount (Dollar): $transactionFailedAmountInDollarTo2dp\n", PrintStringConfiguration(isBold = true)))
+//        list.add(PrintObject.Data("Total Approved Amount (Dollar): $transactionApprovedAmountInDollarTo2dp\n", PrintStringConfiguration(isBold = true)))
+//        list.add(PrintObject.Data("Total Failed Amount (Dollar): $transactionFailedAmountInDollarTo2dp\n", PrintStringConfiguration(isBold = true)))
         list.add(PrintObject.Line)
 
         return list

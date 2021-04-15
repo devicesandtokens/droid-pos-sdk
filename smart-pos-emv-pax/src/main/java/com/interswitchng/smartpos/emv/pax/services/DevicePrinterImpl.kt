@@ -25,8 +25,11 @@ import com.pax.dal.entity.EFontTypeExtCode
 class DevicePrinterImpl constructor(private val context: Context) : DevicePrinter {
 
     // font sizes
-    private val NORMAL_FONT = Pair(EFontTypeAscii.FONT_8_16, EFontTypeExtCode.FONT_16_16)
-    private val LARGE_FONT = Pair(EFontTypeAscii.FONT_8_32, EFontTypeExtCode.FONT_16_32)
+//    private val NORMAL_FONT = Pair(EFontTypeAscii.FONT_8_16, EFontTypeExtCode.FONT_16_16)
+//    private val LARGE_FONT = Pair(EFontTypeAscii.FONT_8_32, EFontTypeExtCode.FONT_16_32)
+
+    private val NORMAL_FONT = Pair(EFontTypeAscii.FONT_16_24, EFontTypeExtCode.FONT_24_48)
+    private val LARGE_FONT = Pair(EFontTypeAscii.FONT_16_32, EFontTypeExtCode.FONT_32_16)
 
     private val line: String = "-".repeat(Companion.SCREEN_NORMAL_LENGTH)
 

@@ -27,7 +27,7 @@ data class PaymentModel (
     }
 
     enum class CurrencyType{
-        NAIRA, DOLLAR
+        NAIRA
     }
 
     enum class TransactionType {
