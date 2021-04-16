@@ -93,7 +93,7 @@ abstract class TransactionSlip(private val terminal: TerminalInfo, private val s
         val printList = mutableListOf(responseMsg)
 
         if (status.responseCode.isNotEmpty() && status.responseCode != IsoUtils.TIMEOUT_CODE) {
-            val responseCode = pairString("response code", status.responseCode)
+            val responseCode = pairString("\nresponse code", status.responseCode)
             printList.add(responseCode)
         }
 

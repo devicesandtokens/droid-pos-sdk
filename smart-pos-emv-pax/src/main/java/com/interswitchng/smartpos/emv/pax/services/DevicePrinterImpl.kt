@@ -27,7 +27,7 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
     // font sizes
 //    private val NORMAL_FONT = Pair(EFontTypeAscii.FONT_8_16, EFontTypeExtCode.FONT_16_16)
 //    private val LARGE_FONT = Pair(EFontTypeAscii.FONT_8_32, EFontTypeExtCode.FONT_16_32)
-
+//  FONT_16_32, FONT_32_16
     private val NORMAL_FONT = Pair(EFontTypeAscii.FONT_16_24, EFontTypeExtCode.FONT_24_48)
     private val LARGE_FONT = Pair(EFontTypeAscii.FONT_16_32, EFontTypeExtCode.FONT_32_16)
 
@@ -77,7 +77,7 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
         printItem(printer, posVersion)
 
         // print phone number at end of slip
-        val phoneNumber = PrintObject.Data("Tel: 0703 378 5961 , 0902 664 1582", PrintStringConfiguration(displayCenter = true))
+        val phoneNumber = PrintObject.Data("Tel: 07033785961 , 09026641582", PrintStringConfiguration(displayCenter = true))
         printItem(printer, phoneNumber)
 
         // print email at end of slip
@@ -153,8 +153,9 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
             val it = logo.copy(logo.config, logo.isMutable)
             val smallScale =
                     if (it.width == it.height) getScaledDownBitmap(it)
-                    else getScaledDownBitmap(it, threshold = 200)
-            val paddingLeft = ((Companion.SCREEN_NORMAL_LENGTH * 12.5) - smallScale.width) / 2 // 1 dot in print is 12.5px
+                    else getScaledDownBitmap(it, threshold = 220)
+            val paddingVal = 12.5
+            val paddingLeft = ((Companion.SCREEN_NORMAL_LENGTH * paddingVal) - smallScale.width) / 2 // 1 dot in print is 12.5px
 
             // add padding to bitmap
             val outputBitmap = Bitmap.createBitmap(smallScale.width + paddingLeft.toInt(), smallScale.height, Bitmap.Config.ARGB_8888)
@@ -233,7 +234,10 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
 
     companion object {
         // screen caharacter length
-        private const val SCREEN_LARGE_LENGTH = 40
-        private const val SCREEN_NORMAL_LENGTH = 48
+//        private const val SCREEN_LARGE_LENGTH = 40
+//        private const val SCREEN_NORMAL_LENGTH = 48
+
+        private const val SCREEN_LARGE_LENGTH = 22
+        private const val SCREEN_NORMAL_LENGTH = 32
     }
 }
