@@ -209,8 +209,8 @@ internal class ReportViewModel(
 
 
         // table title
-        val amountTitle = "Amt".padEnd(15,'-')
-        val tableTitle = PrintObject.Data("Time---$amountTitle Card--Status\n")
+        val amountTitle = "Amt".padEnd(10,' ')
+        val tableTitle = PrintObject.Data("Time   $amountTitle Card   Status\n")
         list.add(tableTitle)
         list.add(PrintObject.Line)
 
@@ -260,8 +260,8 @@ internal class ReportViewModel(
         val transactionFailed = transactionSum - transactionApproved
         list.add(PrintObject.Data("Total Passed Transaction: $transactionApproved\n", PrintStringConfiguration(isBold = true)))
         list.add(PrintObject.Data("Total Failed Transaction: $transactionFailed\n", PrintStringConfiguration(isBold = true)))
-        list.add(PrintObject.Data("Total Approved Amount (Naira): $transactionApprovedAmountInNairaTo2dp\n", PrintStringConfiguration(isBold = true)))
-        list.add(PrintObject.Data("Total Failed Amount (Naira): $transactionFailedAmountInNairaTo2dp\n", PrintStringConfiguration(isBold = true)))
+        list.add(PrintObject.Data("Total Approved Amount: $transactionApprovedAmountInNairaTo2dp\n", PrintStringConfiguration(isBold = true)))
+        list.add(PrintObject.Data("Total Failed Amount: $transactionFailedAmountInNairaTo2dp\n", PrintStringConfiguration(isBold = true)))
 //        list.add(PrintObject.Data("Total Approved Amount (Dollar): $transactionApprovedAmountInDollarTo2dp\n", PrintStringConfiguration(isBold = true)))
 //        list.add(PrintObject.Data("Total Failed Amount (Dollar): $transactionFailedAmountInDollarTo2dp\n", PrintStringConfiguration(isBold = true)))
         list.add(PrintObject.Line)
@@ -271,10 +271,10 @@ internal class ReportViewModel(
 
     private fun TransactionLog.toSlipItem(): PrintObject {
         val date = Date(this.time)
-        val dateStr = DateUtils.hourMinuteFormat.format(date).padEnd(7,'-')
-        val amount = DisplayUtils.getAmountString(this.amount.toInt()).padEnd(15,'-')
+        val dateStr = DateUtils.hourMinuteFormat.format(date).padEnd(7,' ')
+        val amount = DisplayUtils.getAmountString(this.amount.toInt()).padEnd(10,' ')
         val code = this.responseCode
-        val card = this.cardPan.takeLast(4).padEnd(6,'-')
+        val card = this.cardPan.takeLast(4).padEnd(6,' ')
         val status = if (code == IsoUtils.OK) "PASS" else "FAIL"
 
 
