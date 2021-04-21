@@ -45,7 +45,8 @@ internal class CardSlip(terminal: TerminalInfo, status: TransactionStatus, priva
 
         val reprintConfig = PrintStringConfiguration(displayCenter = true, isBold = true, isTitle = true)
         val rePrintFlag = pairString("","*** Re-Print ***",stringConfig = reprintConfig )
-        val list = mutableListOf(txnType, paymentType, date, time, line, rePrintFlag, amount,rePrintFlag)
+        val newLine = PrintObject.Data("\n")
+        val list = mutableListOf(txnType, paymentType, date, time, line, rePrintFlag, amount,rePrintFlag,newLine)
 
         // check if its card transaction
         if (info.cardPan.isNotEmpty()) {
