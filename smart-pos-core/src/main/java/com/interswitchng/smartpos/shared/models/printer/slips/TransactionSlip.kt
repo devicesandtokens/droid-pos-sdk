@@ -119,7 +119,7 @@ abstract class TransactionSlip(private val terminal: TerminalInfo, private val s
 
         val tel = pairString("TEL", status.telephone)
         val retainReceiptMsg = pairString("", "Please retain your receipt", stringConfig = PrintStringConfiguration(displayCenter = true))
-        return printList + listOf(tel, line, retainReceiptMsg, line)
+        return printList + listOf(tel, line, retainReceiptMsg)
     }
 
 

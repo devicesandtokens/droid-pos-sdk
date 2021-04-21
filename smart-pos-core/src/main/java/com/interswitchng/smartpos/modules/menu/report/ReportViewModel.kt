@@ -185,7 +185,7 @@ internal class ReportViewModel(
 
 
         //add terminalIdTitle
-        val terminalIdTitle = PrintObject.Data("TerminalID\n", PrintStringConfiguration(isBold = true))
+        val terminalIdTitle = PrintObject.Data("TerminalID: ", PrintStringConfiguration(isBold = true))
         //add terminalIdTitle
         list.add(terminalIdTitle)
         //create the terminalId for printout
@@ -210,7 +210,7 @@ internal class ReportViewModel(
 
         // table title
         val amountTitle = "Amt".padEnd(10,' ')
-        val tableTitle = PrintObject.Data("Time   $amountTitle Card   Status\n")
+        val tableTitle = PrintObject.Data("Time    $amountTitle Card   Status\n")
         list.add(tableTitle)
         list.add(PrintObject.Line)
 

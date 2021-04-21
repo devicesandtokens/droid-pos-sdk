@@ -153,9 +153,9 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
             val it = logo.copy(logo.config, logo.isMutable)
             val smallScale =
                     if (it.width == it.height) getScaledDownBitmap(it)
-                    else getScaledDownBitmap(it, threshold = 220)
+                    else getScaledDownBitmap(it, threshold = 400)
             val paddingVal = 12.5
-            val paddingLeft = ((Companion.SCREEN_NORMAL_LENGTH * paddingVal) - smallScale.width) / 2 // 1 dot in print is 12.5px
+            val paddingLeft = ((Companion.SCREEN_NORMAL_LENGTH * paddingVal) - smallScale.width) / 0.75 // 1 dot in print is 12.5px
 
             // add padding to bitmap
             val outputBitmap = Bitmap.createBitmap(smallScale.width + paddingLeft.toInt(), smallScale.height, Bitmap.Config.ARGB_8888)
