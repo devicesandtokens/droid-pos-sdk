@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.interswitchng.smartpos.R
 import com.interswitchng.smartpos.modules.main.transfer.*
 import com.interswitchng.smartpos.shared.activities.BaseFragment
+import com.interswitchng.smartpos.shared.models.printer.info.TransactionType
 
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.CardType
 import com.interswitchng.smartpos.shared.utilities.DisplayUtils
@@ -78,7 +79,12 @@ class ReceiptFragment : BaseFragment(TAG) {
         agent_value.text = terminalInfo.merchantNameAndLocation
         terminal_id_title.text = "TERMINAL ID: ${terminalInfo.terminalId}"
         tel_title.text = "TEL: ${terminalInfo.agentId}"
-        withdraw_title.text = data?.type?.name
+        withdraw_title.text = when (data?.type) {
+            TransactionType.CashOutPay -> "Cash-Out"
+
+            TransactionType.Transfer -> "Transfer"
+            else -> "Cashout"
+        }
         channel_title.text = "CHANNEL: ${data?.paymentType?.name}"
         date_title.text = "DATE: ${getDate(data?.dateTime.toString())}"
         time_title.text = "TIME: ${getTime(data?.dateTime.toString())}"

@@ -336,7 +336,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
                         paymentType = PaymentType.Card,
                         dateTime = DateUtils.universalDateFormat.format(now),
                         amount = txnInfo.amount.toString(),
-                        type = TransactionType.Transfer,
+                        type = TransactionType.CashOutPay,
                         authorizationCode = purchaseResponse.authId,
                         responseMessage = IsoUtils.getIsoResultMsg(purchaseResponse.responseCode)!!,
                         responseCode = purchaseResponse.responseCode,
@@ -365,14 +365,14 @@ internal class KimonoHttpServiceImpl(private val context: Context,
                         stan = "",
                         scripts = "",
                         responseDescription = responseBody.message(),
-                        type = TransactionType.Transfer
+                        type = TransactionType.CashOutPay
                 )
             } else {
                 TransactionResponse(
                         responseCode = purchaseResponse.responseCode,//data.responseCode,
                         stan = purchaseResponse.stan,
                         responseDescription = purchaseResponse.description,//data.description
-                        type = TransactionType.Transfer ,
+                        type = TransactionType.CashOutPay ,
                         name = purchaseResponse.customerDescription,
                         ref = purchaseResponse.referenceNumber
                 )
@@ -383,7 +383,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
         } catch (e: Exception) {
             //logger.log(e.localizedMessage)
             e.printStackTrace()
-            return TransactionResponse(IsoUtils.TIMEOUT_CODE, authCode = "", stan = "", scripts = "", type = TransactionType.Transfer)
+            return TransactionResponse(IsoUtils.TIMEOUT_CODE, authCode = "", stan = "", scripts = "", type = TransactionType.CashOutPay)
         }
     }
 
