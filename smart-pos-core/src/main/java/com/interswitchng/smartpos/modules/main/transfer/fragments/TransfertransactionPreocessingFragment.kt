@@ -226,7 +226,7 @@ class TransfertransactionPreocessingFragment : BaseFragment(TAG) {
                                 paymentModel,
                                 TransactionResponseModel(
                                         transactionResult = transactionResult,
-                                        transactionType = PaymentModel.TransactionType.CARD_PURCHASE
+                                        transactionType = PaymentModel.TransactionType.CASH_OUT
                                 )
                         )
                findNavController().navigate(direction)

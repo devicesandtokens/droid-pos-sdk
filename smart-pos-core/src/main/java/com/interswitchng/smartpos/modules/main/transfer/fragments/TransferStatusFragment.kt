@@ -85,12 +85,6 @@ class TransferStatusFragment() : BaseFragment(TAG) {
             // print slip
             printSlip?.let {
 
-
-                // Getting width, height device
-
-
-                // Getting width, height device
-
                   result?.let {
                       val action = TransferStatusFragmentDirections
                               .iswActionIswTransferstatusfragmentToIswReceiptfragment2(paymentModel, transactionResponseModel)
@@ -103,12 +97,6 @@ class TransferStatusFragment() : BaseFragment(TAG) {
         isw_print_receipt_transfer_agent.setOnClickListener {
             // print slip
             printSlip?.let {
-
-
-                // Getting width, height device
-
-
-                // Getting width, height device
 
                 result?.let {
                     val action = TransferStatusFragmentDirections
@@ -147,10 +135,6 @@ class TransferStatusFragment() : BaseFragment(TAG) {
        isw_print_receipt_transfer.reveal()
     }
 
-    private fun logTransaction() {
-        TODO("Not yet implemented")
-        // this will be handled by resultViewModel
-    }
 
     private fun displayTransactionDetails() {
         isw_date_text_transfer.text = getString(R.string.isw_receipt_date, result?.dateTime)

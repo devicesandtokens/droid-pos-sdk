@@ -184,6 +184,7 @@ class TransferCardTransactionFragment : BaseFragment(TAG) {
                 showCardDetectedView()
             }
 
+            // card details is for telpo terminals
             is EmvMessage.CardDetails -> {
                 cardType = message.cardType
                 paymentModel.cardType = cardType
@@ -324,6 +325,7 @@ class TransferCardTransactionFragment : BaseFragment(TAG) {
             }
 
             runWithInternet {
+                // this is where the card pin is validated
                 cardViewModel.startTransaction(requireContext())
             }
         }
