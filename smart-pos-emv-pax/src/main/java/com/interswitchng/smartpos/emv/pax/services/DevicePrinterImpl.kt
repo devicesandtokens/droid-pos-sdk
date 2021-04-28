@@ -79,8 +79,6 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
 //        val quicktellerWebsite = PrintObject.Data("www.quickteller.com", PrintStringConfiguration(displayCenter = true, isBold = true))
 //        printItem(printer, quicktellerWebsite)
 
-
-
         // set step distance
         printer.step(80)
 
@@ -150,7 +148,7 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
             val smallScale =
                     if (it.width == it.height) getScaledDownBitmap(it)
                     else getScaledDownBitmap(it, threshold = 200)
-            val paddingLeft = ((Companion.SCREEN_NORMAL_LENGTH * 12.5) - smallScale.width) / 2 // 1 dot in print is 12.5px
+            val paddingLeft = ((Companion.SCREEN_NORMAL_LENGTH * 12.5) - smallScale.width) // / 2 // 1 dot in print is 12.5px
 
             // add padding to bitmap
             val outputBitmap = Bitmap.createBitmap(smallScale.width + paddingLeft.toInt(), smallScale.height, Bitmap.Config.ARGB_8888)

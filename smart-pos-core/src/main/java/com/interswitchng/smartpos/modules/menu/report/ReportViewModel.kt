@@ -202,14 +202,14 @@ internal class ReportViewModel(
         //add dateTitle
         list.add(dateTitle)
 
-
         // add line
         list.add(PrintObject.Line)
 
 
         // table title
-        val amountTitle = "Amt".padEnd(15,'-')
-        val tableTitle = PrintObject.Data("Time---$amountTitle Card--Status\n")
+        val amountTitle = "Amt".padEnd(8,' ')
+        val cardTitle = "Card".padEnd(6, ' ')
+        val tableTitle = PrintObject.Data("Time    $amountTitle $cardTitle Status\n")
         list.add(tableTitle)
         list.add(PrintObject.Line)
 
@@ -258,10 +258,10 @@ internal class ReportViewModel(
 
     private fun TransactionLog.toSlipItem(): PrintObject {
         val date = Date(this.time)
-        val dateStr = DateUtils.hourMinuteFormat.format(date).padEnd(7,'-')
-        val amount = DisplayUtils.getAmountString(this.amount.toInt()).padEnd(15,'-')
+        val dateStr = DateUtils.hourMinuteFormat.format(date).padEnd(7,' ')
+        val amount = DisplayUtils.getAmountString(this.amount.toInt()).padEnd(8,' ')
         val code = this.responseCode
-        val card = this.cardPan.takeLast(4).padEnd(6,'-')
+        val card = this.cardPan.takeLast(4).padEnd(6,' ')
         val status = if (code == IsoUtils.OK) "PASS" else "FAIL"
 
 
