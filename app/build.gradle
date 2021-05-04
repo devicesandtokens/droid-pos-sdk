@@ -20,7 +20,7 @@ android {
                 variant.outputs.all{
                     def date = new Date()
                     def formattedDate = date.format('yyMMdd')
-                    String appName = "Finca"
+                    String appName = "CICO CASHOUT"
                     outputFileName = "${appName}-${variant.versionName}-${formattedDate}.apk"
                 }
         }
