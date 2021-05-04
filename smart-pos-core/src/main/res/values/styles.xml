@@ -221,7 +221,7 @@
 
     <style name="IswPopupMenuStyle" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:popupBackground">@drawable/isw_popupmenu_padded_bg</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <style name="IswCircularDeterminateProgressBar">

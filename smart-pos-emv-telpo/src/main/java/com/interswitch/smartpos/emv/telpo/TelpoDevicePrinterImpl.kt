@@ -12,6 +12,7 @@ import com.interswitchng.smartpos.shared.models.core.UserType
 import com.interswitchng.smartpos.shared.models.posconfig.PrintObject
 import com.interswitchng.smartpos.shared.models.posconfig.PrintStringConfiguration
 import com.interswitchng.smartpos.shared.models.printer.info.PrintStatus
+import com.interswitchng.smartpos.shared.utilities.DeviceUtils
 import com.telpo.tps550.api.TelpoException
 import com.telpo.tps550.api.printer.UsbThermalPrinter
 
@@ -20,6 +21,10 @@ class TelpoDevicePrinterImpl constructor(private val context: Context) : DeviceP
     private val printer = UsbThermalPrinter(context)
 
     private val line: String = "-".repeat(SCREEN_LARGE_LENGTH)
+
+    private val serialId = { DeviceUtils.getSerialNumber()}
+
+
 
     override fun printSlip(slip: List<PrintObject>, user: UserType): PrintStatus {
         printer.apply {
@@ -68,17 +73,18 @@ class TelpoDevicePrinterImpl constructor(private val context: Context) : DeviceP
     }
 
     override fun printSlipNew(slip: Bitmap): PrintStatus {
-        printer.printLogo(slip, false)
         // print 2 new lines for distance from logo
 //        printer.printString("\n\n\n", null)
         return try {
-            printer.printString()
+            printer.printLogo(slip, false)
+//            printer.printString()
             // set step distance
-            printer.walkPaper(12)
+//            printer.walkPaper(12)
             PrintStatus.Ok("Printed")
         } catch (exception: TelpoException) {
             PrintStatus.Ok("Failed to print: ${exception.localizedMessage}")
         }
+
     }
 
     override fun canPrint(): PrintStatus {
