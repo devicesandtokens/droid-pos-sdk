@@ -7,14 +7,19 @@ import android.os.Looper
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.interswitchng.smartpos.IswPos
 import com.interswitchng.smartpos.R
 import com.interswitchng.smartpos.modules.main.transfer.*
 import com.interswitchng.smartpos.shared.activities.BaseFragment
+import com.interswitchng.smartpos.shared.models.core.UserType
+import com.interswitchng.smartpos.shared.models.posconfig.PosType
+import com.interswitchng.smartpos.shared.models.transaction.TransactionResult
 
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.CardType
 import com.interswitchng.smartpos.shared.utilities.DisplayUtils
 import com.interswitchng.smartpos.shared.viewmodel.TransactionResultViewModel
 import kotlinx.android.synthetic.main.fragment_receipt.*
+import kotlinx.android.synthetic.main.isw_fragment_receipt.*
 import kotlinx.coroutines.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
@@ -51,18 +56,23 @@ class ReceiptFragment : BaseFragment(TAG) {
     }
 
     private fun doPrinting() {
-        if (receiptFragmentArgs.withAgent) {
-            val scope = CoroutineScope(Dispatchers.Main + job)
-            scope.launch {
-                getScreenBitMap(this@ReceiptFragment.requireActivity(), root_view_for_print_page)?.let { resultViewModel.printSlipNew(it) }
-                delay(3000L)
-                customer_title.text = "*** MERCHANT COPY ***"
-                delay(1000L)
+        if (IswPos.getInstance().device.name  == PosType.PAX.name) {
+            if (receiptFragmentArgs.withAgent) {
+                val scope = CoroutineScope(Dispatchers.Main + job)
+                scope.launch {
+                    getScreenBitMap(this@ReceiptFragment.requireActivity(), root_view_for_print_page)?.let { resultViewModel.printSlipNew(it) }
+                    delay(3000L)
+                    customer_title.text = "*** MERCHANT COPY ***"
+                    delay(1000L)
+                    getScreenBitMap(this@ReceiptFragment.requireActivity(), root_view_for_print_page)?.let { resultViewModel.printSlipNew(it) }
+                }
+            } else {
                 getScreenBitMap(this@ReceiptFragment.requireActivity(), root_view_for_print_page)?.let { resultViewModel.printSlipNew(it) }
             }
         } else {
-            getScreenBitMap(this@ReceiptFragment.requireActivity(), root_view_for_print_page)?.let { resultViewModel.printSlipNew(it) }
+            data?.let { printTelpo(it) }
         }
+
 
     }
     private fun listenToviewModel() {
@@ -144,5 +154,27 @@ class ReceiptFragment : BaseFragment(TAG) {
         job.cancel()
     }
 
+    fun printTelpo(result: TransactionResult) {
+        val printSlip = terminalInfo.let { result?.getSlip(it) }
+            // print slip
+            printSlip?.let {
+                if (result?.hasPrintedCustomerCopy == 0) {
+                    resultViewModel.printSlip(UserType.Customer, it)
+                    result?.hasPrintedCustomerCopy = 1
+                    resultViewModel.updateTransaction(result!!)
+                } else if (result?.hasPrintedMerchantCopy == 1) {
+                    resultViewModel.printSlip(UserType.Merchant, it, reprint = true)
+                } else {
+                    // if has not printed merchant copy
+                    // print merchant copy
+                    resultViewModel.printSlip(UserType.Merchant, it)
+                    // change print text to re-print
+                    isw_print_receipt.text = getString(R.string.isw_title_re_print_receipt)
+                    result?.hasPrintedMerchantCopy = 1
+                    resultViewModel.updateTransaction(result!!)
+                }
+            }
+
+    }
 
 }

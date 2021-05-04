@@ -296,7 +296,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="isw_configure_terminal"><font fgcolor='#ffffff'>Configure Terminal</font></string>
     <string name="isw_configure_settlement_account"><font fgcolor='#ffffff'>Configure Settlement Account</font></string>
-    <string name="isw_view_settlement_account"><font fgcolor='#ffffff'>View Settlement Account</font></string>
+    <string name="isw_view_settlement_account"><font fgcolor='#ffffff'>View Settlement <Accou></Accou>nt</font></string>
     <string name="isw_reset_settlement_pin"><font fgcolor='#ffffff'>Reset Settlement Pin</font></string>
     <string name="isw_print_eod"><font fgcolor='#ffffff'>End of Day</font></string>
     <string name="isw_transaction_history"><font fgcolor='#ffffff'>Transaction History</font></string>
