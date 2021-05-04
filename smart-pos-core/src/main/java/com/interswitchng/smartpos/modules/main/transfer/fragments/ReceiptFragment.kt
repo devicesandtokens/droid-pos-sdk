@@ -70,7 +70,12 @@ class ReceiptFragment : BaseFragment(TAG) {
                 getScreenBitMap(this@ReceiptFragment.requireActivity(), root_view_for_print_page)?.let { resultViewModel.printSlipNew(it) }
             }
         } else {
-            data?.let { printTelpo(it) }
+            if (receiptFragmentArgs.withAgent){
+
+                data?.let { printTelpo(it, true) }
+            } else {
+                data?.let { printTelpo(data!!, false) }
+            }
         }
 
 
@@ -154,25 +159,35 @@ class ReceiptFragment : BaseFragment(TAG) {
         job.cancel()
     }
 
-    fun printTelpo(result: TransactionResult) {
+    fun printTelpo(result: TransactionResult, isAgent: Boolean) {
         val printSlip = terminalInfo.let { result?.getSlip(it) }
             // print slip
+
             printSlip?.let {
-                if (result?.hasPrintedCustomerCopy == 0) {
-                    resultViewModel.printSlip(UserType.Customer, it)
-                    result?.hasPrintedCustomerCopy = 1
-                    resultViewModel.updateTransaction(result!!)
-                } else if (result?.hasPrintedMerchantCopy == 1) {
-                    resultViewModel.printSlip(UserType.Merchant, it, reprint = true)
-                } else {
-                    // if has not printed merchant copy
-                    // print merchant copy
+                if (isAgent){
                     resultViewModel.printSlip(UserType.Merchant, it)
                     // change print text to re-print
                     isw_print_receipt.text = getString(R.string.isw_title_re_print_receipt)
                     result?.hasPrintedMerchantCopy = 1
                     resultViewModel.updateTransaction(result!!)
+                } else {
+                    if (result?.hasPrintedCustomerCopy == 0) {
+                        resultViewModel.printSlip(UserType.Customer, it)
+                        result?.hasPrintedCustomerCopy = 1
+                        resultViewModel.updateTransaction(result!!)
+                    } else if (result?.hasPrintedMerchantCopy == 1) {
+                        resultViewModel.printSlip(UserType.Merchant, it, reprint = true)
+                    } else {
+                        // if has not printed merchant copy
+                        // print merchant copy
+                        resultViewModel.printSlip(UserType.Merchant, it)
+                        // change print text to re-print
+                        isw_print_receipt.text = getString(R.string.isw_title_re_print_receipt)
+                        result?.hasPrintedMerchantCopy = 1
+                        resultViewModel.updateTransaction(result!!)
+                    }
                 }
+
             }
 
     }
