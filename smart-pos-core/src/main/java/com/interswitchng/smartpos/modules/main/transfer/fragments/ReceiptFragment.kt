@@ -71,8 +71,12 @@ class ReceiptFragment : BaseFragment(TAG) {
             }
         } else {
             if (receiptFragmentArgs.withAgent){
-
-                data?.let { printTelpo(it, true) }
+                val scope = CoroutineScope(Dispatchers.Main + job)
+                scope.launch {
+                    data?.let { printTelpo(it, false) }
+                    delay(2000L)
+                    data?.let { printTelpo(it, true) }
+                }
             } else {
                 data?.let { printTelpo(data!!, false) }
             }
@@ -166,8 +170,6 @@ class ReceiptFragment : BaseFragment(TAG) {
             printSlip?.let {
                 if (isAgent){
                     resultViewModel.printSlip(UserType.Merchant, it)
-                    // change print text to re-print
-                    isw_print_receipt.text = getString(R.string.isw_title_re_print_receipt)
                     result?.hasPrintedMerchantCopy = 1
                     resultViewModel.updateTransaction(result!!)
                 } else {
@@ -181,8 +183,6 @@ class ReceiptFragment : BaseFragment(TAG) {
                         // if has not printed merchant copy
                         // print merchant copy
                         resultViewModel.printSlip(UserType.Merchant, it)
-                        // change print text to re-print
-                        isw_print_receipt.text = getString(R.string.isw_title_re_print_receipt)
                         result?.hasPrintedMerchantCopy = 1
                         resultViewModel.updateTransaction(result!!)
                     }
