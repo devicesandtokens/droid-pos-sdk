@@ -4,6 +4,7 @@ import com.interswitchng.smartpos.modules.main.models.PaymentModel
 import com.interswitchng.smartpos.shared.Constants
 import com.interswitchng.smartpos.shared.Constants.EMPTY_STRING
 import com.interswitchng.smartpos.shared.models.transaction.TransactionResult
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.CardType
 
 
 /**
@@ -27,7 +28,8 @@ internal data class TransactionInfo(
         val accountType: AccountType,
         var originalTransactionInfoData: OriginalTransactionInfoData? = null,
         val pinKsn: String,
-        val aid: String = EMPTY_STRING
+        val aid: String = EMPTY_STRING,
+        var cardType: CardType? = null
 ) {
 
 
@@ -57,7 +59,8 @@ internal data class TransactionInfo(
                         "",
                         time = -1L),
                 pinKsn = emv.pinKsn,
-                aid = emv.AID
+                aid = emv.AID,
+                cardType = paymentInfo.cardType
         )
 
         fun fromTxnResult(txnResult: TransactionResult) = TransactionInfo(
@@ -78,7 +81,8 @@ internal data class TransactionInfo(
                 originalTransactionInfoData = OriginalTransactionInfoData(
                         originalTransmissionDateAndTime = txnResult.originalTransmissionDateTime,
                         month = txnResult.month, time = txnResult.time
-                )
+                ),
+                cardType = txnResult.cardType
 
         )
     }

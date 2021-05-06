@@ -54,7 +54,7 @@ class TransactionHistoryFragment : BaseFragment(TAG), TransactionHistoryAdaptar.
     private fun setData(date: Date) {
         val dailog = customdailog(context = this.requireContext(), message = "Loading History")
         viewmodel.getTransactionHistory(date)
-        reportViewmodel.getReport(date, TransactionType.Transfer).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        reportViewmodel.getReport(date).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             dailog.dismiss()
             println(it)
             it?.let {
@@ -102,6 +102,7 @@ class TransactionHistoryFragment : BaseFragment(TAG), TransactionHistoryAdaptar.
     }
 
     override fun onclick(data: TransactionResult) {
+        println("this is data : $data")
         val action = TransactionHistoryFragmentDirections.iswActionIswTransactionhistoryfragmentToIswReceiptfragment2(
                 PaymentModel( amount = data.amount.toInt()),
                 TransactionResponseModel(data, PaymentModel.TransactionType.TRANSFER),

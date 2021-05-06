@@ -3,6 +3,7 @@ package com.interswitchng.smartpos.modules.main.models
 import android.os.Parcelable
 import com.interswitchng.smartpos.IswPos
 import com.interswitchng.smartpos.shared.Constants.EMPTY_STRING
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.CardType
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -16,7 +17,8 @@ data class PaymentModel (
         var authorizationId: String? = null,
         var stan: String? = null,
         var originalStan: String? = null,
-        var originalDateAndTime: String? = null
+        var originalDateAndTime: String? = null,
+        var cardType: CardType? = null
 ): Parcelable {
 
     fun getTransactionStan() = IswPos.getNextStan().also { stan = it }
