@@ -52,6 +52,7 @@ class TransfertransactionPreocessingFragment : BaseFragment(TAG) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dialog = Dialog(this.requireContext())
+        paymentModel.cardType = cardType
         isw_processing_text_transfer.text =
                 getString(R.string.isw_processing_transaction, "Transfer")
 

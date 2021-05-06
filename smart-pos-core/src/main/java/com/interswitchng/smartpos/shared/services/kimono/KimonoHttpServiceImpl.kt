@@ -18,6 +18,7 @@ import com.interswitchng.smartpos.shared.models.transaction.PaymentInfo
 import com.interswitchng.smartpos.shared.models.transaction.PaymentType
 import com.interswitchng.smartpos.shared.models.transaction.TransactionLog
 import com.interswitchng.smartpos.shared.models.transaction.TransactionResult
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.CardType
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.AccountType
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.IccData
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.PurchaseType
@@ -342,7 +343,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
                         responseCode = purchaseResponse.responseCode,
                         cardPan = txnInfo.cardPAN,
                         cardExpiry = txnInfo.cardExpiry,
-                        cardType = CardTransactionsFragment.CompletionData.cardType,
+                        cardType = if(txnInfo.cardType != null) txnInfo.cardType!! else CardType.None,
                         stan = purchaseResponse.stan,
                         pinStatus = pinStatus,
                         AID = txnInfo.aid,

@@ -102,6 +102,7 @@ class TransactionHistoryFragment : BaseFragment(TAG), TransactionHistoryAdaptar.
     }
 
     override fun onclick(data: TransactionResult) {
+        println("this is data : $data")
         val action = TransactionHistoryFragmentDirections.iswActionIswTransactionhistoryfragmentToIswReceiptfragment2(
                 PaymentModel( amount = data.amount.toInt()),
                 TransactionResponseModel(data, PaymentModel.TransactionType.TRANSFER),
