@@ -59,7 +59,7 @@ class TransactionHistoryAdaptar(val clickListener: TransactionHistoryItemClickLi
                         it?.amount?.toInt().let { DisplayUtils.getAmountString(it!!) })
 
                 val txnTypeString = when {
-                    it?.type?.name == TransactionType.CashOutPay.name -> "Completion"
+                    it?.type?.name == TransactionType.CashOutPay.name -> "Cash-Out"
                     it.type.name == TransactionType.Transfer.name -> "Cash-Out"
                     else -> "Inquiry"
                 }
