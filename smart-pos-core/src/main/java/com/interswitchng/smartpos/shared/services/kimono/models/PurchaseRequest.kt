@@ -82,13 +82,18 @@ internal class PurchaseRequest
               return amount > 5000000
             }
 
-            var surchargeCode = when(transactionAmount){
-                in 100..500000 -> Constants.SURHARGE_CODE_1
-                in 500001..5000000 -> Constants.SURHARGE_CODE_2
-                else -> {
-                    // this is when transfer is more that 50,000
-                    Constants.SURHARGE_CODE_3
-                }
+//            var surchargeCode = when(transactionAmount){
+//                in 100..500000 -> Constants.SURHARGE_CODE_1
+//                in 500001..5000000 -> Constants.SURHARGE_CODE_2
+//                else -> {
+//                    // this is when transfer is more that 50,000
+//                    Constants.SURHARGE_CODE_3
+//                }
+//            }
+
+            var surchargeCode = Constants.SURHARGE_CODE_1
+            if (transactionAmount > 1075) {
+                transactionAmount = ( transactionAmount - surchargeCode.toInt())
             }
 
             //var paymentCode = Constants.PAYMENT_CODE_1

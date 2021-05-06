@@ -101,7 +101,7 @@ class TransactionLogAdapter : PagedListAdapter<TransactionLog, RecyclerView.View
                 tvAmount.text = tvAmount.context.getString(R.string.isw_currency_amount, DisplayUtils.getAmountString(amount.toInt()))
 
                 val txnTypeString = when {
-                    type.name == TransactionType.CashOutPay.name -> "Completion"
+                    type.name == TransactionType.CashOutPay.name -> "Cash-Out"
                     type.name == TransactionType.Transfer.name -> "Cash-Out"
                     else -> "Inquiry"
                 }

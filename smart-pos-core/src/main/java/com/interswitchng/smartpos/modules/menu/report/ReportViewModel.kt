@@ -157,7 +157,7 @@ internal class ReportViewModel(
     private fun List<TransactionLog>.toSlipItems(date: Date, transactionType: String): MutableList<PrintObject> {
 
         val transactionTypeString = when (transactionType) {
-            "CashOutPay" -> "Completion"
+            "CashOutPay" -> "Cash-Out"
             "Transfer" -> "Cash-Out"
             else -> "Inquiry"
         }
