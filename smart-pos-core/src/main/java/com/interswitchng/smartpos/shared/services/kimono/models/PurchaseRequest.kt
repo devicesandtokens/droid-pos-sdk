@@ -55,14 +55,11 @@ internal class PurchaseRequest
         /**
          * this functions takes in objects as parameters and retrurn xml for the request body**/
 
-        fun toTransferString(device: POSDevice, terminalInfo: TerminalInfo, transaction: TransactionInfo, destinationAccountNumber: String, receivingInstitutionId: String): String {
+        fun toTransferString(device: POSDevice, terminalInfo: TerminalInfo, transaction: TransactionInfo,
+                             destinationAccountNumber: String, receivingInstitutionId: String): String {
 
             val hasPin = transaction.cardPIN.isNotEmpty()
             var pinData = ""
-//            var customerId = terminalInfo.agentId
-//            var phoneNumber = terminalInfo.agentId
-//            var bankCbnCode = terminalInfo.terminalId.drop(1).take(3)
-//            var customerEmail = terminalInfo.agentEmail
 
             var transactionAmount: Int = transaction.amount
             println("*******The new transaction amount now is $transactionAmount");
@@ -79,18 +76,21 @@ internal class PurchaseRequest
               return amount > 5000000
             }
 
-            var surchargeCode = when(transactionAmount){
-                in 100..500000 -> Constants.SURHARGE_CODE_1
-                in 500001..5000000 -> Constants.SURHARGE_CODE_2
-                else -> {
-                    // this is when transfer is more that 50,000
-                    Constants.SURHARGE_CODE_3
-                }
+//            var surchargeCode = when(transactionAmount){
+//                in 100..500000 -> Constants.SURHARGE_CODE_1
+//                in 500001..5000000 -> Constants.SURHARGE_CODE_2
+//                else -> {
+//                    // this is when transfer is more that 50,000
+//                    Constants.SURHARGE_CODE_3
+//                }
+//            }
+
+            var surchargeCode = Constants.SURHARGE_CODE_1
+
+            if (transactionAmount > 1075) {
+                transactionAmount = ( transactionAmount - surchargeCode.toInt())
             }
 
-            //var paymentCode = Constants.PAYMENT_CODE_1
-
-//            var rrfNumber = transaction.stan.padStart(12, '0')
             // format amount to use in the getICC function
             val amount = String.format(Locale.getDefault(), "%012d", transactionAmount)
             Logger.with("purchaserequest").logErr(amount)
