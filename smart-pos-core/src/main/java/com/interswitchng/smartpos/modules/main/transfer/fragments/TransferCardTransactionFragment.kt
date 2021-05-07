@@ -97,6 +97,7 @@ class TransferCardTransactionFragment : BaseFragment(TAG) {
             isw_card_found_continue.setOnClickListener {
                 showAccountTypeDialog()
             }
+            println("this is amount: ${paymentInfo.amount}")
             cardViewModel.setupTransaction(paymentInfo.amount, terminalInfo)
         } else {
             context?.toast("POS is not configured")

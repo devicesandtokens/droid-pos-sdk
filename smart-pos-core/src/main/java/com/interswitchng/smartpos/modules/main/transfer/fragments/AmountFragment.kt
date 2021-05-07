@@ -56,8 +56,13 @@ class AmountFragment : BaseFragment(TAG) {
 
         //val stringWithoutCommaAndDot =  latestAmountWithoutComma.substring(0, dotIndex)
         payment.newPayment {
-            amount = latestAmountWithoutComma.toInt() - Constants.SURHARGE_CODE_1.toInt()//latestAmount.toDouble()
+            if (latestAmountWithoutComma.toInt() > 1075) {
+                amount = ( latestAmountWithoutComma.toInt() - 1075)//latestAmount.toDouble()
+            } else {
+                amount = latestAmountWithoutComma.toInt()//latestAmount.toDouble()
+            }
             formattedAmount = latestAmount
+
         }
 
         //cached temporarily the destination account number and receiving institution id
