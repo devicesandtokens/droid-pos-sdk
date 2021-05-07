@@ -65,6 +65,8 @@ class AmountFragment : BaseFragment(TAG) {
 
         }
 
+        println("print amount: $${payment.amount}")
+
         //cached temporarily the destination account number and receiving institution id
         Prefs.putString("destinationAccountNumber", benefeciaryDetails.accountNumber)
         Prefs.putString("receivingInstitutionId", bankDetails.recvInstId)
