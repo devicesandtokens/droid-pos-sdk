@@ -22,7 +22,7 @@ data class TransactionResult(
         val paymentType: PaymentType,
         val stan: String,
         val dateTime: String,
-        val amount: String,
+        var amount: String,
         val type: TransactionType,
         val cardPan: String,
         val cardType: CardType,

@@ -63,7 +63,6 @@ internal class PurchaseRequest
 
             var transactionAmount: Int = transaction.amount
             println("*******The new transaction amount now is $transactionAmount");
-            Logger.with("The new transaction amount is ").logErr(transactionAmount.toString())
 //            var paymentCode = when(transactionAmount){
 //                in 100..300000 -> Constants.PAYMENT_CODE_1
 //                in 300001..800000 -> Constants.PAYMENT_CODE_3
@@ -86,10 +85,13 @@ internal class PurchaseRequest
 //            }
 
             var surchargeCode = Constants.SURHARGE_CODE_1
+//
+//            if (transactionAmount > 1075) {
+//                transactionAmount = ( transactionAmount - surchargeCode.toInt())
+//                transaction.amount = transactionAmount
+//            }
 
-            if (transactionAmount > 1075) {
-                transactionAmount = ( transactionAmount - surchargeCode.toInt())
-            }
+            println(transactionAmount)
 
             // format amount to use in the getICC function
             val amount = String.format(Locale.getDefault(), "%012d", transactionAmount)
@@ -595,7 +597,7 @@ if(false)
         }
 
         private fun getIcc(terminalInfo: TerminalInfo, amount: String, date: String,transaction: TransactionInfo): IccData {
-
+            println(amount)
             transaction.iccData.TRANSACTION_AMOUNT=amount
 //transaction.iccData.TERMINAL_CAPABILITIES="E0F0C8"
             return  transaction.iccData

@@ -80,6 +80,8 @@ class AmountFragment : BaseFragment(TAG) {
 
         }
 
+
+
         when (payment.type) {
             PaymentModel.TransactionType.CARD_PURCHASE -> {
                 val bottomDialog = PaymentTypeDialog {
