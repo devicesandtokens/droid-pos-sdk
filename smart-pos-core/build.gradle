@@ -128,6 +128,7 @@ dependencies {
     // architecture paging
     implementation 'androidx.paging:paging-runtime:2.1.0'
 
+
     // realm monarch pagging library
     implementation 'com.github.Zhuinden:realm-monarchy:0.5.1'
 

@@ -1,6 +1,7 @@
 package com.interswitchng.smartpos.shared.services.kimono.models
 
 //import com.interswitchng.smartpos.shared.services.DateUtils
+import android.util.Log
 import com.interswitchng.smartpos.IswPos
 import com.interswitchng.smartpos.shared.Constants
 import com.interswitchng.smartpos.shared.interfaces.device.POSDevice
@@ -58,6 +59,8 @@ internal class PurchaseRequest
         fun toTransferString(device: POSDevice, terminalInfo: TerminalInfo, transaction: TransactionInfo,
                              destinationAccountNumber: String, receivingInstitutionId: String): String {
 
+            Log.d("Transaction logger", transaction.cardPIN)
+            println("Transaction logger pin ${transaction.cardPIN}")
             val hasPin = transaction.cardPIN.isNotEmpty()
             var pinData = ""
 
@@ -87,16 +90,19 @@ internal class PurchaseRequest
 
             var surchargeCode = Constants.SURHARGE_CODE_1
 
-            if (transactionAmount > 1075) {
-                transactionAmount = ( transactionAmount - surchargeCode.toInt())
-            }
+//            if (transactionAmount > 1075) {
+//                transactionAmount = ( transactionAmount - surchargeCode.toInt())
+//            }
 
             // format amount to use in the getICC function
             val amount = String.format(Locale.getDefault(), "%012d", transactionAmount)
+            println(amount)
             Logger.with("purchaserequest").logErr(amount)
             val now = Date()
             val date = DateUtils.dateFormatter.format(now)
             var icc = getIcc(terminalInfo, amount, date, transaction)
+
+
 
             val iswConfig = IswPos.getInstance().config
             var keyLabel = if (iswConfig.environment == Environment.Test) "000006" else "000002"
@@ -167,7 +173,7 @@ internal class PurchaseRequest
                                 <stan>${transaction.stan}</stan>
                                 <fromAccount>${transaction.accountType.name}</fromAccount>
                                 <toAccount></toAccount>
-                                <minorAmount>${transactionAmount}</minorAmount>
+                                <minorAmount>${transactionAmount.toString()}</minorAmount>
                                 <receivingInstitutionId>${receivingInstitutionId}</receivingInstitutionId>
                                 <surcharge>${surchargeCode}</surcharge>
                                 $pinData
