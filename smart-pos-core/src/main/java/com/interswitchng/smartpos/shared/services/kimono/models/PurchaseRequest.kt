@@ -92,9 +92,7 @@ internal class PurchaseRequest
 //            }
 
             var surchargeCode = Constants.SURHARGE_CODE_1
-            if (transactionAmount > 1075) {
-                transactionAmount = ( transactionAmount - surchargeCode.toInt())
-            }
+
 
             //var paymentCode = Constants.PAYMENT_CODE_1
 

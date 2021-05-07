@@ -101,6 +101,7 @@ class ReceiptFragment : BaseFragment(TAG) {
         channel_title.text = "CHANNEL: ${data?.paymentType?.name}"
         date_title.text = "DATE: ${getDate(data?.dateTime.toString())}"
         time_title.text = "TIME: ${getTime(data?.dateTime.toString())}"
+        println("This is amount receipt: ${data?.amount}")
         amount_title.text = getHtmlString("AMOUNT: ${data?.amount.let { DisplayUtils.getAmountWithCurrency(it.toString()) }}")
 
         val cardTypeName = when (data?.cardType) {

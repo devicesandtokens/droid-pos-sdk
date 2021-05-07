@@ -56,7 +56,11 @@ class AmountFragment : BaseFragment(TAG) {
 
         //val stringWithoutCommaAndDot =  latestAmountWithoutComma.substring(0, dotIndex)
         payment.newPayment {
-            amount = latestAmountWithoutComma.toInt()//latestAmount.toDouble()
+            if (latestAmountWithoutComma.toInt() > 1075) {
+                amount = ( latestAmountWithoutComma.toInt() - 1075)//latestAmount.toDouble()
+            } else {
+                amount = latestAmountWithoutComma.toInt()//latestAmount.toDouble()
+            }
             formattedAmount = latestAmount
 
         }

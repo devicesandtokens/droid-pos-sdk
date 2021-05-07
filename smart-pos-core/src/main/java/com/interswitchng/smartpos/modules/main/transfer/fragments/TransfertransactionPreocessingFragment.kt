@@ -192,6 +192,9 @@ class TransfertransactionPreocessingFragment : BaseFragment(TAG) {
                 }
 
                 val now = Date()
+                if (paymentModel.amount > 1075) {
+                    paymentModel.amount = ((paymentModel.amount + 1075))
+                }
                 transactionResult = TransactionResult(
                         paymentType = PaymentType.Card,
                         dateTime = DateUtils.universalDateFormat.format(now),
