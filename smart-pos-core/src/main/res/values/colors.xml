@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="iswColorPrimary">#B30938</color>
-    <color name="iswColorPrimaryDark">#B30938</color>
+    <color name="iswColorPrimary">#030972</color>
+    <color name="iswColorPrimaryDark">#000552</color>
     <color name="iswTextColorPrimary">#FFF</color>
     <color name="iswColorMainBackground">#FFF</color>
     <color name="iswColorTextSecondary">#B30938</color>
@@ -24,7 +24,7 @@
     <color name="iswColorLightBlue">#8097B1</color>
     <color name="iswlightBlue">#8089CFF0</color>
     <color name="iswWhite">#FFFFFF</color>
-    <color name="iswFincaAccent">#ECAB12</color>
-    <color name="iswFincaLight">#B30938</color>
+    <color name="iswApplicationAccent">#4879B0</color>
+    <color name="iswApplicationLight">#FFF</color>
     <color name="isw_main_black">#000000</color>
 </resources>

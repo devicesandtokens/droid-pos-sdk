@@ -26,7 +26,6 @@ import com.interswitchng.smartpos.R
 import com.interswitchng.smartpos.modules.card.PinEditText
 import com.tapadoo.alerter.Alerter
 import java.time.format.DateTimeFormatter
-import kotlin.reflect.jvm.internal.impl.renderer.RenderingFormat
 
 
 fun EditText.getTextValue(): String {
@@ -146,7 +145,7 @@ fun showErrorAlert(message: String, activity: Activity) {
             .setDuration(2000)
             .enableVibration(true)
             .enableSwipeToDismiss()
-            .setBackgroundColorRes(R.color.iswFincaAccent)
+            .setBackgroundColorRes(R.color.iswApplicationAccent)
             .show()
 }
 

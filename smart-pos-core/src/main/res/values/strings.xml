@@ -312,5 +312,7 @@
     <string name="isw_please_retain_receipt">Please Retain Receipt</string>
     <string name="isw_name_enquiry_confirmation_title">Disable name enquiry?</string>
     <string name="isw_name_enquiry_confirmation_body">Are you sure you want to disable name enquiry service?</string>
+    <string name="isw_landing_header_title">NKPOLU-UST</string>
+    <string name="isw_landing_header_subtitle">Microfinance Bank</string>
 
 </resources>

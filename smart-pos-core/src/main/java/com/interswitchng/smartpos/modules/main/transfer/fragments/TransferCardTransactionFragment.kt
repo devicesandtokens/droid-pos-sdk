@@ -54,7 +54,7 @@ class TransferCardTransactionFragment : BaseFragment(TAG) {
     private val cardViewModel: CardViewModel by viewModel()
 
     private val cardPaymentFragmentArgs by navArgs<TransferCardTransactionFragmentArgs>()
-    private val paymentModel by lazy { cardPaymentFragmentArgs.paymentModel }
+    private val paymentModel by lazy { cardPaymentFragmentArgs.PaymentModel }
 
     private val paymentInfo by lazy {
         PaymentInfo(paymentModel.amount, IswPos.getNextStan(), paymentModel.stan, paymentModel.authorizationId)

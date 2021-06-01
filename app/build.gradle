@@ -8,19 +8,19 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion targetSdk
     defaultConfig {
-        applicationId "com.interswitchng.interswitchposfinca"
+        applicationId "com.interswitchng.interswitchposnkpolu"
         minSdkVersion minSdk
         targetSdkVersion targetSdk
         multiDexEnabled true
-        versionCode 7
-        versionName "1.6"
+        versionCode 1
+        versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         android.applicationVariants.all{
             variant ->
                 variant.outputs.all{
                     def date = new Date()
                     def formattedDate = date.format('yyMMdd')
-                    String appName = "FINCA"
+                    String appName = "NKPOLU-UST"
                     outputFileName = "${appName}-${variant.versionName}-${formattedDate}.apk"
                 }
         }

@@ -6,7 +6,6 @@
         <item name="colorPrimary">@color/iswColorPrimary</item>
         <item name="colorPrimaryDark">@color/iswColorPrimaryDark</item>
         <item name="colorAccent">@color/iswColorPrimary</item>
-
     </style>
 
     <style name="ISW.NoActionBar">
@@ -221,11 +220,16 @@
 
     <style name="IswPopupMenuStyle" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:popupBackground">@drawable/isw_popupmenu_padded_bg</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:divider">@color/iswColorPrimaryDark</item>
+        <item name="android:dividerHeight">1dp</item>
     </style>
 
     <style name="IswCircularDeterminateProgressBar">
         <item name="android:indeterminateOnly">false</item>
         <item name="android:progressDrawable">@drawable/isw_circular_progress</item>
     </style>
+
 </resources>

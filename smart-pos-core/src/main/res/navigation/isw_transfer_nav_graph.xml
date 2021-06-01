@@ -41,7 +41,7 @@
             android:id="@+id/isw_action_isw_transfercardtransactionfragment_to_isw_transfertransactionpreocessingfragment"
             app:destination="@id/isw_transfertransactionpreocessingfragment" />
         <argument
-            android:name="paymentModel"
+            android:name="PaymentModel"
             app:argType="com.interswitchng.smartpos.modules.main.models.PaymentModel" />
     </fragment>
     <fragment
