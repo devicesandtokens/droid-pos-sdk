@@ -38,9 +38,9 @@ class AmountFragment : BaseFragment(TAG) {
 
     private fun handleProceedToolbarClicks() {
         isw_proceed_transfer.setOnClickListener {
-            println( isw_amount_transfer.text.toString().toDouble())
+            println( isw_amount_transfer.text.toString().replace("[$,]".toRegex(), "").toDouble())
             if (amount == Constants.EMPTY_STRING || amount == DEFAULT_AMOUNT
-                    || isw_amount_transfer.text.toString().toDouble() < LOWEST_FEE.toDouble()) {
+                    || isw_amount_transfer.text.toString().replace("[$,]".toRegex(), "").toDouble() < LOWEST_FEE.toDouble()) {
                 toast("Enter a valid amount")
             } else {
                 proceedWithPayment()
