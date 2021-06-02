@@ -24,8 +24,8 @@ import com.pax.dal.entity.EFontTypeExtCode
 class DevicePrinterImpl constructor(private val context: Context) : DevicePrinter {
 
     // font sizes
-    private val NORMAL_FONT = Pair(EFontTypeAscii.FONT_8_16, EFontTypeExtCode.FONT_16_32)
-    private val LARGE_FONT = Pair(EFontTypeAscii.FONT_8_32, EFontTypeExtCode.FONT_16_32)
+    private val NORMAL_FONT = Pair(EFontTypeAscii.FONT_16_24, EFontTypeExtCode.FONT_24_48)
+    private val LARGE_FONT = Pair(EFontTypeAscii.FONT_16_32, EFontTypeExtCode.FONT_32_16)
 
     private val line: String = "-".repeat(Companion.SCREEN_NORMAL_LENGTH)
 
@@ -47,7 +47,7 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
         printer.spaceSet(0, 10)
 
         // set step distance
-        printer.step(40)
+        printer.step(60)
 
         // print logo
         printCompanyLogo(printer)
@@ -64,7 +64,7 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
         for (item in slip) printItem(printer, item)
 
         // print website at end of slip
-        val website = PrintObject.Data("www.fincanigeria.com", PrintStringConfiguration(displayCenter = true, isBold = true))
+        val website = PrintObject.Data("www.cico.ng", PrintStringConfiguration(displayCenter = true, isBold = true))
         printItem(printer, website)
 
         // print thank you message at end of slip
@@ -133,7 +133,7 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
 
 
     fun printCompanyLogo(printer: PaxPrinter) {
-        val drawable = ContextCompat.getDrawable(context, R.drawable.finca_logo)!!
+        val drawable = ContextCompat.getDrawable(context, R.drawable.isw_cico_logo)!!
         val companyLogo: Bitmap = run {
             return@run when (drawable) {
                 is BitmapDrawable -> drawable.bitmap
@@ -229,8 +229,8 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
 
     companion object {
         // screen caharacter length
-        private const val SCREEN_LARGE_LENGTH = 40
-        private const val SCREEN_NORMAL_LENGTH = 48
+        private const val SCREEN_LARGE_LENGTH = 22
+        private const val SCREEN_NORMAL_LENGTH = 32
     }
 
     override fun printSlipNew(slip: Bitmap): PrintStatus {

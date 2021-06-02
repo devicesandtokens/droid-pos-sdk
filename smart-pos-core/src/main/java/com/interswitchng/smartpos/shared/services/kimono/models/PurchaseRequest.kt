@@ -82,16 +82,15 @@ internal class PurchaseRequest
               return amount > 5000000
             }
 
-//            var surchargeCode = when(transactionAmount){
-//                in 100..500000 -> Constants.SURHARGE_CODE_1
-//                in 500001..5000000 -> Constants.SURHARGE_CODE_2
-//                else -> {
-//                    // this is when transfer is more that 50,000
-//                    Constants.SURHARGE_CODE_3
-//                }
-//            }
+            var surchargeCode = when(transactionAmount){
+                in 100..200000 -> (transactionAmount * Constants.PERCENTAGE_FOR_TIER_1).toInt().toString()
+                in 200001..800000 -> Constants.CICO_SURHARGE_CODE_1
+                else -> {
+                    Constants.CICO_SURHARGE_CODE_2
+                }
+            }
 
-            var surchargeCode = Constants.SURHARGE_CODE_1
+//            var surchargeCode = Constants.SURHARGE_CODE_1
 
 
             //var paymentCode = Constants.PAYMENT_CODE_1

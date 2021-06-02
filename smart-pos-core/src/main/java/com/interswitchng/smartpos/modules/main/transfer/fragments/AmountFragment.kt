@@ -21,6 +21,7 @@ class AmountFragment : BaseFragment(TAG) {
     private val benefeciaryDetails by lazy { amountFragmentArgs.BeneficiaryModel }
 
     private val DEFAULT_AMOUNT = "0.00"
+    private val LOWEST_FEE = "10.00"
 
     private var amount = Constants.EMPTY_STRING
 
@@ -37,7 +38,9 @@ class AmountFragment : BaseFragment(TAG) {
 
     private fun handleProceedToolbarClicks() {
         isw_proceed_transfer.setOnClickListener {
-            if (amount == Constants.EMPTY_STRING || amount == DEFAULT_AMOUNT) {
+            println( isw_amount_transfer.text.toString().toDouble())
+            if (amount == Constants.EMPTY_STRING || amount == DEFAULT_AMOUNT
+                    || isw_amount_transfer.text.toString().toDouble() < LOWEST_FEE.toDouble()) {
                 toast("Enter a valid amount")
             } else {
                 proceedWithPayment()
