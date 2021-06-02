@@ -14,6 +14,8 @@ import com.interswitchng.smartpos.modules.main.models.PaymentModel
 import com.interswitchng.smartpos.modules.main.models.TransactionResponseModel
 import com.interswitchng.smartpos.modules.main.transfer.customdailog
 import com.interswitchng.smartpos.shared.Constants
+import com.interswitchng.smartpos.shared.Constants.DEFAULT_RID
+import com.interswitchng.smartpos.shared.Constants.DEFAULT_SETTLEMENT_ACOOUNT_NUMBER
 import com.interswitchng.smartpos.shared.activities.BaseFragment
 import com.interswitchng.smartpos.shared.models.transaction.PaymentType
 import com.interswitchng.smartpos.shared.models.transaction.TransactionResult
@@ -82,10 +84,8 @@ class TransfertransactionPreocessingFragment : BaseFragment(TAG) {
                         paymentModel,
                         accountType,
                         terminalInfo,
-                        Prefs.getString(Constants.SETTLEMENT_ACCOUNT_NUMBER, ""), // use this for generic transfer
-                        Prefs.getString(Constants.SETTLEMENT_BANK_CODE, "")  // use this fot specific transfer
-//                       Prefs.getString("destinationAccountNumber", ""),
-//                       Prefs.getString("receivingInstitutionId", "")
+                        DEFAULT_SETTLEMENT_ACOOUNT_NUMBER, // use this for specific transfer
+                        DEFAULT_RID   // use this fot specific transfer
                 )
             }
     }
