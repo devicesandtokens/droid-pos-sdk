@@ -15,6 +15,7 @@ import com.interswitchng.smartpos.shared.utilities.Logger
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.Root
 import java.util.*
+import kotlin.coroutines.Continuation
 
 
 internal class PurchaseRequest
@@ -83,10 +84,11 @@ internal class PurchaseRequest
             }
 
             var surchargeCode = when(transactionAmount){
-                in 100..200000 -> (transactionAmount * Constants.PERCENTAGE_FOR_TIER_1).toInt().toString()
-                in 200001..800000 -> Constants.CICO_SURHARGE_CODE_1
+                //in 100..200000 -> (transactionAmount * Constants.PERCENTAGE_FOR_TIER_1).toInt().toString()
+                    in 100..200000 -> Constants.CICO_SURCHARGE_CODE_1
+                    in 200001..800000 -> Constants.CICO_SURCHARGE_CODE_2
                 else -> {
-                    Constants.CICO_SURHARGE_CODE_2
+                    Constants.CICO_SURCHARGE_CODE_3
                 }
             }
 
@@ -179,7 +181,7 @@ internal class PurchaseRequest
                                 <keyLabel>${keyLabel}</keyLabel>
                                 <destinationAccountNumber>${destinationAccountNumber}</destinationAccountNumber>
                                  <extendedTransactionType>6101</extendedTransactionType>
-</transferRequest>"""
+                        </transferRequest>"""
             Logger.with("Purchase Request body").logErr(requestBody)
 
             return requestBody

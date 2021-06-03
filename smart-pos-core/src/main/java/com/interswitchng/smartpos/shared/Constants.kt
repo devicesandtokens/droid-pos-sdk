@@ -15,8 +15,9 @@ object Constants {
     internal const val SURHARGE_CODE_2 = "2688" //transfer between 5001 and 50,000
     internal const val SURHARGE_CODE_3 = "5375" //transfer between 50,001 and above
 
-    internal const val CICO_SURHARGE_CODE_1 = "2500" //transfer between 2001 and 8000
-    internal const val CICO_SURHARGE_CODE_2 = "3500" //transfer between 8001 and above
+    internal const val CICO_SURCHARGE_CODE_1 = "1200"
+    internal const val CICO_SURCHARGE_CODE_2 = "2200" //transfer between 2001 and 8000
+    internal const val CICO_SURCHARGE_CODE_3 = "3000" //transfer between 8001 and above
 
     /*internal const val PAYMENT_CODE_1 = "04385601"
     internal const val PAYMENT_CODE_2 = "04385602"*/
