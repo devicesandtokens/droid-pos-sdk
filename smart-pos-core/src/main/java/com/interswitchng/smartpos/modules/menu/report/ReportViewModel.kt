@@ -13,6 +13,8 @@ import com.interswitchng.smartpos.shared.models.posconfig.PrintStringConfigurati
 import com.interswitchng.smartpos.shared.models.printer.info.PrintStatus
 import com.interswitchng.smartpos.shared.models.printer.info.TransactionType
 import com.interswitchng.smartpos.shared.models.transaction.TransactionLog
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.PaymentNotificationResponse
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.PaymentNotificationResponseRealm
 import com.interswitchng.smartpos.shared.services.iso8583.utils.DateUtils
 import com.interswitchng.smartpos.shared.services.iso8583.utils.IsoUtils
 import com.interswitchng.smartpos.shared.utilities.DisplayUtils
@@ -47,6 +49,19 @@ internal class ReportViewModel(
             .setInitialLoadSizeHint(10)
             .setPageSize(10)
             .build()
+
+
+    fun saveSample(result: PaymentNotificationResponseRealm) {
+        transactionLogService.logNotificationResponse(result)
+    }
+
+
+    fun getEndOfDayForNotifications(date: Date): LiveData<List<PaymentNotificationResponseRealm>> {
+        // disable print button
+        _printButton.value = false
+
+        return transactionLogService.getNotificationEodList(date)
+    }
 
     fun getReport(day: Date): LiveData<PagedList<TransactionLog>> {
         return transactionLogService.getTransactionFor(day, config)

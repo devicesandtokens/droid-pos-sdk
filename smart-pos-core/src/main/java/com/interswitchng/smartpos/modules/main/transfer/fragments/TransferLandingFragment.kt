@@ -109,6 +109,12 @@ class TransferLandingFragment : BaseFragment(TAG) {
                         return@setOnMenuItemClickListener true
                     }
 
+                    R.id.paymentnotificationhistoryfragment -> {
+                        findNavController().navigate(R.id.isw_paymentnotificationhistoryfragment)
+                        return@setOnMenuItemClickListener true
+                    }
+
+
                     R.id.transactionHistory -> {
                         findNavController().navigate(R.id.isw_transactionhistoryfragment)
                         return@setOnMenuItemClickListener true

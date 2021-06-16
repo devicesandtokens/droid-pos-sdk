@@ -25,6 +25,7 @@ import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.TransactionResponse
 import com.interswitchng.smartpos.shared.services.iso8583.utils.DateUtils
 import com.interswitchng.smartpos.shared.services.iso8583.utils.IsoUtils
+import com.interswitchng.smartpos.shared.surchargeCode
 import com.interswitchng.smartpos.shared.utilities.toast
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.isw_fragment_processing_transaction.*
@@ -192,9 +193,11 @@ class TransfertransactionPreocessingFragment : BaseFragment(TAG) {
                 }
 
                 val now = Date()
-                if (paymentModel.amount > 1075) {
-                    paymentModel.amount = ((paymentModel.amount + 1075))
-                }
+//                if (paymentModel.amount > 1075) {
+                var surc = surchargeCode(txnInfo.amount)
+//                txnInfo.amount = ((txnInfo.amount + surc.toInt()))
+                    paymentModel.amount = ((paymentModel.amount + surc.toInt()))
+//                }
                 transactionResult = TransactionResult(
                         paymentType = PaymentType.Card,
                         dateTime = DateUtils.universalDateFormat.format(now),

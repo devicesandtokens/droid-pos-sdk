@@ -23,6 +23,9 @@ import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.IccData
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.PurchaseType
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.TransactionInfo
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.PaymentNotificationRequest
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.PaymentNotificationResponse
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.PaymentNotificationResponseRealm
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.TransactionResponse
 import com.interswitchng.smartpos.shared.models.utils.XmlStringConverter
 import com.interswitchng.smartpos.shared.services.iso8583.utils.DateUtils
@@ -31,6 +34,7 @@ import com.interswitchng.smartpos.shared.services.iso8583.utils.XmlPullParserHan
 import com.interswitchng.smartpos.shared.services.kimono.models.*
 import com.interswitchng.smartpos.shared.services.kimono.models.CallHomeRequest
 import com.interswitchng.smartpos.shared.services.kimono.models.PurchaseRequest
+import com.interswitchng.smartpos.shared.surchargeCode
 import com.interswitchng.smartpos.shared.utilities.Logger
 import com.pixplicity.easyprefs.library.Prefs
 import okhttp3.MediaType
@@ -333,9 +337,10 @@ internal class KimonoHttpServiceImpl(private val context: Context,
                 else -> "PIN Unverified"
             }
             if (purchaseResponse != null) {
-                if (txnInfo.amount > 1075) {
-                    txnInfo.amount = ((txnInfo.amount + 1075))
-                }
+                println(txnInfo.amount)
+                var surc = surchargeCode(txnInfo.amount)
+                    txnInfo.amount = ((txnInfo.amount + surc.toInt()))
+                println(txnInfo.amount)
                 transactionResult = TransactionResult(
                         paymentType = PaymentType.Card,
                         dateTime = DateUtils.universalDateFormat.format(now),
@@ -361,6 +366,41 @@ internal class KimonoHttpServiceImpl(private val context: Context,
                         time = now.time
                 )
                 logTransaction(transactionResult)
+            }
+
+
+            // this sends notification to the third party server
+            if (responseBody.isSuccessful && purchaseResponse?.responseCode != null && purchaseResponse.responseCode == "00") {
+
+                var notificationUrl = "https://switchserve.cicoserve.xyz/api/v1/cashout/notification"
+                var notificationRequest = PaymentNotificationRequest(
+                        terminalId = terminalInfo.terminalId,
+                        merchantId = terminalInfo.merchantId,
+                        referenceNumber = purchaseResponse.referenceNumber,
+                        stan = purchaseResponse.stan,
+                        authId = txnInfo.aid,
+                        transactionDate = DateUtils.universalDateFormat.format(now),
+                        description = "Transaction Approved",
+                        responseCode = purchaseResponse.responseCode,
+                        amount =  String.format(Locale.getDefault(), "%012d", txnInfo.amount)
+                )
+
+                // send notification to the server
+                val notificationRequestBody = XmlStringConverter().toBody(PurchaseRequest.toNotificationRequestString(notificationRequest) )
+                val notificationResponseBody = httpService.makeNotification(
+                        notificationUrl,
+                        notificationRequestBody).run()
+                val notificationResponse = notificationResponseBody.body()
+                println("notification response => ${notificationResponse}")
+                var saveNot = PaymentNotificationResponseRealm(
+                        amount = txnInfo.amount.toString(),
+                        transactionDate = Date().time,
+                        PaymentLogId = notificationResponse?.PaymentLogId.toString(),
+                        notificationMessage = notificationResponse?.notificationMessage,
+                        notificationStatus = notificationResponse?.notificationStatus,
+                        Status = notificationResponse?.Status
+                )
+                logNotification(saveNot)
             }
             return if (!responseBody.isSuccessful || purchaseResponse?.responseCode == null) {
                 TransactionResponse(
@@ -733,6 +773,10 @@ internal class KimonoHttpServiceImpl(private val context: Context,
         // get and log transaction to storage
         val resultLog = TransactionLog.fromResult(result)
         transactionLogService.logTransactionResult(resultLog)
+    }
+
+    fun logNotification(result: PaymentNotificationResponseRealm) {
+        transactionLogService.logNotificationResponse(result)
     }
 
     private fun generatePan(code: String): String {

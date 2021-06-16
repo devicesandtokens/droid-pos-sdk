@@ -56,6 +56,12 @@ internal val serviceModule = module() //override = true
         // create realm configuration
         val realmConfig = RealmConfiguration.Builder()
                 .encryptionKey(realmKey)
+                .schemaVersion(2)
+                .migration { realm, oldVersion, newVersion ->
+                    if (oldVersion < 1) {
+
+                    }
+                }
                 .build()
 
         // build monarchy

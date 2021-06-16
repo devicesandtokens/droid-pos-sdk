@@ -237,4 +237,13 @@ object Constants {
 
     const val PERCENTAGE_FOR_TIER_1 = "1200"
 
+
+}
+
+fun surchargeCode(transactionAmount: Int) = when(transactionAmount){
+    in 100..200000 -> Constants.PERCENTAGE_FOR_TIER_1
+    in 200001..800000 -> Constants.CICO_SURHARGE_CODE_1
+    else -> {
+        Constants.CICO_SURHARGE_CODE_2
+    }
 }

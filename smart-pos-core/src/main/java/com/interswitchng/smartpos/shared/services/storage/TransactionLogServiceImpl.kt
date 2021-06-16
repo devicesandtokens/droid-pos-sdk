@@ -6,6 +6,8 @@ import androidx.paging.PagedList
 import com.interswitchng.smartpos.shared.interfaces.library.TransactionLogService
 import com.interswitchng.smartpos.shared.models.printer.info.TransactionType
 import com.interswitchng.smartpos.shared.models.transaction.TransactionLog
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.PaymentNotificationResponse
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.PaymentNotificationResponseRealm
 import com.zhuinden.monarchy.Monarchy
 import io.realm.Realm
 import io.realm.Sort
@@ -25,6 +27,25 @@ internal class TransactionLogServiceImpl(private val monarchy: Monarchy) : Trans
         result.id = currentId.toInt() + 1
         // save result to realm db
         realm.copyToRealm(result)
+    }
+
+    override fun logNotificationResponse(result: PaymentNotificationResponseRealm) {
+        monarchy.writeAsync {
+            it.copyToRealm(result)
+        }
+    }
+
+    override fun getNotificationEodList(date: Date): LiveData<List<PaymentNotificationResponseRealm>> {
+        // get the date range for current date as morning and midnight
+        val (morning, midnight) = getDateRange(date)
+
+        // query for stream of transaction logs for specified day by retrieving livedata list
+        return monarchy.findAllCopiedWithChanges { realm ->
+            realm.where<PaymentNotificationResponseRealm>()
+                    .greaterThan("transactionDate", morning)
+                    .lessThan("transactionDate", midnight)
+                    .sort("transactionDate", Sort.DESCENDING)
+        }
     }
 
     override fun updateTransactionResult(result: TransactionLog) = monarchy.writeAsync{ realm ->

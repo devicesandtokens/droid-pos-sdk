@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.interswitchng.smartpos.R
 import com.interswitchng.smartpos.modules.main.models.PaymentModel
 import com.interswitchng.smartpos.modules.main.models.TransactionResponseModel
+import com.interswitchng.smartpos.modules.main.transfer.adapters.NotificationHistoryAdaptar
 import com.interswitchng.smartpos.modules.main.transfer.adapters.TransactionHistoryAdaptar
 import com.interswitchng.smartpos.modules.main.transfer.customdailog
 import com.interswitchng.smartpos.modules.main.transfer.hide
@@ -34,9 +35,9 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
-class TransactionHistoryFragment : BaseFragment(TAG), TransactionHistoryAdaptar.TransactionHistoryItemClickListener,  DatePickerDialog.OnDateSetListener {
+class PaymentNotificationHistoryFragment : BaseFragment(TAG), NotificationHistoryAdaptar.TransactionHistoryItemClickListener,  DatePickerDialog.OnDateSetListener {
 
-    private lateinit var adapter: TransactionHistoryAdaptar
+    private lateinit var adapter: NotificationHistoryAdaptar
     private var selectedDate = Date()
 
     // inject viewmodel
@@ -56,10 +57,12 @@ class TransactionHistoryFragment : BaseFragment(TAG), TransactionHistoryAdaptar.
 
 
 
+
+
     private fun setData(date: Date) {
         val dailog = customdailog(context = this.requireContext(), message = "Loading History")
-        viewmodel.getTransactionHistory(date)
-        reportViewmodel.getReport(date).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        reportViewmodel.getEndOfDayForNotifications(date).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            println("history => $it")
             dailog.dismiss()
             println(it)
             it?.let {
@@ -70,21 +73,39 @@ class TransactionHistoryFragment : BaseFragment(TAG), TransactionHistoryAdaptar.
                 tvResultHint.hide()
             }
         })
-//        viewmodel.transactions.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+    }
+
+
+
+//    private fun setData(date: Date) {
+//        val dailog = customdailog(context = this.requireContext(), message = "Loading History")
+//        viewmodel.getTransactionHistory(date)
+//        reportViewmodel.getReport(date).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
 //            dailog.dismiss()
 //            println(it)
 //            it?.let {
 //                println(it)
-////                adapter.setData(it as ArrayList<TransactionLog>)
 //                adapter.submitList(it)
 //                adapter.notifyDataSetChanged()
 //                rvTransactions.reveal()
+//                tvResultHint.hide()
 //            }
 //        })
-    }
+////        viewmodel.transactions.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+////            dailog.dismiss()
+////            println(it)
+////            it?.let {
+////                println(it)
+//////                adapter.setData(it as ArrayList<TransactionLog>)
+////                adapter.submitList(it)
+////                adapter.notifyDataSetChanged()
+////                rvTransactions.reveal()
+////            }
+////        })
+//    }
 
     private fun setupAdapter() {
-        adapter = TransactionHistoryAdaptar(this)
+        adapter = NotificationHistoryAdaptar(this)
         rvTransactions.layoutManager = LinearLayoutManager(this.requireContext(), LinearLayoutManager.VERTICAL, false)
         rvTransactions.adapter = adapter
         rvTransactions.addItemDecoration(DividerItemDecoration(this.requireContext(), DividerItemDecoration.VERTICAL))
@@ -102,19 +123,19 @@ class TransactionHistoryFragment : BaseFragment(TAG), TransactionHistoryAdaptar.
     companion object {
 
         @JvmStatic
-        fun newInstance() = TransactionHistoryFragment()
+        fun newInstance() = PaymentNotificationHistoryFragment()
         val TAG = "Transaction History Fragment"
     }
 
     override fun onclick(data: TransactionResult) {
         println(data)
-        val action = TransactionHistoryFragmentDirections.iswActionIswTransactionhistoryfragmentToIswReceiptfragment2(
-                PaymentModel( amount = data.amount.toInt()),
-                TransactionResponseModel(data, PaymentModel.TransactionType.TRANSFER),
-                false,
-                true
-        )
-        findNavController().navigate(action)
+//        val action = TransactionHistoryFragmentDirections.iswActionIswTransactionhistoryfragmentToIswReceiptfragment2(
+//                PaymentModel( amount = data.amount.toInt()),
+//                TransactionResponseModel(data, PaymentModel.TransactionType.TRANSFER),
+//                false,
+//                true
+//        )
+//        findNavController().navigate(action)
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {

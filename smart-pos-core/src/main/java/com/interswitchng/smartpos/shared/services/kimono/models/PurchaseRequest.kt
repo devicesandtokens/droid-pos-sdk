@@ -8,6 +8,7 @@ import com.interswitchng.smartpos.shared.models.core.Environment
 import com.interswitchng.smartpos.shared.models.core.TerminalInfo
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.IccData
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.TransactionInfo
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.PaymentNotificationRequest
 import com.interswitchng.smartpos.shared.services.iso8583.utils.DateUtils
 import com.interswitchng.smartpos.shared.utilities.DeviceUtils
 import com.interswitchng.smartpos.shared.utilities.InputValidator
@@ -24,6 +25,26 @@ internal class PurchaseRequest
         private val serialId by lazy { DeviceUtils.getSerialNumber()}
 
 
+        /**
+         * this functions takes in objects as parameters and retrurn xml for the request body**/
+
+        fun toNotificationRequestString(request: PaymentNotificationRequest): String {
+
+            val requestBody = """<PaymentNotificationRequest>
+	                                <terminalID>${request.terminalId}</terminalID>
+                                    <merchantID>${request.merchantId}</merchantID>
+                                    <Amount>${request.amount}</Amount>
+                                    <referenceNumber>${request.referenceNumber}</referenceNumber>
+		                            <stan>${request.stan}</stan>
+		                            <authId>${request.authId}</authId>
+                                    <transactionDate>${request.transactionDate}</transactionDate>
+		                           <description>${request.description}</description>
+		                           <responseCode>${request.responseCode}</responseCode>
+</PaymentNotificationRequest>"""
+            Logger.with("notification Request body").logErr(requestBody)
+            return requestBody
+
+        }
 
 
         /**

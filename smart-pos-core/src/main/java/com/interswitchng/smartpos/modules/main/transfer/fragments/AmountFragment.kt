@@ -6,6 +6,7 @@ import androidx.navigation.fragment.navArgs
 import com.interswitchng.smartpos.R
 import com.interswitchng.smartpos.shared.Constants
 import com.interswitchng.smartpos.shared.activities.BaseFragment
+import com.interswitchng.smartpos.shared.surchargeCode
 import com.interswitchng.smartpos.shared.utilities.DisplayUtils
 import com.interswitchng.smartpos.shared.utilities.Logger
 import com.pixplicity.easyprefs.library.Prefs
@@ -21,7 +22,7 @@ class AmountFragment : BaseFragment(TAG) {
     private val benefeciaryDetails by lazy { amountFragmentArgs.BeneficiaryModel }
 
     private val DEFAULT_AMOUNT = "0.00"
-    private val LOWEST_FEE = "10.00"
+    private val LOWEST_FEE = "20.00"
 
     private var amount = Constants.EMPTY_STRING
 
@@ -58,12 +59,15 @@ class AmountFragment : BaseFragment(TAG) {
 //        }
 
         //val stringWithoutCommaAndDot =  latestAmountWithoutComma.substring(0, dotIndex)
+        var surc = surchargeCode(latestAmountWithoutComma.toInt())
+        // this saves the amount to pref to be used in the receipt
+
         payment.newPayment {
-            if (latestAmountWithoutComma.toInt() > 1075) {
-                amount = ( latestAmountWithoutComma.toInt() - 1075)//latestAmount.toDouble()
-            } else {
-                amount = latestAmountWithoutComma.toInt()//latestAmount.toDouble()
-            }
+//            if (latestAmountWithoutComma.toInt() > 1075) {
+                amount = ( latestAmountWithoutComma.toInt() - surc.toInt())//latestAmount.toDouble()
+//            } else {
+//                amount = latestAmountWithoutComma.toInt()//latestAmount.toDouble()
+//            }
             formattedAmount = latestAmount
 
         }
