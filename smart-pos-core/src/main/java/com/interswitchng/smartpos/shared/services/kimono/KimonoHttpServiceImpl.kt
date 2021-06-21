@@ -39,6 +39,7 @@ import com.interswitchng.smartpos.shared.utilities.Logger
 import com.pixplicity.easyprefs.library.Prefs
 import okhttp3.MediaType
 import okhttp3.RequestBody
+import retrofit2.Response
 import java.io.ByteArrayInputStream
 import java.util.*
 import kotlin.coroutines.resume
@@ -321,6 +322,9 @@ internal class KimonoHttpServiceImpl(private val context: Context,
     }
 
     override fun initiateTransfer(terminalInfo: TerminalInfo, txnInfo: TransactionInfo, destinationAccountNumber: String, receivingInstitutionId: String): TransactionResponse? {
+        var responsexxx : Response<BillPaymentResponse>? = null
+        var purchasexx : BillPaymentResponse? = null
+
         val xmlString: String = PurchaseRequest.toTransferString(device, terminalInfo, txnInfo, destinationAccountNumber, receivingInstitutionId)
         val bodyCashOut = XmlStringConverter().toBody(xmlString)
 
@@ -330,7 +334,13 @@ internal class KimonoHttpServiceImpl(private val context: Context,
                 url = Constants.KIMONO_THREE_TRANSFER_FULL_URL
             }
             val responseBody = httpService.makeTransfer(url, bodyCashOut, "Bearer ${Prefs.getString("token", "")}").run()
+             if (responseBody != null) {
+                 responsexxx = responseBody
+             }
             val purchaseResponse = responseBody.body()
+            if (purchaseResponse != null) {
+                purchasexx = purchaseResponse
+            }
             val now = Date()
             val pinStatus = when {
                 purchaseResponse?.responseCode == IsoUtils.OK -> "PIN Verified"
@@ -368,40 +378,6 @@ internal class KimonoHttpServiceImpl(private val context: Context,
                 logTransaction(transactionResult)
             }
 
-
-            // this sends notification to the third party server
-            if (responseBody.isSuccessful && purchaseResponse?.responseCode != null && purchaseResponse.responseCode == "00") {
-
-                var notificationUrl = "https://switchserve.cicoserve.xyz/api/v1/cashout/notification"
-                var notificationRequest = PaymentNotificationRequest(
-                        terminalId = terminalInfo.terminalId,
-                        merchantId = terminalInfo.merchantId,
-                        referenceNumber = purchaseResponse.referenceNumber,
-                        stan = purchaseResponse.stan,
-                        authId = txnInfo.aid,
-                        transactionDate = DateUtils.universalDateFormat.format(now),
-                        description = "Transaction Approved",
-                        responseCode = purchaseResponse.responseCode,
-                        amount =  String.format(Locale.getDefault(), "%012d", txnInfo.amount)
-                )
-
-                // send notification to the server
-                val notificationRequestBody = XmlStringConverter().toBody(PurchaseRequest.toNotificationRequestString(notificationRequest) )
-                val notificationResponseBody = httpService.makeNotification(
-                        notificationUrl,
-                        notificationRequestBody).run()
-                val notificationResponse = notificationResponseBody.body()
-                println("notification response => ${notificationResponse}")
-                var saveNot = PaymentNotificationResponseRealm(
-                        amount = txnInfo.amount.toString(),
-                        transactionDate = Date().time,
-                        PaymentLogId = notificationResponse?.PaymentLogId.toString(),
-                        notificationMessage = notificationResponse?.notificationMessage,
-                        notificationStatus = notificationResponse?.notificationStatus,
-                        Status = notificationResponse?.Status
-                )
-                logNotification(saveNot)
-            }
             return if (!responseBody.isSuccessful || purchaseResponse?.responseCode == null) {
                 TransactionResponse(
                         responseCode = IsoUtils.TIMEOUT_CODE,
@@ -428,6 +404,42 @@ internal class KimonoHttpServiceImpl(private val context: Context,
             //logger.log(e.localizedMessage)
             e.printStackTrace()
             return TransactionResponse(IsoUtils.TIMEOUT_CODE, authCode = "", stan = "", scripts = "", type = TransactionType.CashOutPay)
+        } finally {
+// this sends notification to the third party server
+            if (responsexxx != null) {
+                if (responsexxx?.isSuccessful!! && purchasexx?.responseCode != null && purchasexx.responseCode == "00") {
+
+                    var notificationUrl = "https://switchserve.cicoserve.xyz/api/v1/cashout/notification"
+                    var notificationRequest = PaymentNotificationRequest(
+                            terminalId = terminalInfo.terminalId,
+                            merchantId = terminalInfo.merchantId,
+                            referenceNumber = purchasexx.referenceNumber,
+                            stan = purchasexx.stan,
+                            authId = txnInfo.aid,
+                            transactionDate = DateUtils.universalDateFormat.format(Date()),
+                            description = "Transaction Approved",
+                            responseCode = purchasexx.responseCode,
+                            amount =  String.format(Locale.getDefault(), "%012d", txnInfo.amount)
+                    )
+
+                    // send notification to the server
+                    val notificationRequestBody = XmlStringConverter().toBody(PurchaseRequest.toNotificationRequestString(notificationRequest) )
+                    val notificationResponseBody = httpService.makeNotification(
+                            notificationUrl,
+                            notificationRequestBody).run()
+                    val notificationResponse = notificationResponseBody.body()
+                    println("notification response => ${notificationResponse}")
+                    var saveNot = PaymentNotificationResponseRealm(
+                            amount = txnInfo.amount.toString(),
+                            transactionDate = Date().time,
+                            PaymentLogId = notificationResponse?.PaymentLogId.toString(),
+                            notificationMessage = notificationResponse?.notificationMessage,
+                            notificationStatus = notificationResponse?.notificationStatus,
+                            Status = notificationResponse?.Status
+                    )
+                    logNotification(saveNot)
+                }
+            }
         }
     }
 

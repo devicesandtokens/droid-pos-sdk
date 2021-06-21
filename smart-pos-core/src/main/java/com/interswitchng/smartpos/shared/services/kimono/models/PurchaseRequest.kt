@@ -199,7 +199,7 @@ internal class PurchaseRequest
                                 $pinData
                                 <keyLabel>${keyLabel}</keyLabel>
                                 <destinationAccountNumber>${destinationAccountNumber}</destinationAccountNumber>
-                                 <extendedTransactionType>6101</extendedTransactionType>
+                                 <extendedTransactionType>6103</extendedTransactionType>
 </transferRequest>"""
             Logger.with("Purchase Request body").logErr(requestBody)
 

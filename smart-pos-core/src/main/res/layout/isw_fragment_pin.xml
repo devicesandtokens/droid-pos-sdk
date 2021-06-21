@@ -72,6 +72,7 @@
                 android:layout_marginTop="20dp"
                 android:textSize="16sp"
                 android:text="Amount"
+                android:visibility="gone"
                 android:textColor="@android:color/black"/>
 
         <TextView
@@ -80,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
                 android:textSize="30sp"
+                android:visibility="gone"
                 android:textStyle="bold"/>
 
         <com.interswitchng.smartpos.modules.card.PinEditText
