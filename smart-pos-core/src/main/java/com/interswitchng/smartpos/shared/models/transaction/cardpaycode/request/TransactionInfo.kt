@@ -12,7 +12,6 @@ import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.CardType
  * out to the EPMS for [PurchaseType] Transactions
  */
 
-
 internal data class TransactionInfo(
         var cardExpiry: String,
         var cardPIN: String,
@@ -23,6 +22,7 @@ internal data class TransactionInfo(
         val src: String, // service restriction code
         val csn: String, // card sequence number
         var amount: Int,
+        var formattedAmount: String = "0",
         val stan: String,
         val purchaseType: PurchaseType,
         val accountType: AccountType,
@@ -51,6 +51,7 @@ internal data class TransactionInfo(
                 amount = paymentInfo.amount,
                 stan = paymentInfo.getTransactionStan(),
                 purchaseType = purchaseType,
+                formattedAmount = paymentInfo.formattedAmount,
                 accountType = accountType,
                 originalTransactionInfoData = OriginalTransactionInfoData(
                         paymentInfo.stan,
@@ -72,6 +73,7 @@ internal data class TransactionInfo(
                 src = txnResult.src,
                 csn = txnResult.csn,
                 amount = txnResult.amount.toInt(),
+                formattedAmount = "0",
                 stan = txnResult.stan,
                 purchaseType = PurchaseType.Card,
                 accountType = AccountType.Default,

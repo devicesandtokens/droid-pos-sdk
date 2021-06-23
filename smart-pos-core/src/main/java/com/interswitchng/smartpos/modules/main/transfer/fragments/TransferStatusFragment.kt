@@ -19,6 +19,7 @@ import com.interswitchng.smartpos.R
 import com.interswitchng.smartpos.modules.main.transfer.hide
 import com.interswitchng.smartpos.modules.main.transfer.reveal
 import com.interswitchng.smartpos.modules.main.transfer.showSnack
+import com.interswitchng.smartpos.shared.Constants
 import com.interswitchng.smartpos.shared.activities.BaseFragment
 import com.interswitchng.smartpos.shared.models.core.TerminalInfo
 import com.interswitchng.smartpos.shared.models.printer.slips.TransactionSlip
@@ -70,9 +71,9 @@ class TransferStatusFragment() : BaseFragment(TAG) {
 
 
     private fun setUpUI() {
+
         displayTransactionResultIconAndMessage()
         displayTransactionDetails()
-//        logTransaction()
         displayButtons()
         handleClicks()
         handlePrint()
@@ -85,10 +86,7 @@ class TransferStatusFragment() : BaseFragment(TAG) {
             // print slip
             printSlip?.let {
 
-
                 // Getting width, height device
-
-
                 // Getting width, height device
 
                   result?.let {
@@ -154,9 +152,11 @@ class TransferStatusFragment() : BaseFragment(TAG) {
 
     private fun displayTransactionDetails() {
         isw_date_text_transfer.text = getString(R.string.isw_receipt_date, result?.dateTime)
-        val amountWithCurrency = result?.amount.let { DisplayUtils.getAmountWithCurrency(it.toString()) }
+        println("the amount is ${result?.amount}")
+        val amountWithCurrency = result?.amount.let {
+            DisplayUtils.getAmountWithCurrency(it.toString())
+        }
         Logger.with("Reciept fragment").logErr(amountWithCurrency)
-        //Logger.with("Recipet fragment amount").logErr(result!!.amount)
         isw_amount_paid_transfer.text = getString(R.string.isw_receipt_amount, amountWithCurrency)
 
         isw_stan_transfer.text = result?.stan?.padStart(6, '0')

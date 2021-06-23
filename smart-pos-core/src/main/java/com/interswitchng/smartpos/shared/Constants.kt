@@ -226,7 +226,17 @@ object Constants {
     const val DEFAULT_SETTLEMENT_ACCOUNT_NAME = "FINCA MICROFINANCE MOBILE BANKING"
     const val DEFAULT_SETTLEMENT_BANK_NAME = "Finca Mfb"
 
+    const val MINIMUM_TO_REMOVE_SURCHARGE = 1075
+
     
     const val FOR_SETTLEMENT_ACCOUNT_SETUP = "FOR_SETTLEMENT_ACCOUNT_SETUP"
 
+    fun surchargeCode(transactionAmount: Int): Int {
+        var surcharge = if (transactionAmount > MINIMUM_TO_REMOVE_SURCHARGE){
+            SURHARGE_CODE_1.toInt()
+        } else {
+            0
+        }
+        return surcharge
+    }
 }

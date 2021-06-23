@@ -351,7 +351,7 @@
             android:textSize="20sp"
             android:layout_marginTop="5dp"
             android:textColor="@color/isw_main_black"
-            android:text="www.fincanigeria.com/"/>
+            android:text="@string/isw_merchant_email"/>
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/powered_by_title"
             android:layout_width="wrap_content"

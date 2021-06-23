@@ -193,9 +193,10 @@ class TransfertransactionPreocessingFragment : BaseFragment(TAG) {
                 }
 
                 val now = Date()
-                if (paymentModel.amount > 1075) {
-                    paymentModel.amount = ((paymentModel.amount + 1075))
-                }
+                println("formatted amount = ${paymentModel.formattedAmount}")
+                //reset the amount to show the original amount inputted
+                val amountToDisplay = paymentModel.formattedAmount.replace("[$,.]".toRegex(), "").toInt()
+                paymentModel.amount = amountToDisplay
                 transactionResult = TransactionResult(
                         paymentType = PaymentType.Card,
                         dateTime = DateUtils.universalDateFormat.format(now),

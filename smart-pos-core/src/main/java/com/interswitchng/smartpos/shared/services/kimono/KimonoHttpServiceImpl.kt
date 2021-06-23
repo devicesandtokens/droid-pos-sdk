@@ -333,13 +333,10 @@ internal class KimonoHttpServiceImpl(private val context: Context,
                 else -> "PIN Unverified"
             }
             if (purchaseResponse != null) {
-                if (txnInfo.amount > 1075) {
-                    txnInfo.amount = ((txnInfo.amount + 1075))
-                }
                 transactionResult = TransactionResult(
                         paymentType = PaymentType.Card,
                         dateTime = DateUtils.universalDateFormat.format(now),
-                        amount = txnInfo.amount.toString(),
+                        amount = txnInfo.formattedAmount?.replace("[$,.]".toRegex(), ""),
                         type = TransactionType.CashOutPay,
                         authorizationCode = purchaseResponse.authId,
                         responseMessage = IsoUtils.getIsoResultMsg(purchaseResponse.responseCode)!!,

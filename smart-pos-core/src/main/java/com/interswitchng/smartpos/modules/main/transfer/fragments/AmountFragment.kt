@@ -47,30 +47,22 @@ class AmountFragment : BaseFragment(TAG) {
 
     private fun proceedWithPayment() {
         val latestAmount = isw_amount_transfer.text.toString()
-        Logger.with("Amount Fragment").logErr(latestAmount)
         val latestAmountWithoutComma = latestAmount.replace("[$,.]".toRegex(), "")
-        Logger.with("Amount Fragment").logErr(latestAmountWithoutComma)
-//        val dotIndex = latestAmountWithoutComma.indexOfFirst {
-//            it == '.'
-//        }
 
-        //val stringWithoutCommaAndDot =  latestAmountWithoutComma.substring(0, dotIndex)
         payment.newPayment {
-            if (latestAmountWithoutComma.toInt() > 1075) {
-                amount = ( latestAmountWithoutComma.toInt() - 1075)//latestAmount.toDouble()
+            val amountToProcess = latestAmountWithoutComma.toInt()
+            amount = if (amountToProcess > Constants.MINIMUM_TO_REMOVE_SURCHARGE) {
+                ( amountToProcess - Constants.surchargeCode(amountToProcess))
             } else {
-                amount = latestAmountWithoutComma.toInt()//latestAmount.toDouble()
+                amountToProcess
             }
             formattedAmount = latestAmount
-
         }
 
         //cached temporarily the destination account number and receiving institution id
         Prefs.putString("destinationAccountNumber", benefeciaryDetails.accountNumber)
         Prefs.putString("receivingInstitutionId", bankDetails.recvInstId)
 
-//        Prefs.putString("destinationAccountNumber", Constants.DEFAULT_SETTLEMENT_ACOOUNT_NUMBER)
-//        Prefs.putString("receivingInstitutionId", Constants.DEFAULT_SETTLEMENT_BANK_CODE)
         val direction = AmountFragmentDirections.iswActionIswAmountfragmentToIswTransfercardtransactionfragment(payment)
         navigate(direction)
     }
