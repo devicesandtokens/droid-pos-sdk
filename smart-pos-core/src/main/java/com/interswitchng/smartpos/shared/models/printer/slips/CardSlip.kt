@@ -54,8 +54,8 @@ internal class CardSlip(terminal: TerminalInfo, status: TransactionStatus, priva
             val pan = run {
                 val length = info.cardPan.length
                 if (length < 10) return@run ""
-                val firstFour = info.cardPan.substring(0..3)
-                val middle = "*".repeat(length - 8)
+                val firstFour = info.cardPan.substring(0..5)
+                val middle = "*".repeat(length -6)
                 val lastFour = info.cardPan.substring(length - 4 until length)
                 return@run "$firstFour$middle$lastFour"
             }

@@ -149,4 +149,8 @@
             android:id="@+id/isw_action_isw_transactionhistoryfragment_to_isw_receiptfragment2"
             app:destination="@id/isw_receiptfragment2" />
     </fragment>
+    <fragment
+        android:id="@+id/isw_paymentnotificationhistoryfragment"
+        android:name="com.interswitchng.smartpos.modules.main.transfer.fragments.PaymentNotificationHistoryFragment"
+        android:label="PaymentNotificationHistoryFragment" />
 </navigation>

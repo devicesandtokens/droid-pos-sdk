@@ -85,6 +85,7 @@
             android:layout_height="wrap_content"
             android:switchMinWidth="56dp"
             android:text="Name enquiry"
+            android:visibility="gone"
             android:checked="true"
             android:textOff="OFF"
             android:textOn="ON"/>

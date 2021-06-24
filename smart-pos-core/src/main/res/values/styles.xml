@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/iswColorPrimary</item>
         <item name="colorPrimaryDark">@color/iswColorPrimaryDark</item>
         <item name="colorAccent">@color/iswColorPrimary</item>
+
     </style>
 
     <style name="ISW.NoActionBar">
@@ -231,5 +232,4 @@
         <item name="android:indeterminateOnly">false</item>
         <item name="android:progressDrawable">@drawable/isw_circular_progress</item>
     </style>
-
 </resources>

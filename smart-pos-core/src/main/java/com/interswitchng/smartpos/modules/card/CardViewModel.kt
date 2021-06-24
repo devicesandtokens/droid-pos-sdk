@@ -80,7 +80,6 @@ internal class CardViewModel(private val posDevice: POSDevice, private val isoSe
     ) {
         uiScope.launch {
             //  start card transaction in IO thread
-            // paymentInfo.amount=paymentInfo.amount*100;
             val result = withContext(ioScope) { emv.startTransaction() }
 
             when (result) {
@@ -88,9 +87,6 @@ internal class CardViewModel(private val posDevice: POSDevice, private val isoSe
                     // set message as transaction processing
                     _emvMessage.value = EmvMessage.ProcessingTransaction
                     // trigger online transaction process in IO thread
-//                    val response = withContext(ioScope) { processOnline(paymentInfo, accountType, terminalInfo) }
-//                    // publish transaction response
-//                    _transactionResponse.value = response
                 }
 
                 EmvResult.CANCELLED -> {

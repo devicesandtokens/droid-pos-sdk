@@ -13,5 +13,4 @@
         android:icon="@drawable/isw_ic_close_white"
         app:showAsAction="always"
         />
-
 </menu>

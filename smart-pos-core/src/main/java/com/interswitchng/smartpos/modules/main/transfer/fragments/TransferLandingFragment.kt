@@ -39,7 +39,7 @@ class TransferLandingFragment : BaseFragment(TAG) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // check for settlement account setup for specific transfer
-        checkForSettlement()
+//        checkForSettlement()
         handleClicks()
         setVersionCode()
         terminalInfo?.let {
@@ -108,6 +108,7 @@ class TransferLandingFragment : BaseFragment(TAG) {
                         findNavController().navigate(R.id.isw_reportfragment)
                         return@setOnMenuItemClickListener true
                     }
+
 
                     R.id.transactionHistory -> {
                         findNavController().navigate(R.id.isw_transactionhistoryfragment)

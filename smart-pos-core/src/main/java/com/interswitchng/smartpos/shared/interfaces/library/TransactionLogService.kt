@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
 import com.interswitchng.smartpos.shared.models.printer.info.TransactionType
 import com.interswitchng.smartpos.shared.models.transaction.TransactionLog
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.PaymentNotificationResponse
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.PaymentNotificationResponseRealm
 import java.util.*
 
 interface TransactionLogService {
@@ -16,6 +18,23 @@ interface TransactionLogService {
      * @param result  The transaction result to be logged
      */
     fun logTransactionResult(result: TransactionLog)
+
+
+    /**
+     * This function is responsible for saving transaction notifi
+     * logs to the proposed storage implementation
+     *
+     * @param result  The transaction result to be logged
+     */
+    fun logNotificationResponse(result: PaymentNotificationResponseRealm)
+
+    /** This function is responsible for retrieving a list notifications response sent from cico for a
+     * specific day, with the specified range of start to end of day
+     *
+     * @param date  the day for transactions to be retrieved
+     * @return  a list of transactions for that day
+     */
+    fun getNotificationEodList(date: Date): LiveData<List<PaymentNotificationResponseRealm>>
 
     /**
      * This function is responsible for updating transaction

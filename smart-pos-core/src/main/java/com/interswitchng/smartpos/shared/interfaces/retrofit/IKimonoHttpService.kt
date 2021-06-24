@@ -3,6 +3,7 @@ package com.interswitchng.smartpos.shared.interfaces.retrofit
 import com.igweze.ebi.simplecalladapter.Simple
 import com.interswitchng.smartpos.modules.main.transfer.TokenPassportResponse
 import com.interswitchng.smartpos.shared.Constants
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.PaymentNotificationResponse
 import com.interswitchng.smartpos.shared.services.kimono.models.AgentIdResponse
 import com.interswitchng.smartpos.shared.services.kimono.models.BillPaymentResponse
 import com.interswitchng.smartpos.shared.services.kimono.models.CallHomeRequest
@@ -62,6 +63,10 @@ internal interface IKimonoHttpService {
     @Headers("Content-Type: text/xml", "Accept: application/xml", "Accept-Charset: utf-8")
     @POST()
     fun makeTransfer(@Url url: String, @Body purchaseRequest: RequestBody, @Header("Authorization") token: String): Simple<BillPaymentResponse>
+
+    @Headers("Content-Type: application/xml")
+    @POST()
+    fun makeNotification(@Url url: String, @Body purchaseRequest: RequestBody): Simple<PaymentNotificationResponse>
 
 
 

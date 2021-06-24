@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.interswitchng.interswitchposfinca">
+    package="com.interswitchng.interswitchposcicocashout">
 
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
-        android:name="com.interswitchng.interswitchposfinca.POSApplication"
+        android:name="com.interswitchng.interswitchposcicocashout.POSApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_nkpolu_launcher_foreground"
         android:label="@string/app_name"

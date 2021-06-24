@@ -57,14 +57,14 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
         printer.printStr("\n", null)
 
         // print users copy
-        val userCopy = PrintObject.Data("*** $user copy ***".toUpperCase(), PrintStringConfiguration(displayCenter = true, isBold = true, isTitle = true))
+        val userCopy = PrintObject.Data("*** $user copy ***".toUpperCase(), PrintStringConfiguration(displayCenter = true))
         printItem(printer, userCopy)
 
         // extract slip items and print it
         for (item in slip) printItem(printer, item)
 
         // print website at end of slip
-        val website = PrintObject.Data("www.fincanigeria.com", PrintStringConfiguration(displayCenter = true, isBold = true))
+        val website = PrintObject.Data("www.numfb.com", PrintStringConfiguration(displayCenter = true, isBold = true))
         printItem(printer, website)
 
         // print thank you message at end of slip
@@ -78,6 +78,8 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
 //        // print quicktellerwebsite at end of slip
 //        val quicktellerWebsite = PrintObject.Data("www.quickteller.com", PrintStringConfiguration(displayCenter = true, isBold = true))
 //        printItem(printer, quicktellerWebsite)
+
+
 
         // set step distance
         printer.step(80)

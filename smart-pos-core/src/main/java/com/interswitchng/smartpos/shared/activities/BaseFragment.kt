@@ -27,6 +27,7 @@ import java.text.NumberFormat
 abstract class BaseFragment (fragmentName: String) : Fragment() {
 
     data class PollingText(val title: String, val subTitle: String)
+
     abstract val layoutId: Int
 
     internal val posDevice: POSDevice by inject()

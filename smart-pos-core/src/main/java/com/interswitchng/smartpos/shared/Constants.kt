@@ -54,6 +54,7 @@ object Constants {
 
     internal const val KIMONO_TOKEN_END_POINT = "https://saturn.interswitchng.com:443/kimonotms/requesttoken/perform-process"
 
+    const val USE_NAME_ENQUIRY_TOGGLE = false
 
     // EMAIL
     internal const val EMAIL_END_POINT = "mail/send"
