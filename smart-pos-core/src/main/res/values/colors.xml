@@ -26,5 +26,7 @@
     <color name="iswWhite">#FFFFFF</color>
     <color name="iswApplicationAccent">#4879B0</color>
     <color name="iswApplicationLight">#FFF</color>
+    <color name="iswCicoAccent">#44D89F</color>
+    <color name="iswCicoLight">#053C6B</color>
     <color name="isw_main_black">#000000</color>
 </resources>

@@ -21,6 +21,8 @@ import com.interswitchng.smartpos.shared.activities.BaseFragment
 import com.interswitchng.smartpos.shared.models.printer.info.TransactionType
 import com.interswitchng.smartpos.shared.models.transaction.TransactionLog
 import com.interswitchng.smartpos.shared.models.transaction.TransactionResult
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.PaymentNotificationResponse
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.PaymentNotificationResponseRealm
 import com.interswitchng.smartpos.shared.services.iso8583.utils.DateUtils
 import com.interswitchng.smartpos.shared.utilities.DialogUtils
 import kotlinx.android.synthetic.main.isw_activity_report.*
@@ -50,6 +52,9 @@ class TransactionHistoryFragment : BaseFragment(TAG), TransactionHistoryAdaptar.
         setupUI()
         showHistoryFor(Date())
     }
+
+
+
 
     private fun setData(date: Date) {
         val dailog = customdailog(context = this.requireContext(), message = "Loading History")

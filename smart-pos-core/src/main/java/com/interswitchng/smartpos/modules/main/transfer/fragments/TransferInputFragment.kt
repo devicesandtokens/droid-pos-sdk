@@ -27,6 +27,8 @@ import com.interswitchng.smartpos.modules.main.transfer.showSuccessAlert
 import com.interswitchng.smartpos.modules.main.transfer.utils.BankFilterDialog
 import com.interswitchng.smartpos.shared.Constants
 import com.interswitchng.smartpos.shared.activities.BaseFragment
+import com.interswitchng.smartpos.shared.utilities.isNotVisible
+import com.interswitchng.smartpos.shared.utilities.isVisible
 import com.interswitchng.smartpos.shared.utilities.toast
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.isw_fragment_bills.*
@@ -57,6 +59,7 @@ class TransferInputFragment : BaseFragment(TAG), CallbackListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (Constants.USE_NAME_ENQUIRY_TOGGLE) isw_name_enquiry_switch.isVisible() else isw_name_enquiry_switch.isNotVisible()
 
         bankList.addAll(Constants.BANK_LIST.sortedWith(compareBy { it.bankName }))
         submitButton = isw_transfer_input_proceed

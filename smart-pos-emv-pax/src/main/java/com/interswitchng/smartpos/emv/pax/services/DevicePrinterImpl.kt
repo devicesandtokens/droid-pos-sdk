@@ -64,7 +64,7 @@ class DevicePrinterImpl constructor(private val context: Context) : DevicePrinte
         for (item in slip) printItem(printer, item)
 
         // print website at end of slip
-        val website = PrintObject.Data("www.fincanigeria.com", PrintStringConfiguration(displayCenter = true, isBold = true))
+        val website = PrintObject.Data("www.cico.ng", PrintStringConfiguration(displayCenter = true, isBold = true))
         printItem(printer, website)
 
         // print thank you message at end of slip

@@ -24,19 +24,19 @@
       android:fillColor="#ffffff"/>
   <path
       android:pathData="M314.778,42.633H4.391V84.36H314.778V42.633Z"
-      android:fillColor="#B30938"/>
+      android:fillColor="#053C6B"/>
   <path
       android:pathData="M274.662,102.619H47.677V121.395H274.662V102.619Z"
       android:fillColor="#E0E0E0"/>
   <path
       android:pathData="M237.71,141.22H111.55V150.608H237.71V141.22Z"
-      android:fillColor="#B30938"/>
+      android:fillColor="#053C6B"/>
   <path
       android:pathData="M161.17,155.825H111.55V165.213H161.17V155.825Z"
-      android:fillColor="#B30938"/>
+      android:fillColor="#053C6B"/>
   <path
       android:pathData="M237.71,155.825H188.09V165.213H237.71V155.825Z"
-      android:fillColor="#B30938"/>
+      android:fillColor="#053C6B"/>
   <path
       android:pathData="M80.854,139.161H51.485C47.869,139.161 44.938,142.057 44.938,145.629V165.524C44.938,169.097 47.869,171.993 51.485,171.993H80.854C84.469,171.993 87.4,169.097 87.4,165.524V145.629C87.4,142.057 84.469,139.161 80.854,139.161Z">
     <aapt:attr name="android:fillColor">
@@ -54,5 +54,5 @@
   </path>
   <path
       android:pathData="M78.083,141.22H54.223C50.608,141.22 47.677,144.116 47.677,147.689V163.441C47.677,167.013 50.608,169.909 54.223,169.909H78.083C81.699,169.909 84.629,167.013 84.629,163.441V147.689C84.629,144.116 81.699,141.22 78.083,141.22Z"
-      android:fillColor="#ECAB12"/>
+      android:fillColor="#44D89F"/>
 </vector>

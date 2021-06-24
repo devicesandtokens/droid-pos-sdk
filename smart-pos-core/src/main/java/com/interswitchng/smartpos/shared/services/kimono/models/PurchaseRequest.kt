@@ -8,6 +8,7 @@ import com.interswitchng.smartpos.shared.models.core.Environment
 import com.interswitchng.smartpos.shared.models.core.TerminalInfo
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.IccData
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.TransactionInfo
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.PaymentNotificationRequest
 import com.interswitchng.smartpos.shared.services.iso8583.utils.DateUtils
 import com.interswitchng.smartpos.shared.utilities.DeviceUtils
 import com.interswitchng.smartpos.shared.utilities.InputValidator
@@ -175,7 +176,7 @@ internal class PurchaseRequest
                                 $pinData
                                 <keyLabel>${keyLabel}</keyLabel>
                                 <destinationAccountNumber>${destinationAccountNumber}</destinationAccountNumber>
-                                 <extendedTransactionType>6101</extendedTransactionType>
+                                 <extendedTransactionType>6103</extendedTransactionType>
 </transferRequest>"""
             Logger.with("Purchase Request body").logErr(requestBody)
 

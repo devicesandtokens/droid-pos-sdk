@@ -155,7 +155,7 @@ class ReportFragment : BaseFragment(TAG), DatePickerDialog.OnDateSetListener, Ad
 //            }
 
             "Cash-out" -> {
-                TransactionType.Transfer
+                TransactionType.CashOutPay
             }
             else -> {
                 null

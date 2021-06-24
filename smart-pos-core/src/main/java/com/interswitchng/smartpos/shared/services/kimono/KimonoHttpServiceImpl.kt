@@ -23,6 +23,9 @@ import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.IccData
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.PurchaseType
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.request.TransactionInfo
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.PaymentNotificationRequest
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.PaymentNotificationResponse
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.PaymentNotificationResponseRealm
 import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.TransactionResponse
 import com.interswitchng.smartpos.shared.models.utils.XmlStringConverter
 import com.interswitchng.smartpos.shared.services.iso8583.utils.DateUtils
@@ -35,6 +38,7 @@ import com.interswitchng.smartpos.shared.utilities.Logger
 import com.pixplicity.easyprefs.library.Prefs
 import okhttp3.MediaType
 import okhttp3.RequestBody
+import retrofit2.Response
 import java.io.ByteArrayInputStream
 import java.util.*
 import kotlin.coroutines.resume
@@ -317,6 +321,9 @@ internal class KimonoHttpServiceImpl(private val context: Context,
     }
 
     override fun initiateTransfer(terminalInfo: TerminalInfo, txnInfo: TransactionInfo, destinationAccountNumber: String, receivingInstitutionId: String): TransactionResponse? {
+        var responsexxx : Response<BillPaymentResponse>? = null
+        var purchasexx : BillPaymentResponse? = null
+
         val xmlString: String = PurchaseRequest.toTransferString(device, terminalInfo, txnInfo, destinationAccountNumber, receivingInstitutionId)
         val bodyCashOut = XmlStringConverter().toBody(xmlString)
 
@@ -326,13 +333,21 @@ internal class KimonoHttpServiceImpl(private val context: Context,
                 url = Constants.KIMONO_THREE_TRANSFER_FULL_URL
             }
             val responseBody = httpService.makeTransfer(url, bodyCashOut, "Bearer ${Prefs.getString("token", "")}").run()
+             if (responseBody != null) {
+                 responsexxx = responseBody
+             }
             val purchaseResponse = responseBody.body()
+            if (purchaseResponse != null) {
+                purchasexx = purchaseResponse
+            }
             val now = Date()
             val pinStatus = when {
                 purchaseResponse?.responseCode == IsoUtils.OK -> "PIN Verified"
                 else -> "PIN Unverified"
             }
             if (purchaseResponse != null) {
+                println(txnInfo.amount)
+                println(txnInfo.amount)
                 transactionResult = TransactionResult(
                         paymentType = PaymentType.Card,
                         dateTime = DateUtils.universalDateFormat.format(now),
@@ -359,6 +374,7 @@ internal class KimonoHttpServiceImpl(private val context: Context,
                 )
                 logTransaction(transactionResult)
             }
+
             return if (!responseBody.isSuccessful || purchaseResponse?.responseCode == null) {
                 TransactionResponse(
                         responseCode = IsoUtils.TIMEOUT_CODE,
@@ -732,6 +748,10 @@ internal class KimonoHttpServiceImpl(private val context: Context,
         transactionLogService.logTransactionResult(resultLog)
     }
 
+    fun logNotification(result: PaymentNotificationResponseRealm) {
+        transactionLogService.logNotificationResponse(result)
+    }
+
     private fun generatePan(code: String): String {
         val bin = "506179"
         var binAndCode = "$bin$code"
@@ -778,34 +798,6 @@ internal class KimonoHttpServiceImpl(private val context: Context,
             }
         }
 
-
-//
-//
-//        private fun parseXmlToJsonObject(xml: String) : String {
-//            var jsonObj: JSONObject? = null
-//            try {
-//                jsonObj = Xml.toJSONObject(xml)
-//            } catch (e: JSONException) {
-//                Log.e("JSON exception", e.message)
-//                e.printStackTrace()
-//            }
-//
-//            return jsonObj.toString()
-//        }
-//
-//        fun<T> parseResponse(xml: String, clazz: Class<T>) : T {
-//            try {
-//                return initializeMoshi().adapter(clazz).fromJson(parseXmlToJsonObject(xml))!!
-//            }catch (e: IOException){
-//                throw IllegalArgumentException("Could not deserialize: $xml into class: $clazz")
-//            }
-//        }
-//
-//        private fun initializeMoshi(): Moshi {
-//            return Moshi.Builder()
-//                    .add(KotlinJsonAdapterFactory())
-//                    .build()
-//        }
     }
 
 

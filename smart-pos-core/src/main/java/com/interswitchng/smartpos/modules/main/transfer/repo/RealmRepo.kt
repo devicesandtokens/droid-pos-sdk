@@ -5,6 +5,7 @@ import androidx.paging.PagedList
 import com.interswitchng.smartpos.shared.interfaces.library.TransactionLogService
 import com.interswitchng.smartpos.shared.models.printer.info.TransactionType
 import com.interswitchng.smartpos.shared.models.transaction.TransactionLog
+import com.interswitchng.smartpos.shared.models.transaction.cardpaycode.response.PaymentNotificationResponse
 import java.util.*
 
 class RealmRepo(val logService: TransactionLogService) {
@@ -24,4 +25,5 @@ class RealmRepo(val logService: TransactionLogService) {
         println(response.value?.get(0))
         return response
     }
+
 }

@@ -137,8 +137,8 @@ class AmountFragment : BaseFragment(TAG) {
 
     private fun handleClickWithAmountLimit(digit: String) {
 
-            amount+= digit
-            updateAmount()
+        amount+= digit
+        updateAmount()
     }
 
     private fun updateAmount() {
