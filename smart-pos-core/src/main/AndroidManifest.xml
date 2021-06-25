@@ -97,14 +97,12 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/ISW.NoActionBar" />
-
         <activity
             android:name="com.interswitchng.smartpos.modules.menu.report.ReportActivity"
             android:label="Report"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/ISW.NoActionBar" />
-
     </application>
 
 </manifest>
