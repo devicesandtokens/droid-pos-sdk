@@ -1,8 +1,6 @@
-package com.interswitchng.interswitchpossdkv2
+package com.interswitchng.interswitchpossdkv2_retail
 
 import android.support.test.InstrumentationRegistry
-import android.support.test.espresso.Espresso.onView
-import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 
 import org.junit.Test

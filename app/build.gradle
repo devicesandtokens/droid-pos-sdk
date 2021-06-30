@@ -8,12 +8,12 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion targetSdk
     defaultConfig {
-        applicationId "com.interswitchng.interswitchpossdkv2"
+        applicationId "com.interswitchng.interswitchpossdkv2_retail"
         minSdkVersion minSdk
         targetSdkVersion targetSdk
         multiDexEnabled true
         versionCode 7
-        versionName "1.6"
+        versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         android.applicationVariants.all{
             variant ->

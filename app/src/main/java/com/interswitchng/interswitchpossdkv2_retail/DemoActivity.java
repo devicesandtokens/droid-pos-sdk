@@ -1,4 +1,4 @@
-package com.interswitchng.interswitchpossdkv2;
+package com.interswitchng.interswitchpossdkv2_retail;
 
 
 import android.app.Activity;
