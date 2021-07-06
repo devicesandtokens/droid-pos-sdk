@@ -5,7 +5,7 @@ import androidx.annotation.RequiresApi
 import com.gojuno.koptional.None
 import com.gojuno.koptional.Optional
 import com.gojuno.koptional.Some
-import com.igweze.ebi.simplecalladapter.Simple
+//import com.igweze.ebi.simplecalladapter.Simple
 import com.interswitchng.smartpos.modules.main.transfer.models.BeneficiaryModel
 import com.interswitchng.smartpos.modules.main.transfer.models.NameEnquiryRequestHeaderModel
 import com.interswitchng.smartpos.modules.main.transfer.models.NameEnquiryResponse
@@ -22,6 +22,7 @@ import com.interswitchng.smartpos.shared.models.transaction.ussdqr.response.Code
 import com.interswitchng.smartpos.shared.models.transaction.ussdqr.response.PaymentStatus
 
 import com.interswitchng.smartpos.shared.utilities.Logger
+import com.interswitchng.smartpos.simpleadapter.simplecalladapter.Simple
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 

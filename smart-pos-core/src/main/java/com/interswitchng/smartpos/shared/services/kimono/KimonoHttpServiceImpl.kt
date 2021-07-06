@@ -2,7 +2,7 @@ package com.interswitchng.smartpos.shared.services.kimono
 
 import android.content.Context
 import android.util.Base64
-import com.igweze.ebi.simplecalladapter.Simple
+//import com.igweze.ebi.simplecalladapter.Simple
 import com.interswitchng.smartpos.modules.main.fragments.CardTransactionsFragment
 import com.interswitchng.smartpos.shared.Constants
 import com.interswitchng.smartpos.shared.interfaces.device.POSDevice
@@ -36,6 +36,7 @@ import com.interswitchng.smartpos.shared.services.kimono.models.CallHomeRequest
 import com.interswitchng.smartpos.shared.services.kimono.models.PurchaseRequest
 import com.interswitchng.smartpos.shared.surchargeCode
 import com.interswitchng.smartpos.shared.utilities.Logger
+import com.interswitchng.smartpos.simpleadapter.simplecalladapter.Simple
 import com.pixplicity.easyprefs.library.Prefs
 import okhttp3.MediaType
 import okhttp3.RequestBody

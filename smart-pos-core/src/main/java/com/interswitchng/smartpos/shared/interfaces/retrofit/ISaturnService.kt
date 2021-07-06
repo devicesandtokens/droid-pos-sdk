@@ -1,10 +1,11 @@
 package com.interswitchng.smartpos.shared.interfaces.retrofit
 
-import com.igweze.ebi.simplecalladapter.Simple
+//import com.igweze.ebi.simplecalladapter.Simple
 import com.interswitchng.smartpos.modules.main.transfer.models.BeneficiaryModel
 import com.interswitchng.smartpos.modules.main.transfer.models.NameEnquiryResponse
 import com.interswitchng.smartpos.shared.services.kimono.models.AgentIdResponse
 import com.interswitchng.smartpos.shared.services.kimono.models.AllTerminalInfo
+import com.interswitchng.smartpos.simpleadapter.simplecalladapter.Simple
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*

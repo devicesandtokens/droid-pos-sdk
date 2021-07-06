@@ -1,6 +1,6 @@
 package com.interswitchng.smartpos.shared.interfaces.retrofit
 
-import com.igweze.ebi.simplecalladapter.Simple
+//import com.igweze.ebi.simplecalladapter.Simple
 import com.interswitchng.smartpos.modules.main.transfer.models.NameEnquiryResponse
 import com.interswitchng.smartpos.shared.Constants.BANKS_END_POINT
 import com.interswitchng.smartpos.shared.Constants.CODE_END_POINT
@@ -11,6 +11,7 @@ import com.interswitchng.smartpos.shared.models.transaction.ussdqr.request.CodeR
 import com.interswitchng.smartpos.shared.models.transaction.ussdqr.response.Bank
 import com.interswitchng.smartpos.shared.models.transaction.ussdqr.response.CodeResponse
 import com.interswitchng.smartpos.shared.models.transaction.ussdqr.response.Transaction
+import com.interswitchng.smartpos.simpleadapter.simplecalladapter.Simple
 import retrofit2.http.*
 
 internal interface IHttpService {

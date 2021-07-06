@@ -1,6 +1,6 @@
 package com.interswitchng.smartpos.shared.interfaces.retrofit
 
-import com.igweze.ebi.simplecalladapter.Simple
+//import com.igweze.ebi.simplecalladapter.Simple
 import com.interswitchng.smartpos.shared.Constants.EMAIL_END_POINT
 import com.interswitchng.smartpos.shared.models.email.EmailMessage
 import okhttp3.ResponseBody

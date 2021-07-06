@@ -1,7 +1,7 @@
 package com.interswitchng.smartpos.di
 
 import android.util.Base64
-import com.igweze.ebi.simplecalladapter.SimpleCallAdapterFactory
+//import com.igweze.ebi.simplecalladapter.SimpleCallAdapterFactory
 import com.interswitchng.smartpos.BuildConfig
 import com.interswitchng.smartpos.IswPos
 import com.interswitchng.smartpos.R
@@ -11,6 +11,7 @@ import com.interswitchng.smartpos.shared.interfaces.library.UserStore
 import com.interswitchng.smartpos.shared.interfaces.retrofit.*
 import com.interswitchng.smartpos.shared.models.core.TerminalInfo
 import com.interswitchng.smartpos.shared.utilities.ToStringConverterFactory
+import com.interswitchng.smartpos.simpleadapter.simplecalladapter.SimpleCallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
