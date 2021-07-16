@@ -2,7 +2,7 @@ package com.interswitchng.smartpos.shared.services.kimono
 
 import android.content.Context
 import android.util.Base64
-import com.igweze.ebi.simplecalladapter.Simple
+import com.interswitchng.smartpos.simplecalladapter.Simple
 import com.interswitchng.smartpos.modules.main.models.PaymentModel
 import com.interswitchng.smartpos.shared.Constants
 import com.interswitchng.smartpos.shared.interfaces.device.POSDevice

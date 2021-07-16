@@ -1,6 +1,6 @@
 package com.interswitchng.smartpos.shared.interfaces.retrofit
 
-import com.igweze.ebi.simplecalladapter.Simple
+import com.interswitchng.smartpos.simplecalladapter.Simple
 import com.interswitchng.smartpos.shared.Constants
 import com.interswitchng.smartpos.shared.services.kimono.models.*
 import com.interswitchng.smartpos.shared.services.kimono.models.CallHomeRequest

@@ -1,6 +1,6 @@
 package com.interswitchng.smartpos.shared.interfaces.retrofit
 
-import com.igweze.ebi.simplecalladapter.Simple
+import com.interswitchng.smartpos.simplecalladapter.Simple
 import com.interswitchng.smartpos.shared.Constants.BANKS_END_POINT
 import com.interswitchng.smartpos.shared.Constants.CODE_END_POINT
 import com.interswitchng.smartpos.shared.Constants.TRANSACTION_STATUS_QR

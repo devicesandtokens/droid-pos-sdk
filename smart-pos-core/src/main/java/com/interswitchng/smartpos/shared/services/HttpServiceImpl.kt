@@ -3,7 +3,7 @@ package com.interswitchng.smartpos.shared.services
 import com.gojuno.koptional.None
 import com.gojuno.koptional.Optional
 import com.gojuno.koptional.Some
-import com.igweze.ebi.simplecalladapter.Simple
+import com.interswitchng.smartpos.simplecalladapter.Simple
 import com.interswitchng.smartpos.shared.interfaces.retrofit.IHttpService
 import com.interswitchng.smartpos.shared.interfaces.library.HttpService
 import com.interswitchng.smartpos.shared.models.transaction.PaymentType

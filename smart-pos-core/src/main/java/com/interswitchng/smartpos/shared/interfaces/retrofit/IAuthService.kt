@@ -1,6 +1,6 @@
 package com.interswitchng.smartpos.shared.interfaces.retrofit
 
-import com.igweze.ebi.simplecalladapter.Simple
+import com.interswitchng.smartpos.simplecalladapter.Simple
 import com.interswitchng.smartpos.shared.Constants.AUTH_END_POINT
 import com.interswitchng.smartpos.shared.models.core.AuthToken
 import retrofit2.http.Field
